@@ -1,8 +1,12 @@
 .idea
 *.iml
 node_modules
+package-lock.json
+package.json
+yarn.lock
 dist
 dist-doc
 yarn-error.log
 .DS_Store
+Tuo_authentications.json
 script/credentials.py
