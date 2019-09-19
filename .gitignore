@@ -1,10 +1,14 @@
 .idea
 *.iml
 node_modules
+package-lock.json
+package.json
+yarn.lock
 dist
 dist-doc
 yarn-error.log
 .DS_Store
+Tuo_authentications.json
 script/credentials.py
 script/input/output.csv
 script/input/adomni_device_data9-16-19.csv
