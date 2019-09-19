@@ -6,3 +6,5 @@ dist-doc
 yarn-error.log
 .DS_Store
 script/credentials.py
+script/input/output.csv
+script/input/adomni_device_data9-16-19.csv
