@@ -1,5 +1,6 @@
 .idea
 *.iml
+*.csv
 node_modules
 package-lock.json
 package.json
@@ -8,7 +9,7 @@ dist
 dist-doc
 yarn-error.log
 .DS_Store
-Tuo_authentications.json
 script/credentials.py
 script/input/output.csv
 script/input/adomni_device_data9-16-19.csv
+Tuo_workingfolder/DynamoDBtoCSV-master
