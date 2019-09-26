@@ -9,6 +9,7 @@ import {Tuo} from './student/tuo';
 import {Tae} from './student/tae';
 import {Kei} from './student/kei';
 import {UsfAudienceService} from './service/usf-audience-service';
+import {AthenaService} from './service/athena-service';
 
 /**
  * Nothing goes in here but the container!  This is important because NONE OF YOUR PROVIDERS CAN IMPORT
@@ -48,7 +49,7 @@ export class UsfFall2019Container {
                     useFactory: () => new AWS.Athena({region: 'us-east-1', apiVersion: '2017-05-18'})
                 },
 
-                StaticContentFinder, UsfAudienceService,
+                StaticContentFinder, UsfAudienceService, AthenaService,
                 Kei, Tae, Tuo
 
 
