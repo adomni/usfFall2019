@@ -7,14 +7,15 @@ client = boto3.client('athena', aws_access_key_id = access_key, aws_secret_acces
 
 
 queries = [
-"select count(distinct mobile_device_id) from location_data.hist_20190817_billboard_devices where mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e';",
+"select count(distinct billboard_id) from location_data.hist_20190817_billboard_devices where mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e';",
 "select audience from location_data.hist_20190817_device_audiences where mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e'; "
-
+"Select billboard_id, count(mobile_device_id) from location_data.hist_20190817_billboard_devices a \
+INNER JOIN (select mobile_device_id FROM location_data.hist_20190817_device_audiences where audience_id = 'Demographic->Income->200KPlus') b \
+ON a.mobile_device_id = b.mobile_device_id group by billboard_id order by 2 desc limit 10",
+"select count(distinct billboard_id) from billboard_devices_partitioned where dt=20190817 and mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e';"
 ]
  #billboard_audiences, billboard_devices, and device_audiences
-query = "Select billboard_id, count(mobile_device_id) from location_data.hist_20190817_billboard_devices a \
-INNER JOIN (select mobile_device_id FROM location_data.hist_20190817_device_audiences where audience_id = 'Demographic->Income->200KPlus') b \
-ON a.mobile_device_id = b.mobile_device_id group by billboard_id order by count(mobile_device_id) limit 10"
+query = "select count(distinct billboard_id) from location_data.billboard_devices_partitioned where dt=20190817 and mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e';"
 response = client.start_query_execution(
     QueryString = query,
     QueryExecutionContext = {'Database': 'default'},
