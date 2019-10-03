@@ -49,21 +49,7 @@ WHERE
 """
 ]
  #billboard_audiences, billboard_devices, and device_audiences
-query = """
-SELECT
-  distinct billboard_id
-from
-  location_data.hist_20190817_billboard_devices
-WHERE
-  mobile_device_id IN (
-    SELECT
-      mobile_device_id
-    FROM
-      location_data.hist_20190817_billboard_devices
-    where
-      billboard_id = 'f2a8fea85d723bd01600c31a307d1e81'
-  )
-"""
+query = "select count(distinct billboard_id) from location_data.hist_20190817_billboard_devices where mobile_device_id='2a7e1bff-f551-4ee4-a0d9-16d25f99d75e';"
 response = client.start_query_execution(
     QueryString = query,
     QueryExecutionContext = {'Database': 'default'},
