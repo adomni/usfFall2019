@@ -13,3 +13,6 @@ script/credentials.py
 script/input/output.csv
 script/input/adomni_device_data9-16-19.csv
 Tuo_workingfolder/DynamoDBtoCSV-master
+*.pyc
+examples/intro-example/dags/credentials.py
+examples/intro-example/script/credentials.py
