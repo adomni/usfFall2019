@@ -18,3 +18,10 @@ def calculateScore(locationHash, audienceId):
 
 #return the result 
     return score
+
+
+def getIntegratedAdomniScore(segId_by_normalizedScore):
+    integratedAdomniScore = 0
+    for segId in segId_by_normalizedScore:
+        integratedAdomniScore = integratedAdomniScore + segId_by_normalizedScore[segId]
+    return integratedAdomniScore/len(segId_by_normalizedScore)
