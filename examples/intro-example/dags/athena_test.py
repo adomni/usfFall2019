@@ -118,7 +118,7 @@ result_df = pd.DataFrame(columns=header)
 for i in range (0, 10):
     temp_df = pd.read_csv("result_" + str(i) + ".csv")
     combined_df = combined_df.merge(temp_df, how='outer')
-    os.system("del result_ " + num + ".csv")
+    os.system("del result_ " + str(i) + ".csv")
 
 
 for n,g in combined_df.groupby('id'):
