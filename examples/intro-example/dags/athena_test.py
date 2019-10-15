@@ -59,14 +59,14 @@ WHERE
  # location_data.device_audiences_partitioned b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
  # location_data.adomni_audience_segment c ON b.audience = c.placeiqid WHERE a.dt=20190817 and b.dt=20190817
  # GROUP BY billboard_id, audience"""
-
+#a to f
 
 def runQuery(num):
 
     query = """
     SELECT id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
-    (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=20190817 and billboard_id like '""" + num + """%') a LEFT JOIN
-    (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=20190817) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
+    (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=20190913 and billboard_id like '""" + num + """%') a LEFT JOIN
+    (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=20190913) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
     location_data.adomni_audience_segment c ON b.audience = c.placeiqid
     GROUP BY a.billboard_id, c.id) abc GROUP BY id ORDER BY id asc
     """
@@ -118,7 +118,7 @@ result_df = pd.DataFrame(columns=header)
 for i in range (0, 10):
     temp_df = pd.read_csv("result_" + str(i) + ".csv")
     combined_df = combined_df.merge(temp_df, how='outer')
-    os.system("del result_ " + str(i) + ".csv")
+    os.system("del result_" + str(i) + ".csv")
 
 
 for n,g in combined_df.groupby('id'):
