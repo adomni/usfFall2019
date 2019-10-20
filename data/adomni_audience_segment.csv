@@ -1,0 +1,833 @@
+id,category,group,name,usedintopaudiences,usedinsummary,sortorder,placeiqid
+id,category,group,name,usedInTopAudiences,usedInSummary,sortOrder,placeIqId
+737,Automotive Dealerships,Consumer Profiles,Automotive Dealership Visitors,TRUE,FALSE,1,AutomotiveDealerships
+738,Automotive Dealerships,Consumer Profiles,Domestic Auto Dealership Visitors,TRUE,FALSE,2,AutomotiveDealerships->Domestic
+739,Automotive Dealerships,Consumer Profiles,Domestic Big 3 Auto Dealership Visitors,TRUE,FALSE,3,AutomotiveDealerships->Domestic->Big3
+741,Automotive Dealerships,Consumer Profiles,Domestic Luxury Auto Dealership Visitors,TRUE,FALSE,4,AutomotiveDealerships->Domestic->Luxury
+740,Automotive Dealerships,Consumer Profiles,Domestic Non-Luxury Auto Dealership Visitors,TRUE,FALSE,5,AutomotiveDealerships->Domestic->General
+743,Automotive Dealerships,Consumer Profiles,Foreign Asian Auto Dealership Visitors,TRUE,FALSE,6,AutomotiveDealerships->Foreign->Asian
+742,Automotive Dealerships,Consumer Profiles,Foreign Auto Dealership Visitors,TRUE,FALSE,7,AutomotiveDealerships->Foreign
+744,Automotive Dealerships,Consumer Profiles,Foreign European Auto Dealership Visitors,TRUE,FALSE,8,AutomotiveDealerships->Foreign->European
+746,Automotive Dealerships,Consumer Profiles,Foreign Luxury Auto Dealership Visitors,TRUE,FALSE,9,AutomotiveDealerships->Foreign->Luxury
+745,Automotive Dealerships,Consumer Profiles,Foreign Non-Luxury Auto Dealership Visitors,TRUE,FALSE,10,AutomotiveDealerships->Foreign->General
+748,Automotive Dealerships,Consumer Profiles,Luxury Auto Dealership Visitors,TRUE,FALSE,11,AutomotiveDealerships->Luxury
+747,Automotive Dealerships,Consumer Profiles,Non-Luxury Auto Dealership Visitors,TRUE,FALSE,12,AutomotiveDealerships->General
+749,Automotive Dealerships,Consumer Profiles,Truck Auto Dealership Visitors,TRUE,FALSE,13,AutomotiveDealerships->Trucks
+1,Automotive Dealerships,Domestic Dealerships,Buick,FALSE,FALSE,14,AutomotiveDealerships->Domestic->General->GMC->Buick
+2,Automotive Dealerships,Domestic Dealerships,Cadillac,FALSE,FALSE,15,AutomotiveDealerships->Domestic->Luxury->GMC->Cadillac
+3,Automotive Dealerships,Domestic Dealerships,Chevrolet,FALSE,FALSE,16,AutomotiveDealerships->Domestic->General->GMC->Chevrolet
+4,Automotive Dealerships,Domestic Dealerships,Chrysler,FALSE,FALSE,17,AutomotiveDealerships->Domestic->General->Fiat->Chrysler
+5,Automotive Dealerships,Domestic Dealerships,Dodge,FALSE,FALSE,18,AutomotiveDealerships->Domestic->General->Fiat->Dodge
+6,Automotive Dealerships,Domestic Dealerships,Ford,FALSE,FALSE,19,AutomotiveDealerships->Domestic->General->Ford->Ford
+7,Automotive Dealerships,Domestic Dealerships,GMC,FALSE,FALSE,20,AutomotiveDealerships->Domestic->General->GMC->GMC
+8,Automotive Dealerships,Domestic Dealerships,Jeep,FALSE,FALSE,21,AutomotiveDealerships->Domestic->General->Fiat->Jeep
+9,Automotive Dealerships,Domestic Dealerships,Lincoln,FALSE,FALSE,22,AutomotiveDealerships->Domestic->Luxury->Ford->Lincoln
+10,Automotive Dealerships,Domestic Dealerships,RAM,FALSE,FALSE,23,AutomotiveDealerships->Domestic->General->Fiat->RAM
+11,Automotive Dealerships,Domestic Dealerships,Tesla,FALSE,FALSE,24,AutomotiveDealerships->Domestic->Luxury->Tesla->Tesla
+12,Automotive Dealerships,Foreign Dealerships,Acura,FALSE,FALSE,25,AutomotiveDealerships->Foreign->Luxury->Honda->Acura
+13,Automotive Dealerships,Foreign Dealerships,Audi,FALSE,FALSE,26,AutomotiveDealerships->Foreign->Luxury->Volkswagen->Audi
+14,Automotive Dealerships,Foreign Dealerships,BMW,FALSE,FALSE,27,AutomotiveDealerships->Foreign->Luxury->BMW->BMW
+15,Automotive Dealerships,Foreign Dealerships,Ferrari,FALSE,FALSE,28,AutomotiveDealerships->Foreign->Luxury->Ferrari->Ferrari
+16,Automotive Dealerships,Foreign Dealerships,Fiat,FALSE,FALSE,29,AutomotiveDealerships->Foreign->General->Fiat->Fiat
+17,Automotive Dealerships,Foreign Dealerships,Honda,FALSE,FALSE,30,AutomotiveDealerships->Foreign->General->Honda->Honda
+18,Automotive Dealerships,Foreign Dealerships,Hyundai,FALSE,FALSE,31,AutomotiveDealerships->Foreign->General->Hyundai->Hyundai
+19,Automotive Dealerships,Foreign Dealerships,Infiniti,FALSE,FALSE,32,AutomotiveDealerships->Foreign->Luxury->Nissan->Infiniti
+20,Automotive Dealerships,Foreign Dealerships,Jaguar,FALSE,FALSE,33,AutomotiveDealerships->Foreign->Luxury->Tata->Jaguar
+21,Automotive Dealerships,Foreign Dealerships,Kia,FALSE,FALSE,34,AutomotiveDealerships->Foreign->General->Hyundai->Kia
+22,Automotive Dealerships,Foreign Dealerships,Lamborghini,FALSE,FALSE,35,AutomotiveDealerships->Foreign->Luxury->Volkswagen->Lamborghini
+23,Automotive Dealerships,Foreign Dealerships,Land Rover,FALSE,FALSE,36,AutomotiveDealerships->Foreign->Luxury->Tata->LandRover
+24,Automotive Dealerships,Foreign Dealerships,Lexus,FALSE,FALSE,37,AutomotiveDealerships->Foreign->Luxury->Toyota->Lexus
+25,Automotive Dealerships,Foreign Dealerships,Maserati,FALSE,FALSE,38,AutomotiveDealerships->Foreign->Luxury->Fiat->Maserati
+26,Automotive Dealerships,Foreign Dealerships,Mazda,FALSE,FALSE,39,AutomotiveDealerships->Foreign->General->Mazda->Mazda
+27,Automotive Dealerships,Foreign Dealerships,Mercedes,FALSE,FALSE,40,AutomotiveDealerships->Foreign->Luxury->DaimlerAG->Mercedes
+28,Automotive Dealerships,Foreign Dealerships,Mini,FALSE,FALSE,41,AutomotiveDealerships->Foreign->General->BMW->Mini
+29,Automotive Dealerships,Foreign Dealerships,Mitsubishi,FALSE,FALSE,42,AutomotiveDealerships->Foreign->General->Mitsubishi->Mitsubishi
+30,Automotive Dealerships,Foreign Dealerships,Nissan,FALSE,FALSE,43,AutomotiveDealerships->Foreign->General->Nissan->Nissan
+31,Automotive Dealerships,Foreign Dealerships,Porsche,FALSE,FALSE,44,AutomotiveDealerships->Foreign->Luxury->Volkswagen->Porsche
+32,Automotive Dealerships,Foreign Dealerships,Subaru,FALSE,FALSE,45,AutomotiveDealerships->Foreign->General->Subaru->Subaru
+33,Automotive Dealerships,Foreign Dealerships,Toyota,FALSE,FALSE,46,AutomotiveDealerships->Foreign->General->Toyota->Toyota
+34,Automotive Dealerships,Foreign Dealerships,Volkswagen,FALSE,FALSE,47,AutomotiveDealerships->Foreign->General->Volkswagen->Volkswagen
+35,Automotive Dealerships,Foreign Dealerships,Volvo,FALSE,FALSE,48,AutomotiveDealerships->Foreign->Luxury->Volvo->Volvo
+36,Automotive Dealerships,Motorcycle Dealerships,Harley Davidson,FALSE,FALSE,49,AutomotiveDealerships->HarleyDavidson
+37,Automotive Dealerships,Motorcycle Dealerships,Indian Motorcycles,FALSE,FALSE,50,AutomotiveDealerships->IndianMotorcycles
+38,Automotive Dealerships,Other,CarMax,FALSE,FALSE,51,AutomotiveDealerships->CarMax->CarMax
+39,Demographics,Age,Age 15-17,FALSE,TRUE,52,Demographic->Age->15_17
+40,Demographics,Age,Age 18-20,FALSE,TRUE,53,Demographic->Age->18_20
+41,Demographics,Age,Age 18-24,FALSE,TRUE,54,Demographic->Age->18_24
+42,Demographics,Age,Age 21-24,FALSE,TRUE,55,Demographic->Age->21_24
+43,Demographics,Age,Age 25-34,FALSE,TRUE,56,Demographic->Age->25_34
+44,Demographics,Age,Age 35-44,FALSE,TRUE,57,Demographic->Age->35_44
+45,Demographics,Age,Age 45-54,FALSE,TRUE,58,Demographic->Age->45_54
+46,Demographics,Age,Age 55-64,FALSE,TRUE,59,Demographic->Age->55_64
+47,Demographics,Age,Age 65+,FALSE,TRUE,60,Demographic->Age->65Over
+48,Demographics,Child In Home,Child In Home (Any),FALSE,FALSE,61,Demographic->ChildInHome
+49,Demographics,Child In Home,College,FALSE,FALSE,62,Demographic->ChildInHome->College
+50,Demographics,Child In Home,Elementary School,FALSE,FALSE,63,Demographic->ChildInHome->ElementarySchool
+51,Demographics,Child In Home,High School,FALSE,FALSE,64,Demographic->ChildInHome->HighSchool
+52,Demographics,Child In Home,Middle School,FALSE,FALSE,65,Demographic->ChildInHome->MiddleSchool
+53,Demographics,Child In Home,Toddlers,FALSE,FALSE,66,Demographic->ChildInHome->Toddlers
+54,Demographics,Dwelling,Multi Unit,FALSE,FALSE,67,Demographic->Dwelling->MultiUnit
+55,Demographics,Dwelling,Single Unit,FALSE,FALSE,68,Demographic->Dwelling->SingleUnit
+56,Demographics,Education,Associates Degree,FALSE,FALSE,69,Demographic->Education->AssociatesDegree
+57,Demographics,Education,Bachelors Degree,FALSE,FALSE,70,Demographic->Education->BachelorsDegree
+58,Demographics,Education,Graduate Degree,FALSE,FALSE,71,Demographic->Education->GraduateDegree
+59,Demographics,Education,High School Degree,FALSE,FALSE,72,Demographic->Education->HighSchoolDegree
+60,Demographics,Gender,Female,FALSE,TRUE,73,Demographic->Gender->Female
+61,Demographics,Gender,Male,FALSE,TRUE,74,Demographic->Gender->Male
+62,Demographics,Household Size,1 Person Household,FALSE,FALSE,75,Demographic->HouseholdSize->1Person
+63,Demographics,Household Size,2 Person Household,FALSE,FALSE,76,Demographic->HouseholdSize->2Person
+64,Demographics,Household Size,3-4 Person Household,FALSE,FALSE,77,Demographic->HouseholdSize->3_4Person
+65,Demographics,Household Size,5-7 Person Household,FALSE,FALSE,78,Demographic->HouseholdSize->5_7Person
+66,Demographics,Household Size,8+ Person Household,FALSE,FALSE,79,Demographic->HouseholdSize->8OrMorePerson
+67,Demographics,Household Type,Nuclear Family,FALSE,FALSE,80,Demographic->HouseholdType->NuclearFamily
+68,Demographics,Household Type,Single Parent,FALSE,FALSE,81,Demographic->HouseholdType->SingleParent
+69,Demographics,Household Type,Spouses,FALSE,FALSE,82,Demographic->HouseholdType->Spouses
+70,Demographics,Household Type,Young Professional,FALSE,FALSE,83,Demographic->HouseholdType->YoungProfessional
+71,Demographics,Household Type,Young Roommates,FALSE,FALSE,84,Demographic->HouseholdType->YoungRoommates
+72,Demographics,Income,$0-$25K,FALSE,FALSE,85,Demographic->Income->0_25K
+73,Demographics,Income,$25K-$50K,FALSE,FALSE,86,Demographic->Income->25K_50K
+74,Demographics,Income,$50K-$75K,FALSE,FALSE,87,Demographic->Income->50K_75K
+75,Demographics,Income,$75K-$100K,FALSE,FALSE,88,Demographic->Income->75K_100K
+76,Demographics,Income,$100K-$200K,FALSE,FALSE,89,Demographic->Income->100K_200K
+77,Demographics,Income,$200K+,FALSE,FALSE,90,Demographic->Income->200KPlus
+78,Demographics,Language,Spanish,FALSE,FALSE,91,Demographic->Language->Spanish
+79,Demographics,Language,Spanish Bilingual,FALSE,FALSE,92,Demographic->Language->SpanishBilingual
+80,Demographics,Marital Status,Single,FALSE,FALSE,93,Demographic->MaritalStatus->Single
+81,Demographics,Occupation,Blue Collar,FALSE,FALSE,94,Demographic->Occupation->BlueCollar
+82,Demographics,Occupation,Business Finance,FALSE,FALSE,95,Demographic->Occupation->BusinessFinance
+83,Demographics,Occupation,Education,FALSE,FALSE,96,Demographic->Occupation->Education
+84,Demographics,Occupation,Executive,FALSE,FALSE,97,Demographic->Occupation->Executive
+85,Demographics,Occupation,Full Time Student,FALSE,FALSE,98,Demographic->Occupation->FullTimeStudent
+86,Demographics,Occupation,Homemaker,FALSE,FALSE,99,Demographic->Occupation->Homemaker
+87,Demographics,Occupation,Insurance,FALSE,FALSE,100,Demographic->Occupation->Insurance
+88,Demographics,Occupation,Legal,FALSE,FALSE,101,Demographic->Occupation->Legal
+89,Demographics,Occupation,Medical,FALSE,FALSE,102,Demographic->Occupation->Medical
+90,Demographics,Occupation,Middle Management,FALSE,FALSE,103,Demographic->Occupation->MiddleManagement
+735,Demographics,Occupation,New Job,FALSE,FALSE,104,Demographic->Occupation->NewJob
+91,Demographics,Occupation,Professional Tech,FALSE,FALSE,105,Demographic->Occupation->ProfessionalTech
+92,Demographics,Occupation,Public Sector / Military,FALSE,FALSE,106,Demographic->Occupation->PublicSector_Military
+93,Demographics,Occupation,Real Estate,FALSE,FALSE,107,Demographic->Occupation->RealEstate
+94,Demographics,Occupation,Retired,FALSE,FALSE,108,Demographic->Occupation->Retired
+95,Demographics,Occupation,Sales,FALSE,FALSE,109,Demographic->Occupation->Sales
+96,Demographics,Occupation,Small Business Owner,FALSE,FALSE,110,Demographic->Occupation->SmallBusinessOwner
+97,Demographics,Occupation,White Collar,FALSE,FALSE,111,Demographic->Occupation->WhiteCollar
+750,Demographics,Other,Chief Household Officer,FALSE,FALSE,112,Composite->CHO
+733,Demographics,Other,Frequent Mover,FALSE,FALSE,113,Demographic->FrequentMover
+98,Demographics,Other,Homeowner,FALSE,FALSE,114,Demographic->Homeowner
+99,Demographics,Other,Moved Last Year,FALSE,FALSE,115,Demographic->MovedLastYear
+734,Demographics,Other,Recent Mover,FALSE,FALSE,116,Demographic->RecentMover
+100,Demographics,Other,Renter,FALSE,FALSE,117,Demographic->Renter
+101,Demographics,Property Types,Apartment Condo,FALSE,FALSE,118,Demographic->PropertyType->ApartmentCondo
+102,Demographics,Property Types,Mobile Home,FALSE,FALSE,119,Demographic->PropertyType->MobileHome
+103,Demographics,Race,African American,FALSE,FALSE,120,Demographic->Race->AfricanAmerican
+104,Demographics,Race,Asian,FALSE,FALSE,121,Demographic->Race->Asian
+105,Demographics,Race,Caucasian,FALSE,FALSE,122,Demographic->Race->Caucasian
+106,Demographics,Race,Hispanic,FALSE,FALSE,123,Demographic->Race->Hispanic
+796,Educational Institutions,Consumer Profiles,Colleges and Universities,TRUE,FALSE,124,Miscellaneous->EducationalInstitution->CollegesUniversities
+107,Educational Institutions,Colleges and Universities,Arizona State University,FALSE,FALSE,125,Miscellaneous->EducationalInstitution->CollegesUniversities->ArizonaStateUniversity
+108,Educational Institutions,Colleges and Universities,Boston University,FALSE,FALSE,126,Miscellaneous->EducationalInstitution->CollegesUniversities->BostonUniversity
+109,Educational Institutions,Colleges and Universities,Brigham Young,FALSE,FALSE,127,Miscellaneous->EducationalInstitution->CollegesUniversities->BrighamYoung
+110,Educational Institutions,Colleges and Universities,California State University Fullerton,FALSE,FALSE,128,Miscellaneous->EducationalInstitution->CollegesUniversities->CaliforniaStateUniversityFullerton
+111,Educational Institutions,Colleges and Universities,California State University Long Beach,FALSE,FALSE,129,Miscellaneous->EducationalInstitution->CollegesUniversities->CaliforniaStateUniversityLongBeach
+112,Educational Institutions,Colleges and Universities,California State University North Ridge,FALSE,FALSE,130,Miscellaneous->EducationalInstitution->CollegesUniversities->CaliforniaStateUniversityNorthRidge
+113,Educational Institutions,Colleges and Universities,DePaul University,FALSE,FALSE,131,Miscellaneous->EducationalInstitution->CollegesUniversities->DePaulUniversity
+114,Educational Institutions,Colleges and Universities,Florida International University,FALSE,FALSE,132,Miscellaneous->EducationalInstitution->CollegesUniversities->FloridaInternationalUniversity
+115,Educational Institutions,Colleges and Universities,Florida State University,FALSE,FALSE,133,Miscellaneous->EducationalInstitution->CollegesUniversities->FloridaStateUniversity
+116,Educational Institutions,Colleges and Universities,Indiana University,FALSE,FALSE,134,Miscellaneous->EducationalInstitution->CollegesUniversities->IndianaUniversity
+117,Educational Institutions,Colleges and Universities,Iowa State University,FALSE,FALSE,135,Miscellaneous->EducationalInstitution->CollegesUniversities->IowaStateUniversity
+118,Educational Institutions,Colleges and Universities,Michigan State University,FALSE,FALSE,136,Miscellaneous->EducationalInstitution->CollegesUniversities->MichiganStateUniversity
+119,Educational Institutions,Colleges and Universities,New York University,FALSE,FALSE,137,Miscellaneous->EducationalInstitution->CollegesUniversities->NewYorkUniversity
+120,Educational Institutions,Colleges and Universities,North Carolina State,FALSE,FALSE,138,Miscellaneous->EducationalInstitution->CollegesUniversities->NorthCarolinaState
+121,Educational Institutions,Colleges and Universities,Northeastern University,FALSE,FALSE,139,Miscellaneous->EducationalInstitution->CollegesUniversities->NortheasternUniversity
+122,Educational Institutions,Colleges and Universities,Ohio State,FALSE,FALSE,140,Miscellaneous->EducationalInstitution->CollegesUniversities->OhioState
+123,Educational Institutions,Colleges and Universities,Penn State,FALSE,FALSE,141,Miscellaneous->EducationalInstitution->CollegesUniversities->PennState
+124,Educational Institutions,Colleges and Universities,Purdue University,FALSE,FALSE,142,Miscellaneous->EducationalInstitution->CollegesUniversities->PurdueUniversity
+125,Educational Institutions,Colleges and Universities,Rutgers University,FALSE,FALSE,143,Miscellaneous->EducationalInstitution->CollegesUniversities->RutgersUniversity
+126,Educational Institutions,Colleges and Universities,Texas AM University,FALSE,FALSE,144,Miscellaneous->EducationalInstitution->CollegesUniversities->TexasAMUniversity
+127,Educational Institutions,Colleges and Universities,Texas State University,FALSE,FALSE,145,Miscellaneous->EducationalInstitution->CollegesUniversities->TexasStateUniversity
+128,Educational Institutions,Colleges and Universities,UC Berkeley,FALSE,FALSE,146,Miscellaneous->EducationalInstitution->CollegesUniversities->UCBerkeley
+129,Educational Institutions,Colleges and Universities,UC Davis,FALSE,FALSE,147,Miscellaneous->EducationalInstitution->CollegesUniversities->UCDavis
+130,Educational Institutions,Colleges and Universities,UC Irvine,FALSE,FALSE,148,Miscellaneous->EducationalInstitution->CollegesUniversities->UCIrvine
+131,Educational Institutions,Colleges and Universities,UCLA,FALSE,FALSE,149,Miscellaneous->EducationalInstitution->CollegesUniversities->UCLA
+132,Educational Institutions,Colleges and Universities,UNC Chapel Hill,FALSE,FALSE,150,Miscellaneous->EducationalInstitution->CollegesUniversities->UNCChapelHill
+133,Educational Institutions,Colleges and Universities,University of Alabama,FALSE,FALSE,151,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofAlabama
+134,Educational Institutions,Colleges and Universities,University of Arizona,FALSE,FALSE,152,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofArizona
+135,Educational Institutions,Colleges and Universities,University of Central Florida,FALSE,FALSE,153,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofCentralFlorida
+136,Educational Institutions,Colleges and Universities,University of Cincinnati,FALSE,FALSE,154,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofCincinnati
+137,Educational Institutions,Colleges and Universities,University of Florida,FALSE,FALSE,155,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityoflFlorida
+138,Educational Institutions,Colleges and Universities,University of Illinois,FALSE,FALSE,156,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofIllinois
+139,Educational Institutions,Colleges and Universities,University of Maryland,FALSE,FALSE,157,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofMaryland
+140,Educational Institutions,Colleges and Universities,University of Michigan,FALSE,FALSE,158,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofMichigan
+141,Educational Institutions,Colleges and Universities,University of Minnesota,FALSE,FALSE,159,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofMinnesota
+142,Educational Institutions,Colleges and Universities,University of Missouri,FALSE,FALSE,160,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofMissouri
+143,Educational Institutions,Colleges and Universities,University of Washington,FALSE,FALSE,161,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofWashington
+144,Educational Institutions,Colleges and Universities,University of Wisconsin,FALSE,FALSE,162,Miscellaneous->EducationalInstitution->CollegesUniversities->UniversityofWisconsin
+145,Educational Institutions,Colleges and Universities,USC,FALSE,FALSE,163,Miscellaneous->EducationalInstitution->CollegesUniversities->USC
+146,Educational Institutions,Colleges and Universities,UT Austin,FALSE,FALSE,164,Miscellaneous->EducationalInstitution->CollegesUniversities->UTAustin
+761,Entertainment,Consumer Profiles,Aquarium Visitors,TRUE,FALSE,166,Entertainment->Aquariums
+762,Entertainment,Consumer Profiles,Athletic Recreation Participants,TRUE,FALSE,167,Entertainment->AthleticRecreation
+767,Entertainment,Consumer Profiles,Bar Goers,TRUE,FALSE,168,Entertainment->Bars
+779,Entertainment,Consumer Profiles,Beach Goers,TRUE,FALSE,169,Entertainment->NatureandOutdoors->Beaches
+768,Entertainment,Consumer Profiles,Casino Visitors,TRUE,FALSE,170,Entertainment->Casinos
+763,Entertainment,Consumer Profiles,Climbing Gym Visitors,TRUE,FALSE,171,Entertainment->AthleticRecreation->ClimbingGyms
+769,Entertainment,Consumer Profiles,Concert Venue Visitors,TRUE,FALSE,172,Entertainment->ConcertVenues
+770,Entertainment,Consumer Profiles,Cultural Venue Visitors,TRUE,FALSE,173,Entertainment->CulturalVenues
+780,Entertainment,Consumer Profiles,Dog Park Visitors,TRUE,FALSE,174,Entertainment->NatureandOutdoors->DogParks
+771,Entertainment,Consumer Profiles,Entertainment Venue Visitors,TRUE,FALSE,175,Entertainment->EntertainmentVenues
+764,Entertainment,Consumer Profiles,Golf Course Visitors,TRUE,FALSE,176,Entertainment->AthleticRecreation->GolfCourses
+772,Entertainment,Consumer Profiles,Gym Goers,TRUE,FALSE,177,Entertainment->Gyms
+773,Entertainment,Consumer Profiles,Horse Racing Track Visitors,TRUE,FALSE,178,Entertainment->HorseRacingTracks
+786,Entertainment,Consumer Profiles,MLB Stadium Visitors,TRUE,FALSE,179,Entertainment->ProfessionalSportsVenues->MLBStadiums
+774,Entertainment,Consumer Profiles,Movie Theater Customers,TRUE,FALSE,180,Entertainment->MovieTheaters
+775,Entertainment,Consumer Profiles,Movie Theater Weekday Matinee Customers,TRUE,FALSE,181,Entertainment->MovieTheaters->WeekdayMatinee
+776,Entertainment,Consumer Profiles,Movie Theater Weekend Matinee Customers,TRUE,FALSE,182,Entertainment->MovieTheaters->WeekendMatinee
+777,Entertainment,Consumer Profiles,Museum Visitors,TRUE,FALSE,183,Entertainment->Museums
+791,Entertainment,Consumer Profiles,Nascar Track Visitors,TRUE,FALSE,184,Entertainment->Racetracks->NascarTracks
+781,Entertainment,Consumer Profiles,National Park Visitors,TRUE,FALSE,185,Entertainment->NatureandOutdoors->NationalParks
+778,Entertainment,Consumer Profiles,Nature and Outdoors,TRUE,FALSE,186,Entertainment->NatureandOutdoors
+787,Entertainment,Consumer Profiles,NBA Arena Visitors,TRUE,FALSE,187,Entertainment->ProfessionalSportsVenues->NBAArenas
+788,Entertainment,Consumer Profiles,NFL Stadium Visitors,TRUE,FALSE,188,Entertainment->ProfessionalSportsVenues->NFLStadiums
+789,Entertainment,Consumer Profiles,NHL Arena Visitors,TRUE,FALSE,189,Entertainment->ProfessionalSportsVenues->NHLArenas
+783,Entertainment,Consumer Profiles,Nightlife Participants,TRUE,FALSE,190,Entertainment->Nightlife
+784,Entertainment,Consumer Profiles,Outdoorsy Enthusiasts,TRUE,FALSE,191,Entertainment->Outdoorsy
+782,Entertainment,Consumer Profiles,Parks and Gardens Visitors,TRUE,FALSE,192,Entertainment->NatureandOutdoors->ParksandGardens
+785,Entertainment,Consumer Profiles,Professional Sports Venue Visitors,TRUE,FALSE,193,Entertainment->ProfessionalSportsVenues
+790,Entertainment,Consumer Profiles,Racetrack Visitors,TRUE,FALSE,194,Entertainment->Racetracks
+765,Entertainment,Consumer Profiles,Ski Area Visitors,TRUE,FALSE,195,Entertainment->AthleticRecreation->SkiAreas
+766,Entertainment,Consumer Profiles,Tennis Facility Visitors,TRUE,FALSE,196,Entertainment->AthleticRecreation->TennisFacilities
+792,Entertainment,Consumer Profiles,Theme Park Visitors,TRUE,FALSE,197,Entertainment->ThemeParks
+793,Entertainment,Consumer Profiles,Water Park Visitors,TRUE,FALSE,198,Entertainment->WaterParks
+794,Entertainment,Consumer Profiles,Zoo Visitors,TRUE,FALSE,199,Entertainment->Zoos
+147,Entertainment,Athletic Recreation,AMF Bowling,FALSE,FALSE,165,Entertainment->AthleticRecreation->Bowling->AMF
+148,Entertainment,Casinos,Boyd Gaming Corp,FALSE,FALSE,200,Entertainment->Casinos->BoydGamingCorp
+149,Entertainment,Casinos,Caesars Entertainment,FALSE,FALSE,201,Entertainment->Casinos->CaesarsEntertainment
+150,Entertainment,Casinos,Churchill Downs Inc,FALSE,FALSE,202,Entertainment->Casinos->ChurchillDownsInc
+151,Entertainment,Casinos,Eldorado Resorts,FALSE,FALSE,203,Entertainment->Casinos->EldoradoResorts
+152,Entertainment,Casinos,Empire Resorts,FALSE,FALSE,204,Entertainment->Casinos->GentingGroup->EmpireResorts
+153,Entertainment,Casinos,Full House Resorts,FALSE,FALSE,205,Entertainment->Casinos->FullHouseResorts
+154,Entertainment,Casinos,Golden Entertainment,FALSE,FALSE,206,Entertainment->Casinos->GoldenEntertainment
+155,Entertainment,Casinos,Las Vegas Sands,FALSE,FALSE,207,Entertainment->Casinos->LasVegasSands
+156,Entertainment,Casinos,MGM Resorts,FALSE,FALSE,208,Entertainment->Casinos->MGMResorts
+157,Entertainment,Casinos,Monarch Casino and Resorts,FALSE,FALSE,209,Entertainment->Casinos->MonarchCasinoandResorts
+158,Entertainment,Casinos,Penn National Gaming,FALSE,FALSE,210,Entertainment->Casinos->PennNationalGaming
+159,Entertainment,Casinos,Pinnacle Entertainment,FALSE,FALSE,211,Entertainment->Casinos->PinnacleEntertainment
+160,Entertainment,Casinos,Red Rock Resorts Inc,FALSE,FALSE,212,Entertainment->Casinos->RedRockResortsInc
+161,Entertainment,Casinos,Tropicana Entertainment,FALSE,FALSE,213,Entertainment->Casinos->AmericanEntertainmentPropertiesCorp->TropicanaEntertainment
+162,Entertainment,Casinos,Wynn Resorts,FALSE,FALSE,214,Entertainment->Casinos->WynnResorts
+163,Entertainment,College Sports Venues,Basketball Arenas,FALSE,FALSE,215,Entertainment->CollegeSportsVenues->BasketballArenas
+164,Entertainment,College Sports Venues,Football Stadiums,FALSE,FALSE,216,Entertainment->CollegeSportsVenues->FootballStadiums
+165,Entertainment,Gyms,24 Hour Fitness,FALSE,FALSE,217,Entertainment->Gyms->24HourFitness
+166,Entertainment,Gyms,Anytime Fitness,FALSE,FALSE,218,Entertainment->Gyms->AnytimeFitness
+167,Entertainment,Gyms,Equinox,FALSE,FALSE,219,Entertainment->Gyms->Equinox
+168,Entertainment,Gyms,Fitness 19,FALSE,FALSE,220,Entertainment->Gyms->Fitness19
+169,Entertainment,Gyms,LA Fitness,FALSE,FALSE,221,Entertainment->Gyms->LAFitness
+170,Entertainment,Gyms,Lifetime Fitness,FALSE,FALSE,222,Entertainment->Gyms->LifetimeFitness
+171,Entertainment,Gyms,Planet Fitness,FALSE,FALSE,223,Entertainment->Gyms->PlanetFitness
+172,Entertainment,Gyms,Snap Fitness,FALSE,FALSE,224,Entertainment->Gyms->SnapFitness
+173,Entertainment,Gyms,Town Sports,FALSE,FALSE,225,Entertainment->Gyms->TownSports
+174,Entertainment,Gyms,UFC Gym,FALSE,FALSE,226,Entertainment->Gyms->UFCGym
+175,Entertainment,Gyms,World Gym,FALSE,FALSE,227,Entertainment->Gyms->WorldGym
+176,Entertainment,Movie Theaters,AMC Theaters,FALSE,FALSE,228,Entertainment->MovieTheaters->AMCTheaters
+177,Entertainment,Movie Theaters,Carmike Cinema,FALSE,FALSE,229,Entertainment->MovieTheaters->CarmikeCinema
+178,Entertainment,Movie Theaters,Cinemark Theaters,FALSE,FALSE,230,Entertainment->MovieTheaters->CinemarkTheaters
+179,Entertainment,Movie Theaters,Independent Movie Theaters,FALSE,FALSE,231,Entertainment->MovieTheaters->IndependentMovieTheaters
+180,Entertainment,Movie Theaters,Regal Cinema,FALSE,FALSE,232,Entertainment->MovieTheaters->RegalCinema
+181,Entertainment,Theme Parks,Disneyland,FALSE,FALSE,233,Entertainment->ThemeParks->DisneyParksandHotels->Disneyland
+182,Entertainment,Theme Parks,Disneyland,FALSE,FALSE,234,Entertainment->ThemeParks->ThemeParkHotels->DisneyParksandHotels->Disneyland
+183,Entertainment,Theme Parks,Disneyworld,FALSE,FALSE,235,Entertainment->ThemeParks->DisneyParksandHotels->Disneyworld
+184,Entertainment,Theme Parks,Disneyworld,FALSE,FALSE,236,Entertainment->ThemeParks->ThemeParkHotels->DisneyParksandHotels->Disneyworld
+185,Entertainment,Theme Parks,Seaworld Entertainment,FALSE,FALSE,237,Entertainment->ThemeParks->SeaworldEntertainment
+186,Entertainment,Theme Parks,Six Flags,FALSE,FALSE,238,Entertainment->ThemeParks->SixFlags
+187,Entertainment,Theme Parks,Universal,FALSE,FALSE,239,Entertainment->ThemeParks->Universal
+795,Financial Services,Consumer Profiles,Banks (All),TRUE,FALSE,240,FinancialServices->Banks
+188,Financial Services,Banks,Bank Of America,FALSE,FALSE,241,FinancialServices->Banks->BankOfAmerica
+189,Financial Services,Banks,Branch Banking Trust Company,FALSE,FALSE,242,FinancialServices->Banks->BranchBankingTrustCompany
+190,Financial Services,Banks,Capital One,FALSE,FALSE,243,FinancialServices->Banks->CapitalOne
+191,Financial Services,Banks,Chase,FALSE,FALSE,244,FinancialServices->Banks->Chase
+192,Financial Services,Banks,Citibank,FALSE,FALSE,245,FinancialServices->Banks->Citibank
+193,Financial Services,Banks,Fifth Third Bank,FALSE,FALSE,246,FinancialServices->Banks->FifthThirdBank
+194,Financial Services,Banks,HSBC,FALSE,FALSE,247,FinancialServices->Banks->HSBC
+195,Financial Services,Banks,Key Bank,FALSE,FALSE,248,FinancialServices->Banks->KeyBank
+196,Financial Services,Banks,PNC,FALSE,FALSE,249,FinancialServices->Banks->PNC
+197,Financial Services,Banks,Regions Bank,FALSE,FALSE,250,FinancialServices->Banks->RegionsBank
+198,Financial Services,Banks,Suntrust,FALSE,FALSE,251,FinancialServices->Banks->Suntrust
+199,Financial Services,Banks,TDBank,FALSE,FALSE,252,FinancialServices->Banks->TDBank
+200,Financial Services,Banks,US Bank,FALSE,FALSE,253,FinancialServices->Banks->USBank
+201,Financial Services,Banks,Wells Fargo,FALSE,FALSE,254,FinancialServices->Banks->WellsFargo
+202,Financial Services,Other,Advance America,FALSE,FALSE,255,FinancialServices->AdvanceAmerica
+203,Financial Services,Other,Amscot,FALSE,FALSE,256,FinancialServices->Amscot
+204,Financial Services,Other,Check Into Cash,FALSE,FALSE,257,FinancialServices->CheckIntoCash
+205,Financial Services,Other,Check NGo,FALSE,FALSE,258,FinancialServices->CheckNGo
+206,Financial Services,Other,PNCLS Loans,FALSE,FALSE,259,FinancialServices->PLSLoans
+207,Financial Services,Other,Speedy Cash,FALSE,FALSE,260,FinancialServices->SpeedyCash
+208,Financial Services,Other,Title Max,FALSE,FALSE,261,FinancialServices->TitleMax
+209,Financial Services,Other,World Finance,FALSE,FALSE,262,FinancialServices->WorldFinance
+751,Food & Drink,Consumer Profiles,Breakfast Consumers,TRUE,FALSE,263,Dining->Breakfast
+753,Food & Drink,Consumer Profiles,Buffet Consumers,TRUE,FALSE,264,Dining->Buffets
+757,Food & Drink,Consumer Profiles,Casual Restaurant (Dinner) Visitors,TRUE,FALSE,265,Dining->Dinner->CasualRestaurants
+754,Food & Drink,Consumer Profiles,Casual Restaurant Visitors,TRUE,FALSE,266,Dining->CasualRestaurants
+752,Food & Drink,Consumer Profiles,Casual Restaurants (Breakfast),TRUE,FALSE,267,Dining->Breakfast->CasualRestaurants
+760,Food & Drink,Consumer Profiles,Casual Restaurants (Lunch),TRUE,FALSE,268,Dining->Lunch->CasualRestaurants
+755,Food & Drink,Consumer Profiles,Coffee Shop Visitors,TRUE,FALSE,269,Dining->Coffee
+756,Food & Drink,Consumer Profiles,Dinner Consumers,TRUE,FALSE,270,Dining->Dinner
+758,Food & Drink,Consumer Profiles,Fast Casual Restaurants,TRUE,FALSE,271,Dining->FastCasualRestaurants
+759,Food & Drink,Consumer Profiles,Lunch Consumers,TRUE,FALSE,272,Dining->Lunch
+210,Food & Drink,Buffets,Golden Corral,FALSE,FALSE,273,Dining->Buffets->GoldenCorral
+211,Food & Drink,Buffets,Hometown Buffet,FALSE,FALSE,274,Dining->Buffets->OvationBrands->HometownBuffet
+212,Food & Drink,Buffets,Old Country Buffet,FALSE,FALSE,275,Dining->Buffets->OvationBrands->OldCountryBuffet
+213,Food & Drink,Buffets,Ryans,FALSE,FALSE,276,Dining->Buffets->OvationBrands->Ryans
+214,Food & Drink,Casual Restaurants,Applebees,FALSE,FALSE,277,Dining->CasualRestaurants->Applebees
+215,Food & Drink,Casual Restaurants,Beef O Bradys,FALSE,FALSE,278,Dining->CasualRestaurants->BeefOBradys
+216,Food & Drink,Casual Restaurants,Big Boy,FALSE,FALSE,279,Dining->CasualRestaurants->BigBoy
+217,Food & Drink,Casual Restaurants,Bob Evans,FALSE,FALSE,280,Dining->CasualRestaurants->BobEvans
+218,Food & Drink,Casual Restaurants,Bonefish Grill,FALSE,FALSE,281,Dining->CasualRestaurants->BonefishGrill
+219,Food & Drink,Casual Restaurants,Buffalo Wild Wings,FALSE,FALSE,282,Dining->CasualRestaurants->BuffaloWildWings
+220,Food & Drink,Casual Restaurants,California Pizza Kitchen,FALSE,FALSE,283,Dining->CasualRestaurants->CaliforniaPizzaKitchen
+221,Food & Drink,Casual Restaurants,Carrabbas Italian Grill,FALSE,FALSE,284,Dining->CasualRestaurants->CarrabbasItalianGrill
+222,Food & Drink,Casual Restaurants,Cheesecake Factory,FALSE,FALSE,285,Dining->CasualRestaurants->CheesecakeFactory
+223,Food & Drink,Casual Restaurants,Chilis,FALSE,FALSE,286,Dining->CasualRestaurants->Chilis
+224,Food & Drink,Casual Restaurants,Chuck E Cheese,FALSE,FALSE,287,Dining->CasualRestaurants->ChuckECheese
+225,Food & Drink,Casual Restaurants,Cicis Pizza,FALSE,FALSE,288,Dining->CasualRestaurants->CicisPizza
+226,Food & Drink,Casual Restaurants,Cracker Barrel,FALSE,FALSE,289,Dining->CasualRestaurants->CrackerBarrel
+227,Food & Drink,Casual Restaurants,Daveand Busters,FALSE,FALSE,290,Dining->CasualRestaurants->DaveandBusters
+228,Food & Drink,Casual Restaurants,Dennys,FALSE,FALSE,291,Dining->CasualRestaurants->Dennys
+229,Food & Drink,Casual Restaurants,Friendlys,FALSE,FALSE,292,Dining->CasualRestaurants->Friendlys
+230,Food & Drink,Casual Restaurants,Fuddruckers,FALSE,FALSE,293,Dining->CasualRestaurants->Fuddruckers
+231,Food & Drink,Casual Restaurants,Hooters,FALSE,FALSE,294,Dining->CasualRestaurants->Hooters
+232,Food & Drink,Casual Restaurants,Huddle House,FALSE,FALSE,295,Dining->CasualRestaurants->HuddleHouse
+233,Food & Drink,Casual Restaurants,IHOP,FALSE,FALSE,296,Dining->CasualRestaurants->IHOP
+234,Food & Drink,Casual Restaurants,Joes Crab Shack,FALSE,FALSE,297,Dining->CasualRestaurants->JoesCrabShack
+235,Food & Drink,Casual Restaurants,Little Caesars,FALSE,FALSE,298,Dining->CasualRestaurants->LittleCaesars
+236,Food & Drink,Casual Restaurants,Lone Star Steakhouse,FALSE,FALSE,299,Dining->CasualRestaurants->LoneStarSteakhouse
+237,Food & Drink,Casual Restaurants,Longhorn Steakhouse,FALSE,FALSE,300,Dining->CasualRestaurants->LonghornSteakhouse
+238,Food & Drink,Casual Restaurants,O charleys,FALSE,FALSE,301,Dining->CasualRestaurants->Ocharleys
+239,Food & Drink,Casual Restaurants,Olive Garden,FALSE,FALSE,302,Dining->CasualRestaurants->OliveGarden
+240,Food & Drink,Casual Restaurants,On the Border Mexican Grill,FALSE,FALSE,303,Dining->CasualRestaurants->OntheBorderMexicanGrill
+241,Food & Drink,Casual Restaurants,Outback Steakhouse,FALSE,FALSE,304,Dining->CasualRestaurants->OutbackSteakhouse
+242,Food & Drink,Casual Restaurants,Perkins Restaurant,FALSE,FALSE,305,Dining->CasualRestaurants->PerkinsRestaurant
+243,Food & Drink,Casual Restaurants,PF Changs,FALSE,FALSE,306,Dining->CasualRestaurants->PFChangs
+244,Food & Drink,Casual Restaurants,Pizza Hut Dining Room,FALSE,FALSE,307,Dining->CasualRestaurants->PizzaHutDiningRoom
+245,Food & Drink,Casual Restaurants,Quaker Steak and Lube,FALSE,FALSE,308,Dining->CasualRestaurants->QuakerSteakandLube
+246,Food & Drink,Casual Restaurants,Red Lobster,FALSE,FALSE,309,Dining->CasualRestaurants->RedLobster
+247,Food & Drink,Casual Restaurants,Red Robin,FALSE,FALSE,310,Dining->CasualRestaurants->RedRobin
+248,Food & Drink,Casual Restaurants,Romanos Macaroni Grill,FALSE,FALSE,311,Dining->CasualRestaurants->RomanosMacaroniGrill
+249,Food & Drink,Casual Restaurants,Ruby Tuesday,FALSE,FALSE,312,Dining->CasualRestaurants->RubyTuesday
+250,Food & Drink,Casual Restaurants,Steak n Shake,FALSE,FALSE,313,Dining->CasualRestaurants->SteaknShake
+251,Food & Drink,Casual Restaurants,Texas Roadhouse,FALSE,FALSE,314,Dining->CasualRestaurants->TexasRoadhouse
+252,Food & Drink,Casual Restaurants,TGI Fridays,FALSE,FALSE,315,Dining->CasualRestaurants->TGIFridays
+253,Food & Drink,Casual Restaurants,Uno Chicago Grill,FALSE,FALSE,316,Dining->CasualRestaurants->UnoChicagoGrill
+254,Food & Drink,Casual Restaurants,Waffle House,FALSE,FALSE,317,Dining->CasualRestaurants->WaffleHouse
+255,Food & Drink,Coffee,Dunkin Donuts,FALSE,FALSE,318,Dining->Coffee->DunkinDonuts
+256,Food & Drink,Coffee,Peets,FALSE,FALSE,319,Dining->Coffee->Peets
+257,Food & Drink,Coffee,Starbucks,FALSE,FALSE,320,Dining->Coffee->Starbucks
+258,Food & Drink,Coffee,Tim Hortons,FALSE,FALSE,321,Dining->Coffee->TimHortons
+259,Food & Drink,Fast Casual Restaurants,Baja Fresh,FALSE,FALSE,322,Dining->FastCasualRestaurants->BajaFresh
+260,Food & Drink,Fast Casual Restaurants,Boston Market,FALSE,FALSE,323,Dining->FastCasualRestaurants->BostonMarket
+261,Food & Drink,Fast Casual Restaurants,Chipotle,FALSE,FALSE,324,Dining->FastCasualRestaurants->Chipotle
+262,Food & Drink,Fast Casual Restaurants,Culvers,FALSE,FALSE,325,Dining->FastCasualRestaurants->Culvers
+263,Food & Drink,Fast Casual Restaurants,Eriks Deli,FALSE,FALSE,326,Dining->FastCasualRestaurants->EriksDeli
+264,Food & Drink,Fast Casual Restaurants,Firehouse Subs,FALSE,FALSE,327,Dining->FastCasualRestaurants->FirehouseSubs
+265,Food & Drink,Fast Casual Restaurants,Jasons Deli,FALSE,FALSE,328,Dining->FastCasualRestaurants->JasonsDeli
+266,Food & Drink,Fast Casual Restaurants,Jimmy Johns,FALSE,FALSE,329,Dining->FastCasualRestaurants->JimmyJohns
+267,Food & Drink,Fast Casual Restaurants,Moes Southwest Grill,FALSE,FALSE,330,Dining->FastCasualRestaurants->MoesSouthwestGrill
+268,Food & Drink,Fast Casual Restaurants,Noodles and Company,FALSE,FALSE,331,Dining->FastCasualRestaurants->NoodlesandCompany
+269,Food & Drink,Fast Casual Restaurants,Panda Express,FALSE,FALSE,332,Dining->FastCasualRestaurants->PandaExpress
+270,Food & Drink,Fast Casual Restaurants,Panera Bread,FALSE,FALSE,333,Dining->FastCasualRestaurants->PaneraBread
+271,Food & Drink,Fast Casual Restaurants,Pei Wei Asian Diner,FALSE,FALSE,334,Dining->FastCasualRestaurants->PeiWeiAsianDiner
+272,Food & Drink,Fast Casual Restaurants,Piada,FALSE,FALSE,335,Dining->FastCasualRestaurants->Piada
+273,Food & Drink,Fast Casual Restaurants,Potbelly,FALSE,FALSE,336,Dining->FastCasualRestaurants->Potbelly
+274,Food & Drink,Fast Casual Restaurants,Qdoba,FALSE,FALSE,337,Dining->FastCasualRestaurants->Qdoba
+275,Food & Drink,Fast Casual Restaurants,Shake Shack,FALSE,FALSE,338,Dining->FastCasualRestaurants->ShakeShack
+276,Food & Drink,Fast Casual Restaurants,Smashburger,FALSE,FALSE,339,Dining->FastCasualRestaurants->Smashburger
+277,Food & Drink,Fast Casual Restaurants,Wingstop,FALSE,FALSE,340,Dining->FastCasualRestaurants->Wingstop
+278,Food & Drink,Fast Casual Restaurants,Zaxbys,FALSE,FALSE,341,Dining->FastCasualRestaurants->Zaxbys
+279,Food & Drink,Fast Casual Restaurants,Zoes Kitchen,FALSE,FALSE,342,Dining->FastCasualRestaurants->ZoesKitchen
+280,Food & Drink,Quick Serve Restaurants (QSR),A&W,FALSE,FALSE,343,Dining->QSRRestaurants->AandW
+281,Food & Drink,Quick Serve Restaurants (QSR),Arbys,FALSE,FALSE,344,Dining->QSRRestaurants->Arbys
+282,Food & Drink,Quick Serve Restaurants (QSR),Baskin Robbins,FALSE,FALSE,345,Dining->QSRRestaurants->BaskinRobbins
+283,Food & Drink,Quick Serve Restaurants (QSR),Blimpie,FALSE,FALSE,346,Dining->QSRRestaurants->Blimpie
+284,Food & Drink,Quick Serve Restaurants (QSR),Bojangles,FALSE,FALSE,347,Dining->QSRRestaurants->Bojangles
+285,Food & Drink,Quick Serve Restaurants (QSR),Burger King,FALSE,FALSE,348,Dining->QSRRestaurants->BurgerKing
+286,Food & Drink,Quick Serve Restaurants (QSR),Captain Ds,FALSE,FALSE,349,Dining->QSRRestaurants->CaptainDs
+287,Food & Drink,Quick Serve Restaurants (QSR),Carls Jr,FALSE,FALSE,350,Dining->QSRRestaurants->CarlsJr
+288,Food & Drink,Quick Serve Restaurants (QSR),Checkers,FALSE,FALSE,351,Dining->QSRRestaurants->Checkers
+289,Food & Drink,Quick Serve Restaurants (QSR),Chick Fil A,FALSE,FALSE,352,Dining->QSRRestaurants->ChickFilA
+290,Food & Drink,Quick Serve Restaurants (QSR),Chick Fil A (Breakfast),FALSE,FALSE,353,Dining->Breakfast->QSRRestaurants->ChickFilA
+291,Food & Drink,Quick Serve Restaurants (QSR),Churchs Chicken,FALSE,FALSE,354,Dining->QSRRestaurants->ChurchsChicken
+292,Food & Drink,Quick Serve Restaurants (QSR),Dairy Queen,FALSE,FALSE,355,Dining->QSRRestaurants->DairyQueen
+293,Food & Drink,Quick Serve Restaurants (QSR),Del Taco,FALSE,FALSE,356,Dining->QSRRestaurants->DelTaco
+294,Food & Drink,Quick Serve Restaurants (QSR),Dominos Pizza,FALSE,FALSE,357,Dining->QSRRestaurants->DominosPizza
+295,Food & Drink,Quick Serve Restaurants (QSR),El Pollo Loco,FALSE,FALSE,358,Dining->QSRRestaurants->ElPolloLoco
+296,Food & Drink,Quick Serve Restaurants (QSR),Fazolis,FALSE,FALSE,359,Dining->QSRRestaurants->Fazolis
+297,Food & Drink,Quick Serve Restaurants (QSR),Five Guys,FALSE,FALSE,360,Dining->QSRRestaurants->FiveGuys
+298,Food & Drink,Quick Serve Restaurants (QSR),Green Burrito,FALSE,FALSE,361,Dining->QSRRestaurants->GreenBurrito
+299,Food & Drink,Quick Serve Restaurants (QSR),Hardees,FALSE,FALSE,362,Dining->QSRRestaurants->Hardees
+300,Food & Drink,Quick Serve Restaurants (QSR),In-N-Out Burger,FALSE,FALSE,363,Dining->QSRRestaurants->InnOutBurger
+301,Food & Drink,Quick Serve Restaurants (QSR),Jack in the Box,FALSE,FALSE,364,Dining->QSRRestaurants->JackintheBox
+302,Food & Drink,Quick Serve Restaurants (QSR),Jamba Juice,FALSE,FALSE,365,Dining->QSRRestaurants->JambaJuice
+303,Food & Drink,Quick Serve Restaurants (QSR),Jersey Mikes Subs,FALSE,FALSE,366,Dining->QSRRestaurants->JerseyMikesSubs
+304,Food & Drink,Quick Serve Restaurants (QSR),KFC,FALSE,FALSE,367,Dining->QSRRestaurants->KFC
+305,Food & Drink,Quick Serve Restaurants (QSR),Krispy Kreme,FALSE,FALSE,368,Dining->QSRRestaurants->KrispyKreme
+306,Food & Drink,Quick Serve Restaurants (QSR),Krystal Burger,FALSE,FALSE,369,Dining->QSRRestaurants->KrystalBurger
+307,Food & Drink,Quick Serve Restaurants (QSR),Long John Silvers,FALSE,FALSE,370,Dining->QSRRestaurants->LongJohnSilvers
+308,Food & Drink,Quick Serve Restaurants (QSR),McDonalds,FALSE,FALSE,371,Dining->QSRRestaurants->McDonalds
+309,Food & Drink,Quick Serve Restaurants (QSR),Papa Johns,FALSE,FALSE,372,Dining->QSRRestaurants->PapaJohns
+310,Food & Drink,Quick Serve Restaurants (QSR),Popeyes Louisiana Kitchen,FALSE,FALSE,373,Dining->QSRRestaurants->PopeyesLouisianaKitchen
+311,Food & Drink,Quick Serve Restaurants (QSR),QSR Restaurants (All),FALSE,FALSE,374,Dining->QSRRestaurants
+312,Food & Drink,Quick Serve Restaurants (QSR),QSR Restaurants (Breakfast),FALSE,FALSE,375,Dining->Breakfast->QSRRestaurants
+313,Food & Drink,Quick Serve Restaurants (QSR),QSR Restaurants (Dinner),FALSE,FALSE,376,Dining->Dinner->QSRRestaurants
+314,Food & Drink,Quick Serve Restaurants (QSR),QSR Restaurants (Lunch),FALSE,FALSE,377,Dining->Lunch->QSRRestaurants
+315,Food & Drink,Quick Serve Restaurants (QSR),Quiznos,FALSE,FALSE,378,Dining->QSRRestaurants->Quiznos
+316,Food & Drink,Quick Serve Restaurants (QSR),Raising Canes,FALSE,FALSE,379,Dining->QSRRestaurants->RaisingCanes
+317,Food & Drink,Quick Serve Restaurants (QSR),Rallys,FALSE,FALSE,380,Dining->QSRRestaurants->Rallys
+318,Food & Drink,Quick Serve Restaurants (QSR),Schlotzskys,FALSE,FALSE,381,Dining->QSRRestaurants->Schlotzskys
+319,Food & Drink,Quick Serve Restaurants (QSR),Sonic,FALSE,FALSE,382,Dining->QSRRestaurants->Sonic
+320,Food & Drink,Quick Serve Restaurants (QSR),Subway,FALSE,FALSE,383,Dining->QSRRestaurants->Subway
+321,Food & Drink,Quick Serve Restaurants (QSR),Taco Bell,FALSE,FALSE,384,Dining->QSRRestaurants->TacoBell
+322,Food & Drink,Quick Serve Restaurants (QSR),Taco Johns,FALSE,FALSE,385,Dining->QSRRestaurants->TacoJohns
+323,Food & Drink,Quick Serve Restaurants (QSR),Wendys,FALSE,FALSE,386,Dining->QSRRestaurants->Wendys
+324,Food & Drink,Quick Serve Restaurants (QSR),Whataburger,FALSE,FALSE,387,Dining->QSRRestaurants->Whataburger
+325,Food & Drink,Quick Serve Restaurants (QSR),White Castle,FALSE,FALSE,388,Dining->QSRRestaurants->WhiteCastle
+326,Miscellaneous,EV Charging Stations,Tesla Superchargers,FALSE,FALSE,389,Miscellaneous->TeslaSuperchargers
+327,Miscellaneous,Real Estate Offices,Century 21,FALSE,FALSE,390,Miscellaneous->RealEstateOffices->Century21
+328,Miscellaneous,Real Estate Offices,Coldwell Banker,FALSE,FALSE,391,Miscellaneous->RealEstateOffices->ColdwellBanker
+329,Miscellaneous,Real Estate Offices,Remax,FALSE,FALSE,392,Miscellaneous->RealEstateOffices->Remax
+330,Miscellaneous,Storage,Extra Space,FALSE,FALSE,393,Miscellaneous->Storage->ExtraSpace
+331,Miscellaneous,Storage,Public Storage,FALSE,FALSE,394,Miscellaneous->Storage->PublicStorage
+332,Miscellaneous,Storage,Uhaul,FALSE,FALSE,395,Miscellaneous->Storage->Uhaul
+798,Retail,Consumer Profiles,Auto Parts Store Shoppers,TRUE,FALSE,396,Retail->AutoPartsStores
+799,Retail,Consumer Profiles,Auto Service Center Visitors,TRUE,FALSE,397,Retail->AutoPartsStoresandServiceCenters->AutoServiceCenters
+800,Retail,Consumer Profiles,Big Box Store Shoppers,TRUE,FALSE,398,Retail->BigBoxStores
+801,Retail,Consumer Profiles,Cellular Phone Store Visitors,TRUE,FALSE,399,Retail->CellularPhoneStores
+802,Retail,Consumer Profiles,Clothing Store Shoppers,TRUE,FALSE,400,Retail->ClothingStores
+803,Retail,Consumer Profiles,Convenience Store Shoppers,TRUE,FALSE,401,Retail->ConvenienceStores
+804,Retail,Consumer Profiles,Department Store Shoppers,TRUE,FALSE,402,Retail->DepartmentStores
+805,Retail,Consumer Profiles,Discount Store Shoppers,TRUE,FALSE,403,Retail->DiscountStores
+806,Retail,Consumer Profiles,Electronics Store Shoppers,TRUE,FALSE,404,Retail->ElectronicsStores
+808,Retail,Consumer Profiles,Furniture Store Shoppers,TRUE,FALSE,405,Retail->FurnitureStores
+809,Retail,Consumer Profiles,Gas Station Visitors,TRUE,FALSE,406,Retail->GasStations
+810,Retail,Consumer Profiles,General Store Shoppers,TRUE,FALSE,407,Retail->GeneralStores
+811,Retail,Consumer Profiles,Golf Store Shoppers,TRUE,FALSE,408,Retail->GolfStoreShoppers
+812,Retail,Consumer Profiles,Grocery Store Shoppers,TRUE,FALSE,409,Retail->GroceryStores
+813,Retail,Consumer Profiles,Hardware Store Shoppers,TRUE,FALSE,410,Retail->HardwareStores
+814,Retail,Consumer Profiles,Home Goods Store Shoppers,TRUE,FALSE,411,Retail->HomeGoodsStores
+815,Retail,Consumer Profiles,Liquor Store Shoppers,TRUE,FALSE,412,Retail->LiquorStoreShoppers
+816,Retail,Consumer Profiles,Luxury Store Shoppers,TRUE,FALSE,413,Retail->Luxury
+817,Retail,Consumer Profiles,Mall Visitors,TRUE,FALSE,414,Retail->Malls
+818,Retail,Consumer Profiles,Office Supply Store Shoppers,TRUE,FALSE,415,Retail->OfficeSupplyStores
+819,Retail,Consumer Profiles,Outlet Mall Shoppers,TRUE,FALSE,416,Retail->OutletMalls
+820,Retail,Consumer Profiles,Pet Store Shoppers,TRUE,FALSE,417,Retail->PetStores
+821,Retail,Consumer Profiles,Pharmacy Visitors,TRUE,FALSE,418,Retail->Pharmacies
+797,Retail,Consumer Profiles,Shoe Store Shoppers,TRUE,FALSE,419,Retail->ApparelAccessories->ShoeStores
+807,Retail,Consumer Profiles,Shoppers Running Errands,TRUE,FALSE,420,Retail->Errands
+822,Retail,Consumer Profiles,Sporting Goods Store Shoppers,TRUE,FALSE,421,Retail->SportingGoodsStores
+823,Retail,Consumer Profiles,Toy Store Shoppers,TRUE,FALSE,422,Retail->ToyStores
+333,Retail,Apparel & Accessories,Burlington Coat Factory,FALSE,FALSE,423,Retail->ApparelAccessories->BurlingtonCoatFactory
+334,Retail,Apparel & Accessories,Carters,FALSE,FALSE,424,Retail->ApparelAccessories->Carters
+335,Retail,Apparel & Accessories,Davids Bridal,FALSE,FALSE,425,Retail->ApparelAccessories->DavidsBridal
+336,Retail,Apparel & Accessories,Designer Shoe Warehouse,FALSE,FALSE,426,Retail->ApparelAccessories->ShoeStores->DesignerShoeWarehouse
+337,Retail,Apparel & Accessories,Dressbarn,FALSE,FALSE,427,Retail->ApparelAccessories->Dressbarn
+338,Retail,Apparel & Accessories,Duluth Trading,FALSE,FALSE,428,Retail->ApparelAccessories->DuluthTrading
+339,Retail,Apparel & Accessories,Famous Footwear,FALSE,FALSE,429,Retail->ApparelAccessories->ShoeStores->FamousFootwear
+340,Retail,Apparel & Accessories,Gymboree,FALSE,FALSE,430,Retail->ApparelAccessories->Gymboree
+341,Retail,Apparel & Accessories,J Crew,FALSE,FALSE,431,Retail->ApparelAccessories->JCrew
+342,Retail,Apparel & Accessories,Jared,FALSE,FALSE,432,Retail->ApparelAccessories->Jewelry->Jared
+343,Retail,Apparel & Accessories,Jos. A. Bank,FALSE,FALSE,433,Retail->ApparelAccessories->JosABank
+344,Retail,Apparel & Accessories,Kit And Ace,FALSE,FALSE,434,Retail->ApparelAccessories->KitAndAce
+345,Retail,Apparel & Accessories,Lens Crafters,FALSE,FALSE,435,Retail->ApparelAccessories->Eyewear->LensCrafters
+346,Retail,Apparel & Accessories,Mens Wearhouse,FALSE,FALSE,436,Retail->ApparelAccessories->MensWearhouse
+347,Retail,Apparel & Accessories,Old Navy,FALSE,FALSE,437,Retail->ApparelAccessories->OldNavy
+348,Retail,Apparel & Accessories,Pandora Jeweler,FALSE,FALSE,438,Retail->ApparelAccessories->PandoraJeweler
+349,Retail,Apparel & Accessories,Patagonia,FALSE,FALSE,439,Retail->ApparelAccessories->Patagonia
+350,Retail,Apparel & Accessories,Payless Shoe Source,FALSE,FALSE,440,Retail->ApparelAccessories->ShoeStores->PaylessShoeSource
+351,Retail,Apparel & Accessories,Shoe Carnival,FALSE,FALSE,441,Retail->ApparelAccessories->ShoeStores->ShoeCarnival
+352,Retail,Apparel & Accessories,The Childrens Place,FALSE,FALSE,442,Retail->ApparelAccessories->TheChildrensPlace
+353,Retail,Apparel & Accessories,The Gap,FALSE,FALSE,443,Retail->ApparelAccessories->TheGap
+354,Retail,Apparel & Accessories,Urban Outfitters,FALSE,FALSE,444,Retail->ApparelAccessories->UrbanOutfitters
+355,Retail,Arts & Crafts,Hobby Lobby,FALSE,FALSE,445,Retail->ArtsAndCrafts->HobbyLobby
+356,Retail,Arts & Crafts,JoAnn Fabrics,FALSE,FALSE,446,Retail->ArtsAndCrafts->JoAnnFabrics
+357,Retail,Arts & Crafts,Michaels,FALSE,FALSE,447,Retail->ArtsAndCrafts->Michaels
+358,Retail,Auto Parts Stores,Advance Auto Parts,FALSE,FALSE,448,Retail->AutoPartsStores->AdvanceAutoParts
+359,Retail,Auto Parts Stores,Autozone,FALSE,FALSE,449,Retail->AutoPartsStores->Autozone
+360,Retail,Auto Parts Stores,Belle Tire,FALSE,FALSE,450,Retail->AutoPartsStores->BelleTire
+361,Retail,Auto Parts Stores,Car Toys,FALSE,FALSE,451,Retail->AutoPartsStores->CarToys
+362,Retail,Auto Parts Stores,Carquest,FALSE,FALSE,452,Retail->AutoPartsStores->Carquest
+363,Retail,Auto Parts Stores,Discount Tire Stores,FALSE,FALSE,453,Retail->AutoPartsStores->DiscountTireStores
+364,Retail,Auto Parts Stores,Firestone,FALSE,FALSE,454,Retail->AutoPartsStores->Firestone
+365,Retail,Auto Parts Stores,Goodyear,FALSE,FALSE,455,Retail->AutoPartsStores->Goodyear
+366,Retail,Auto Parts Stores,Jiffy Lube,FALSE,FALSE,456,Retail->AutoPartsStores->JiffyLube
+367,Retail,Auto Parts Stores,Midas,FALSE,FALSE,457,Retail->AutoPartsStores->Midas
+368,Retail,Auto Parts Stores,NAPA Auto Parts,FALSE,FALSE,458,Retail->AutoPartsStores->NAPAAutoParts
+369,Retail,Auto Parts Stores,Oreilly Auto Parts,FALSE,FALSE,459,Retail->AutoPartsStores->OreillyAutoParts
+370,Retail,Auto Parts Stores,Pep Boys,FALSE,FALSE,460,Retail->AutoPartsStores->PepBoys
+371,Retail,Auto Parts Stores,Valvoline,FALSE,FALSE,461,Retail->AutoPartsStores->Valvoline
+372,Retail,Beauty Supply,Sephora,FALSE,FALSE,462,Retail->BeautySupply->Sephora
+373,Retail,Beauty Supply,Ulta Beauty,FALSE,FALSE,463,Retail->BeautySupply->UltaBeauty
+374,Retail,Big Box Stores,Big Lots,FALSE,FALSE,464,Retail->BigBoxStores->BigLots
+375,Retail,Big Box Stores,BJs Wholesale,FALSE,FALSE,465,Retail->BigBoxStores->BJsWholesale
+376,Retail,Big Box Stores,Costco,FALSE,FALSE,466,Retail->BigBoxStores->Costco
+377,Retail,Big Box Stores,Kmart,FALSE,FALSE,467,Retail->BigBoxStores->Kmart
+736,Retail,Big Box Stores,Kmart (Recently Closed),FALSE,FALSE,468,Retail->DepartmentStores->AilingStores->Kmart
+378,Retail,Big Box Stores,Meijer,FALSE,FALSE,469,Retail->BigBoxStores->Meijer
+379,Retail,Big Box Stores,Sams Club,FALSE,FALSE,470,Retail->BigBoxStores->SamsClub
+380,Retail,Big Box Stores,Target,FALSE,FALSE,471,Retail->BigBoxStores->Target
+381,Retail,Big Box Stores,Walmart,FALSE,FALSE,472,Retail->BigBoxStores->Walmart
+382,Retail,Cable TV Stores,Xfinity,FALSE,FALSE,473,Retail->CableTVStore->Xfinity
+383,Retail,Cellphone Stores,AT&T,FALSE,FALSE,474,Retail->CellularPhoneStores->ATandT
+384,Retail,Cellphone Stores,Boost Mobile,FALSE,FALSE,475,Retail->CellularPhoneStores->BoostMobile
+385,Retail,Cellphone Stores,Cricket Wireless,FALSE,FALSE,476,Retail->CellularPhoneStores->CricketWireless
+386,Retail,Cellphone Stores,Metro PCS,FALSE,FALSE,477,Retail->CellularPhoneStores->MetroPCS
+387,Retail,Cellphone Stores,Sprint,FALSE,FALSE,478,Retail->CellularPhoneStores->Sprint
+388,Retail,Cellphone Stores,T Mobile,FALSE,FALSE,479,Retail->CellularPhoneStores->TMobile
+389,Retail,Cellphone Stores,Verizon Wireless,FALSE,FALSE,480,Retail->CellularPhoneStores->VerizonWireless
+390,Retail,Childrens Store,Buy Buy Baby,FALSE,FALSE,481,Retail->ChildrensStores->BuyBuyBaby
+391,Retail,Clothing Stores,Eddie Bauer,FALSE,FALSE,482,Retail->ClothingStores->EddieBauer
+392,Retail,Clothing Stores,LL Bean,FALSE,FALSE,483,Retail->ClothingStores->LLBean
+393,Retail,Clothing Stores,Lululemon Athletica,FALSE,FALSE,484,Retail->ClothingStores->LululemonAthletica
+395,Retail,Convenience Stores,76,FALSE,FALSE,485,Retail->ConvenienceStores->Phillips66->76
+394,Retail,Convenience Stores,7 Eleven,FALSE,FALSE,486,Retail->ConvenienceStores->7Eleven
+397,Retail,Convenience Stores,Allsups,FALSE,FALSE,487,Retail->ConvenienceStores->Allsups
+396,Retail,Convenience Stores,ampm,FALSE,FALSE,488,Retail->ConvenienceStores->AMPM
+398,Retail,Convenience Stores,BP,FALSE,FALSE,489,Retail->ConvenienceStores->BP
+399,Retail,Convenience Stores,Caseys,FALSE,FALSE,490,Retail->ConvenienceStores->Caseys
+400,Retail,Convenience Stores,Chevron,FALSE,FALSE,491,Retail->ConvenienceStores->Chevron
+401,Retail,Convenience Stores,Circle K,FALSE,FALSE,492,Retail->ConvenienceStores->CircleK
+402,Retail,Convenience Stores,Citgo,FALSE,FALSE,493,Retail->ConvenienceStores->Citgo
+403,Retail,Convenience Stores,Conoco,FALSE,FALSE,494,Retail->ConvenienceStores->Phillips66->Conoco
+404,Retail,Convenience Stores,Corner Store,FALSE,FALSE,495,Retail->ConvenienceStores->CornerStore
+405,Retail,Convenience Stores,Cumberland Farms,FALSE,FALSE,496,Retail->ConvenienceStores->CumberlandFarms
+406,Retail,Convenience Stores,Exxon,FALSE,FALSE,497,Retail->ConvenienceStores->Exxon
+407,Retail,Convenience Stores,Ez Mart,FALSE,FALSE,498,Retail->ConvenienceStores->EzMart
+408,Retail,Convenience Stores,Gulf,FALSE,FALSE,499,Retail->ConvenienceStores->Gulf
+409,Retail,Convenience Stores,Kumandgo,FALSE,FALSE,500,Retail->ConvenienceStores->Kumandgo
+410,Retail,Convenience Stores,Kwik Shop,FALSE,FALSE,501,Retail->ConvenienceStores->KwikShop
+411,Retail,Convenience Stores,Kwiktrip,FALSE,FALSE,502,Retail->ConvenienceStores->Kwiktrip
+412,Retail,Convenience Stores,Loaf NJug,FALSE,FALSE,503,Retail->ConvenienceStores->LoafNJug
+413,Retail,Convenience Stores,Loves,FALSE,FALSE,504,Retail->ConvenienceStores->Loves
+414,Retail,Convenience Stores,Marathon,FALSE,FALSE,505,Retail->ConvenienceStores->Marathon
+415,Retail,Convenience Stores,Murphy,FALSE,FALSE,506,Retail->ConvenienceStores->Murphy
+416,Retail,Convenience Stores,Phillips 66,FALSE,FALSE,507,Retail->ConvenienceStores->Phillips66->Phillips66
+417,Retail,Convenience Stores,Pilot FJ,FALSE,FALSE,508,Retail->ConvenienceStores->PilotFJ
+418,Retail,Convenience Stores,Quick Chek,FALSE,FALSE,509,Retail->ConvenienceStores->QuickChek
+419,Retail,Convenience Stores,Quik Stop,FALSE,FALSE,510,Retail->ConvenienceStores->QuikStop
+420,Retail,Convenience Stores,Quik Trip,FALSE,FALSE,511,Retail->ConvenienceStores->QuikTrip
+421,Retail,Convenience Stores,Racetrac,FALSE,FALSE,512,Retail->ConvenienceStores->Racetrac
+422,Retail,Convenience Stores,Sheetz,FALSE,FALSE,513,Retail->ConvenienceStores->Sheetz
+423,Retail,Convenience Stores,Shell,FALSE,FALSE,514,Retail->ConvenienceStores->Shell
+424,Retail,Convenience Stores,Speedway,FALSE,FALSE,515,Retail->ConvenienceStores->Speedway
+425,Retail,Convenience Stores,Stripes,FALSE,FALSE,516,Retail->ConvenienceStores->Stripes
+426,Retail,Convenience Stores,Sunoco,FALSE,FALSE,517,Retail->ConvenienceStores->Sunoco
+427,Retail,Convenience Stores,TA,FALSE,FALSE,518,Retail->ConvenienceStores->TA
+428,Retail,Convenience Stores,Texaco,FALSE,FALSE,519,Retail->ConvenienceStores->Chevron->Texaco
+429,Retail,Convenience Stores,Turkey Hill,FALSE,FALSE,520,Retail->ConvenienceStores->TurkeyHill
+430,Retail,Convenience Stores,Valero,FALSE,FALSE,521,Retail->ConvenienceStores->Valero
+431,Retail,Convenience Stores,Wawa,FALSE,FALSE,522,Retail->ConvenienceStores->Wawa
+432,Retail,Department Stores,Barneys,FALSE,FALSE,523,Retail->DepartmentStores->Barneys
+433,Retail,Department Stores,Bloomingdales,FALSE,FALSE,524,Retail->DepartmentStores->Macys->Bloomingdales
+434,Retail,Department Stores,Boscovs,FALSE,FALSE,525,Retail->DepartmentStores->Boscovs
+435,Retail,Department Stores,JC Penney,FALSE,FALSE,526,Retail->DepartmentStores->JCPenney
+436,Retail,Department Stores,JC Penney,FALSE,FALSE,527,Retail->DepartmentStores->AilingStores->JCPenney
+437,Retail,Department Stores,Kohls,FALSE,FALSE,528,Retail->DepartmentStores->Kohls
+438,Retail,Department Stores,Lord And Taylor,FALSE,FALSE,529,Retail->DepartmentStores->HBC->LordAndTaylor
+439,Retail,Department Stores,Macys,FALSE,FALSE,530,Retail->DepartmentStores->Macys->Macys
+440,Retail,Department Stores,Neiman Marcus,FALSE,FALSE,531,Retail->DepartmentStores->NeimanMarcus
+441,Retail,Department Stores,Nordstrom,FALSE,FALSE,532,Retail->DepartmentStores->Nordstrom->Nordstrom
+442,Retail,Department Stores,Nordstrom Rack,FALSE,FALSE,533,Retail->DepartmentStores->Nordstrom->NordstromRack
+443,Retail,Department Stores,Saks Fifth Avenue,FALSE,FALSE,534,Retail->DepartmentStores->HBC->SaksFifthAvenue
+444,Retail,Department Stores,Saks Off Fifth,FALSE,FALSE,535,Retail->DepartmentStores->HBC->SaksOffFifth
+445,Retail,Department Stores,Sears,FALSE,FALSE,536,Retail->DepartmentStores->AilingStores->Sears
+446,Retail,Department Stores,Sears,FALSE,FALSE,537,Retail->DepartmentStores->Sears->Sears
+447,Retail,Department Stores,Stein Mart,FALSE,FALSE,538,Retail->DepartmentStores->SteinMart
+448,Retail,Discount Stores,Marshalls,FALSE,FALSE,539,Retail->DiscountStores->TJX->Marshalls
+449,Retail,Discount Stores,TJ Maxx,FALSE,FALSE,540,Retail->DiscountStores->TJX->TJMaxx
+450,Retail,Electronics Stores,Apple Stores,FALSE,FALSE,541,Retail->ElectronicsStores->AppleStores
+451,Retail,Electronics Stores,Best Buy,FALSE,FALSE,542,Retail->ElectronicsStores->BestBuy
+452,Retail,Electronics Stores,Radio Shack,FALSE,FALSE,543,Retail->ElectronicsStores->RadioShack
+453,Retail,Furniture & Decor,Aki Home Furniture,FALSE,FALSE,544,Retail->FurnitureDecor->AkiHomeFurniture
+454,Retail,Furniture & Decor,American Signature,FALSE,FALSE,545,Retail->FurnitureDecor->AmericanSignature
+455,Retail,Furniture & Decor,Arhaus Furniture,FALSE,FALSE,546,Retail->FurnitureDecor->ArhausFurniture
+456,Retail,Furniture & Decor,Ashley,FALSE,FALSE,547,Retail->FurnitureDecor->Ashley
+457,Retail,Furniture & Decor,Bassett Furniture,FALSE,FALSE,548,Retail->FurnitureDecor->BassettFurniture
+458,Retail,Furniture & Decor,Bed Bath Beyond,FALSE,FALSE,549,Retail->FurnitureDecor->BedBathBeyond
+459,Retail,Furniture & Decor,Bobs Furniture,FALSE,FALSE,550,Retail->FurnitureDecor->BobsFurniture
+460,Retail,Furniture & Decor,Crate And Barrel,FALSE,FALSE,551,Retail->FurnitureDecor->CrateAndBarrel
+461,Retail,Furniture & Decor,Deardens Furniture,FALSE,FALSE,552,Retail->FurnitureDecor->DeardensFurniture
+462,Retail,Furniture & Decor,Ethan Allen,FALSE,FALSE,553,Retail->FurnitureDecor->EthanAllen
+463,Retail,Furniture & Decor,Havertys,FALSE,FALSE,554,Retail->FurnitureDecor->Havertys
+464,Retail,Furniture & Decor,Homegoods,FALSE,FALSE,555,Retail->FurnitureDecor->TJX->Homegoods
+465,Retail,Furniture & Decor,Ikea,FALSE,FALSE,556,Retail->FurnitureDecor->Ikea
+466,Retail,Furniture & Decor,Jeromes Furniture,FALSE,FALSE,557,Retail->FurnitureDecor->JeromesFurniture
+467,Retail,Furniture & Decor,Jordans Furniture,FALSE,FALSE,558,Retail->FurnitureDecor->JordansFurniture
+468,Retail,Furniture & Decor,LA Mattress,FALSE,FALSE,559,Retail->FurnitureDecor->LAMattress
+469,Retail,Furniture & Decor,La-Z-Boy,FALSE,FALSE,560,Retail->FurnitureDecor->LaZBoy
+470,Retail,Furniture & Decor,Living Spaces Furniture,FALSE,FALSE,561,Retail->FurnitureDecor->LivingSpacesFurniture
+471,Retail,Furniture & Decor,Mattress Firm,FALSE,FALSE,562,Retail->FurnitureDecor->MattressStores->MattressFirm
+472,Retail,Furniture & Decor,Pier1,FALSE,FALSE,563,Retail->FurnitureDecor->Pier1
+473,Retail,Furniture & Decor,Pottery Barn,FALSE,FALSE,564,Retail->FurnitureDecor->PotteryBarn
+474,Retail,Furniture & Decor,Raymour Flanigan,FALSE,FALSE,565,Retail->FurnitureDecor->RaymourFlanigan
+475,Retail,Furniture & Decor,Restoration Hardware,FALSE,FALSE,566,Retail->FurnitureDecor->RestorationHardware
+476,Retail,Furniture & Decor,Rooms To Go,FALSE,FALSE,567,Retail->FurnitureDecor->RoomsToGo
+477,Retail,Furniture & Decor,Sleep Number,FALSE,FALSE,568,Retail->FurnitureDecor->SleepNumber
+478,Retail,Furniture & Decor,Sleep Train,FALSE,FALSE,569,Retail->FurnitureDecor->SleepTrain
+479,Retail,Furniture & Decor,Sleepys,FALSE,FALSE,570,Retail->FurnitureDecor->Sleepys
+480,Retail,Furniture & Decor,Slumberland,FALSE,FALSE,571,Retail->FurnitureDecor->Slumberland
+481,Retail,Furniture & Decor,Urban Home Furniture,FALSE,FALSE,572,Retail->FurnitureDecor->UrbanHomeFurniture
+482,Retail,Furniture & Decor,Value City,FALSE,FALSE,573,Retail->FurnitureDecor->ValueCity
+483,Retail,Furniture & Decor,West Elm,FALSE,FALSE,574,Retail->FurnitureDecor->WestElm
+484,Retail,Furniture & Decor,Williams Sonoma,FALSE,FALSE,575,Retail->FurnitureDecor->WilliamsSonoma
+485,Retail,Gas Stations,Arco,FALSE,FALSE,576,Retail->GasStations->Arco
+486,Retail,General Stores,99c Only,FALSE,FALSE,577,Retail->GeneralStores->99cOnly
+487,Retail,General Stores,Dollar General,FALSE,FALSE,578,Retail->GeneralStores->DollarGeneral
+488,Retail,General Stores,Dollar Tree,FALSE,FALSE,579,Retail->GeneralStores->DollarTree
+489,Retail,General Stores,Family Dollar,FALSE,FALSE,580,Retail->GeneralStores->FamilyDollar
+490,Retail,General Stores,Five Below,FALSE,FALSE,581,Retail->GeneralStores->FiveBelow
+491,Retail,General Stores,Freds,FALSE,FALSE,582,Retail->GeneralStores->Freds
+492,Retail,Grocery Stores,Acme Markets,FALSE,FALSE,583,Retail->GroceryStores->AcmeMarkets
+493,Retail,Grocery Stores,Ahold Delhaize,FALSE,FALSE,584,Retail->GroceryStores->AholdDelhaize
+494,Retail,Grocery Stores,Albertsons,FALSE,FALSE,585,Retail->GroceryStores->Albertsons
+495,Retail,Grocery Stores,Aldi,FALSE,FALSE,586,Retail->GroceryStores->Aldi
+496,Retail,Grocery Stores,BI-LO,FALSE,FALSE,587,Retail->GroceryStores->BiLo
+497,Retail,Grocery Stores,Big Y,FALSE,FALSE,588,Retail->GroceryStores->BigY
+498,Retail,Grocery Stores,Copps,FALSE,FALSE,589,Retail->GroceryStores->Copps
+499,Retail,Grocery Stores,Cub Foods,FALSE,FALSE,590,Retail->GroceryStores->CubFoods
+500,Retail,Grocery Stores,Dillons Food Stores,FALSE,FALSE,591,Retail->GroceryStores->DillonsFoodStores
+501,Retail,Grocery Stores,Farm Fresh,FALSE,FALSE,592,Retail->GroceryStores->FarmFresh
+502,Retail,Grocery Stores,Fred Meyer,FALSE,FALSE,593,Retail->GroceryStores->FredMeyer
+503,Retail,Grocery Stores,Frys,FALSE,FALSE,594,Retail->GroceryStores->Frys
+504,Retail,Grocery Stores,Giant Food,FALSE,FALSE,595,Retail->GroceryStores->GiantFood
+505,Retail,Grocery Stores,Giant Food Stores,FALSE,FALSE,596,Retail->GroceryStores->GiantFoodStores
+506,Retail,Grocery Stores,Hannaford,FALSE,FALSE,597,Retail->GroceryStores->Hannaford
+507,Retail,Grocery Stores,Harris Teeter,FALSE,FALSE,598,Retail->GroceryStores->HarrisTeeter
+508,Retail,Grocery Stores,Heb,FALSE,FALSE,599,Retail->GroceryStores->Heb
+509,Retail,Grocery Stores,Hornbachers,FALSE,FALSE,600,Retail->GroceryStores->Hornbachers
+510,Retail,Grocery Stores,Hy Vee,FALSE,FALSE,601,Retail->GroceryStores->HyVee
+511,Retail,Grocery Stores,Jewel Osco,FALSE,FALSE,602,Retail->GroceryStores->JewelOsco
+512,Retail,Grocery Stores,King Soopers Supermarket,FALSE,FALSE,603,Retail->GroceryStores->KingSoopersSupermarket
+513,Retail,Grocery Stores,Kroger,FALSE,FALSE,604,Retail->GroceryStores->Kroger
+514,Retail,Grocery Stores,Marianos,FALSE,FALSE,605,Retail->GroceryStores->Marianos
+515,Retail,Grocery Stores,Metro Market,FALSE,FALSE,606,Retail->GroceryStores->MetroMarket
+516,Retail,Grocery Stores,Pathmark,FALSE,FALSE,607,Retail->GroceryStores->Pathmark
+517,Retail,Grocery Stores,Pick N Save,FALSE,FALSE,608,Retail->GroceryStores->PickNSave
+518,Retail,Grocery Stores,Piggly Wiggly,FALSE,FALSE,609,Retail->GroceryStores->PigglyWiggly
+519,Retail,Grocery Stores,Price Chopper,FALSE,FALSE,610,Retail->GroceryStores->PriceChopper
+520,Retail,Grocery Stores,Publix,FALSE,FALSE,611,Retail->GroceryStores->Publix
+521,Retail,Grocery Stores,Ralphs,FALSE,FALSE,612,Retail->GroceryStores->Ralphs
+522,Retail,Grocery Stores,Safeway,FALSE,FALSE,613,Retail->GroceryStores->Safeway
+523,Retail,Grocery Stores,Save-A-lot,FALSE,FALSE,614,Retail->GroceryStores->Savealot
+524,Retail,Grocery Stores,Schnucks,FALSE,FALSE,615,Retail->GroceryStores->Schnucks
+525,Retail,Grocery Stores,Sendiks,FALSE,FALSE,616,Retail->GroceryStores->Sendiks
+526,Retail,Grocery Stores,Shaws,FALSE,FALSE,617,Retail->GroceryStores->Shaws
+527,Retail,Grocery Stores,Shop N Save,FALSE,FALSE,618,Retail->GroceryStores->ShopNSave
+528,Retail,Grocery Stores,Shop Rite,FALSE,FALSE,619,Retail->GroceryStores->Wakefern->ShopRite
+529,Retail,Grocery Stores,Shoppers Foodand Pharmacy,FALSE,FALSE,620,Retail->GroceryStores->ShoppersFoodandPharmacy
+530,Retail,Grocery Stores,Smart And Final,FALSE,FALSE,621,Retail->GroceryStores->SmartAndFinal
+531,Retail,Grocery Stores,Sprouts,FALSE,FALSE,622,Retail->GroceryStores->Sprouts
+532,Retail,Grocery Stores,Stopand Shop,FALSE,FALSE,623,Retail->GroceryStores->StopandShop
+533,Retail,Grocery Stores,Supervalu,FALSE,FALSE,624,Retail->GroceryStores->Supervalu
+534,Retail,Grocery Stores,Tops Friendly Markets,FALSE,FALSE,625,Retail->GroceryStores->TopsFriendlyMarkets
+535,Retail,Grocery Stores,Trader Joes,FALSE,FALSE,626,Retail->GroceryStores->TraderJoes
+536,Retail,Grocery Stores,Walmart Neighborhood Mkt,FALSE,FALSE,627,Retail->GroceryStores->WalmartNeighborhoodMkt
+537,Retail,Grocery Stores,Wegmans,FALSE,FALSE,628,Retail->GroceryStores->Wegmans
+538,Retail,Grocery Stores,Whole Foods,FALSE,FALSE,629,Retail->GroceryStores->WholeFoods
+539,Retail,Grocery Stores,Winn Dixie,FALSE,FALSE,630,Retail->GroceryStores->WinnDixie
+540,Retail,Grocery Stores,Woodmans Market,FALSE,FALSE,631,Retail->GroceryStores->WoodmansMarket
+541,Retail,Health & Beauty,Fantastic Sams,FALSE,FALSE,632,Retail->HealthandBeauty->FantasticSams
+542,Retail,Health & Beauty,Great Clips,FALSE,FALSE,633,Retail->HealthandBeauty->GreatClips
+543,Retail,Health & Beauty,Hair Cuttery,FALSE,FALSE,634,Retail->HealthandBeauty->HairCuttery
+544,Retail,Health & Beauty,Regis Salons,FALSE,FALSE,635,Retail->HealthandBeauty->RegisSalons
+545,Retail,Health & Beauty,Sally Beauty,FALSE,FALSE,636,Retail->HealthandBeauty->SallyBeauty
+546,Retail,Health & Beauty,Supercuts,FALSE,FALSE,637,Retail->HealthandBeauty->Supercuts
+547,Retail,Home Improvement,Ace Hardware,FALSE,FALSE,638,Retail->HomeImprovement->HardwareStores->AceHardware
+548,Retail,Home Improvement,Carpet One,FALSE,FALSE,639,Retail->HomeImprovement->CarpetOne
+549,Retail,Home Improvement,Floor And Decor,FALSE,FALSE,640,Retail->HomeImprovement->FloorAndDecor
+550,Retail,Home Improvement,Home Depot,FALSE,FALSE,641,Retail->HomeImprovement->HardwareStores->HomeDepot
+551,Retail,Home Improvement,Lowes,FALSE,FALSE,642,Retail->HomeImprovement->HardwareStores->Lowes
+552,Retail,Home Improvement,Lumber Liquidators,FALSE,FALSE,643,Retail->HomeImprovement->HardwareStores->LumberLiquidators
+553,Retail,Home Improvement,Menards,FALSE,FALSE,644,Retail->HomeImprovement->HardwareStores->Menards
+554,Retail,Home Improvement,Sears Hardware,FALSE,FALSE,645,Retail->HomeImprovement->HardwareStores->Sears->SearsHardware
+555,Retail,Home Improvement,Sherwin Williams,FALSE,FALSE,646,Retail->HomeImprovement->SherwinWilliams
+556,Retail,Home Improvement,True Value,FALSE,FALSE,647,Retail->HomeImprovement->HardwareStores->TrueValue
+557,Retail,Liquor Stores,ABC Fine Wineand Spirits,FALSE,FALSE,648,Retail->LiquorStores->ABCFineWineandSpirits
+558,Retail,Liquor Stores,Bevmo,FALSE,FALSE,649,Retail->LiquorStores->Bevmo
+559,Retail,Liquor Stores,Binnys Beverage Depot,FALSE,FALSE,650,Retail->LiquorStores->BinnysBeverageDepot
+560,Retail,Liquor Stores,Specs,FALSE,FALSE,651,Retail->LiquorStores->Specs
+561,Retail,Liquor Stores,Total Wine,FALSE,FALSE,652,Retail->LiquorStores->TotalWine
+562,Retail,Office Supply Stores,Office Depot,FALSE,FALSE,653,Retail->OfficeSupplyStores->OfficeDepot
+563,Retail,Office Supply Stores,Office Max,FALSE,FALSE,654,Retail->OfficeSupplyStores->OfficeMax
+564,Retail,Office Supply Stores,Staples,FALSE,FALSE,655,Retail->OfficeSupplyStores->Staples
+565,Retail,Pet Stores,Pet Supermarket,FALSE,FALSE,656,Retail->PetStores->PetSupermarket
+566,Retail,Pet Stores,Pet Supplies Plus,FALSE,FALSE,657,Retail->PetStores->PetSuppliesPlus
+567,Retail,Pet Stores,Petco Animal Supplies,FALSE,FALSE,658,Retail->PetStores->Petco->PetcoAnimalSupplies
+568,Retail,Pet Stores,Petsmart,FALSE,FALSE,659,Retail->PetStores->Petsmart
+569,Retail,Pet Stores,Unleashed By Petco,FALSE,FALSE,660,Retail->PetStores->Petco->UnleashedByPetco
+570,Retail,Pharmacies,CVS Pharmacy,FALSE,FALSE,661,Retail->Pharmacies->CVS->CVSPharmacy
+571,Retail,Pharmacies,Rite Aid,FALSE,FALSE,662,Retail->Pharmacies->Walgreens->RiteAid
+572,Retail,Pharmacies,Walgreens,FALSE,FALSE,663,Retail->Pharmacies->Walgreens->Walgreens
+573,Retail,Specialty Store,Tractor Supply Co,FALSE,FALSE,664,Retail->SpecialtyStore->TractorSupplyCo
+574,Retail,Sporting Goods,Academy,FALSE,FALSE,665,Retail->SportingGoods->Academy
+575,Retail,Sporting Goods,Arcteryx,FALSE,FALSE,666,Retail->SportingGoods->Arcteryx
+576,Retail,Sporting Goods,Bass Pro Shops,FALSE,FALSE,667,Retail->SportingGoods->BassProShops
+577,Retail,Sporting Goods,Big 5 Sporting Goods,FALSE,FALSE,668,Retail->SportingGoods->Big5SportingGoods
+578,Retail,Sporting Goods,Cabelas,FALSE,FALSE,669,Retail->SportingGoods->Cabelas
+579,Retail,Sporting Goods,Columbia Sportswear,FALSE,FALSE,670,Retail->SportingGoods->ColumbiaSportswear
+580,Retail,Sporting Goods,Dicks Sporting Goods,FALSE,FALSE,671,Retail->SportingGoods->DicksSportingGoods
+581,Retail,Sporting Goods,Edwin Watts,FALSE,FALSE,672,Retail->SportingGoods->Golf->EdwinWatts
+582,Retail,Sporting Goods,Gander Mountain,FALSE,FALSE,673,Retail->SportingGoods->GanderMountain
+583,Retail,Sporting Goods,Golf Galaxy,FALSE,FALSE,674,Retail->SportingGoods->Golf->GolfGalaxy
+584,Retail,Sporting Goods,Golf Mart,FALSE,FALSE,675,Retail->SportingGoods->Golf->GolfMart
+585,Retail,Sporting Goods,Golfers Warehouse,FALSE,FALSE,676,Retail->SportingGoods->Golf->GolfersWarehouse
+586,Retail,Sporting Goods,Golfsmith,FALSE,FALSE,677,Retail->SportingGoods->Golf->Golfsmith
+587,Retail,Sporting Goods,Independent Sporting Goods,FALSE,FALSE,678,Retail->SportingGoods->IndependentSportingGoods
+588,Retail,Sporting Goods,Last Chance,FALSE,FALSE,679,Retail->SportingGoods->LastChance
+589,Retail,Sporting Goods,Marmot,FALSE,FALSE,680,Retail->SportingGoods->Marmot
+590,Retail,Sporting Goods,Moosejaw,FALSE,FALSE,681,Retail->SportingGoods->Moosejaw
+591,Retail,Sporting Goods,PGA,FALSE,FALSE,682,Retail->SportingGoods->Golf->PGA
+592,Retail,Sporting Goods,REI,FALSE,FALSE,683,Retail->SportingGoods->REI
+593,Retail,Sporting Goods,Roger Dunn,FALSE,FALSE,684,Retail->SportingGoods->Golf->RogerDunn
+594,Retail,Sporting Goods,Scheels,FALSE,FALSE,685,Retail->SportingGoods->Scheels
+595,Retail,Sporting Goods,The North Face,FALSE,FALSE,686,Retail->SportingGoods->TheNorthFace
+596,Retail,Sporting Goods,Titlenine,FALSE,FALSE,687,Retail->SportingGoods->Titlenine
+597,Retail,Sporting Goods,Uinta,FALSE,FALSE,688,Retail->SportingGoods->Golf->Uinta
+598,Retail,Sporting Goods,Vans Golf,FALSE,FALSE,689,Retail->SportingGoods->Golf->VansGolf
+599,Retail,Video Games,Game Stop,FALSE,FALSE,690,Retail->VideoGames->GameStop
+825,Travel,Consumer Profiles,Business Travelers,TRUE,FALSE,691,Travel->BusinessTravel
+826,Travel,Consumer Profiles,Commercial Airport Visitors,TRUE,FALSE,692,Travel->CommercialAirports
+827,Travel,Consumer Profiles,Cost Conscious Hotel Guests,TRUE,FALSE,693,Travel->CostConsciousHotels
+828,Travel,Consumer Profiles,Hotel Guests,TRUE,FALSE,694,Travel->Hotels
+824,Travel,Consumer Profiles,Large Hub Airport Visitors,TRUE,FALSE,695,Travel->Airports->LargeHub
+829,Travel,Consumer Profiles,Luxury Hotel Guests,TRUE,FALSE,696,Travel->Hotels->Luxury
+830,Travel,Consumer Profiles,Premium Hotel Guests,TRUE,FALSE,697,Travel->Hotels->Premium
+831,Travel,Consumer Profiles,Tourist Destination Visitors,TRUE,FALSE,698,Travel->TouristDestinations
+600,Travel,Airline Terminal,Alaska,FALSE,FALSE,699,Travel->AirlineTerminal->Alaska
+601,Travel,Airline Terminal,Allegiant,FALSE,FALSE,700,Travel->AirlineTerminal->Allegiant
+602,Travel,Airline Terminal,American,FALSE,FALSE,701,Travel->AirlineTerminal->American
+603,Travel,Airline Terminal,Delta,FALSE,FALSE,702,Travel->AirlineTerminal->Delta
+604,Travel,Airline Terminal,Frontier,FALSE,FALSE,703,Travel->AirlineTerminal->Frontier
+605,Travel,Airline Terminal,Hawaiian,FALSE,FALSE,704,Travel->AirlineTerminal->Hawaiian
+606,Travel,Airline Terminal,Jet Blue,FALSE,FALSE,705,Travel->AirlineTerminal->JetBlue
+607,Travel,Airline Terminal,Southwest,FALSE,FALSE,706,Travel->AirlineTerminal->Southwest
+608,Travel,Airline Terminal,Spirit,FALSE,FALSE,707,Travel->AirlineTerminal->Spirit
+609,Travel,Airline Terminal,United,FALSE,FALSE,708,Travel->AirlineTerminal->United
+610,Travel,Airline Terminal,Virgin,FALSE,FALSE,709,Travel->AirlineTerminal->Virgin
+611,Travel,Airline Terminal,Virgin America,FALSE,FALSE,710,Travel->AirlineTerminal->VirginAmerica
+612,Travel,Airline Terminal,Westjet,FALSE,FALSE,711,Travel->AirlineTerminal->Westjet
+613,Travel,Airports,ATL,FALSE,FALSE,712,Travel->Airports->ATL
+614,Travel,Airports,BOS,FALSE,FALSE,713,Travel->Airports->BOS
+615,Travel,Airports,BWI,FALSE,FALSE,714,Travel->Airports->BWI
+616,Travel,Airports,CLT,FALSE,FALSE,715,Travel->Airports->CLT
+617,Travel,Airports,Commercial,FALSE,FALSE,716,Travel->Airports->Commercial
+618,Travel,Airports,DCA,FALSE,FALSE,717,Travel->Airports->DCA
+619,Travel,Airports,DEN,FALSE,FALSE,718,Travel->Airports->DEN
+620,Travel,Airports,DFW,FALSE,FALSE,719,Travel->Airports->DFW
+621,Travel,Airports,DTW,FALSE,FALSE,720,Travel->Airports->DTW
+622,Travel,Airports,EWR,FALSE,FALSE,721,Travel->Airports->EWR
+623,Travel,Airports,FLL,FALSE,FALSE,722,Travel->Airports->FLL
+624,Travel,Airports,HNL,FALSE,FALSE,723,Travel->Airports->HNL
+625,Travel,Airports,IAD,FALSE,FALSE,724,Travel->Airports->IAD
+626,Travel,Airports,IAH,FALSE,FALSE,725,Travel->Airports->IAH
+627,Travel,Airports,JFK,FALSE,FALSE,726,Travel->Airports->JFK
+628,Travel,Airports,LAS,FALSE,FALSE,727,Travel->Airports->LAS
+629,Travel,Airports,LAX,FALSE,FALSE,728,Travel->Airports->LAX
+630,Travel,Airports,LGA,FALSE,FALSE,729,Travel->Airports->LGA
+631,Travel,Airports,MCO,FALSE,FALSE,730,Travel->Airports->MCO
+632,Travel,Airports,MDW,FALSE,FALSE,731,Travel->Airports->MDW
+633,Travel,Airports,MIA,FALSE,FALSE,732,Travel->Airports->MIA
+634,Travel,Airports,MSP,FALSE,FALSE,733,Travel->Airports->MSP
+635,Travel,Airports,ORD,FALSE,FALSE,734,Travel->Airports->ORD
+636,Travel,Airports,PDX,FALSE,FALSE,735,Travel->Airports->PDX
+637,Travel,Airports,PHL,FALSE,FALSE,736,Travel->Airports->PHL
+638,Travel,Airports,PHX,FALSE,FALSE,737,Travel->Airports->PHX
+639,Travel,Airports,SAN,FALSE,FALSE,738,Travel->Airports->SAN
+640,Travel,Airports,SEA,FALSE,FALSE,739,Travel->Airports->SEA
+641,Travel,Airports,SFO,FALSE,FALSE,740,Travel->Airports->SFO
+642,Travel,Airports,SLC,FALSE,FALSE,741,Travel->Airports->SLC
+643,Travel,Airports,TPA,FALSE,FALSE,742,Travel->Airports->TPA
+644,Travel,Car Rental,Avis,FALSE,FALSE,743,Travel->CarRental->Avis
+645,Travel,Car Rental,Budget,FALSE,FALSE,744,Travel->CarRental->Budget
+646,Travel,Car Rental,Budget Truck,FALSE,FALSE,745,Travel->CarRental->TruckRental->Budget->BudgetTruck
+647,Travel,Car Rental,Enterprise,FALSE,FALSE,746,Travel->CarRental->Enterprise
+648,Travel,Car Rental,Penske Truck,FALSE,FALSE,747,Travel->CarRental->TruckRental->PenskeTruck
+649,Travel,Car Rental,Uhaul Truck,FALSE,FALSE,748,Travel->CarRental->TruckRental->UhaulTruck
+650,Travel,Hotels,Aloft,FALSE,FALSE,749,Travel->Hotels->Starwood->Aloft
+651,Travel,Hotels,Andaz,FALSE,FALSE,750,Travel->Hotels->Hyatt->Andaz
+652,Travel,Hotels,Ascend,FALSE,FALSE,751,Travel->Hotels->ChoiceHotels->Ascend
+653,Travel,Hotels,Autograph Collection Hotels,FALSE,FALSE,752,Travel->Hotels->Marriott->AutographCollectionHotels
+654,Travel,Hotels,Baymont Innand Suites,FALSE,FALSE,753,Travel->Hotels->Wyndham->BaymontInnandSuites
+655,Travel,Hotels,Best Western,FALSE,FALSE,754,Travel->Hotels->BestWestern->BestWestern
+656,Travel,Hotels,Best Western Plus,FALSE,FALSE,755,Travel->Hotels->BestWestern->BestWesternPlus
+657,Travel,Hotels,Best Western Premier,FALSE,FALSE,756,Travel->Hotels->BestWestern->BestWesternPremier
+658,Travel,Hotels,Cambria,FALSE,FALSE,757,Travel->Hotels->ChoiceHotels->Cambria
+659,Travel,Hotels,Candlewood Suites,FALSE,FALSE,758,Travel->Hotels->IHG->CandlewoodSuites
+660,Travel,Hotels,Clarion,FALSE,FALSE,759,Travel->Hotels->ChoiceHotels->Clarion
+661,Travel,Hotels,Comfort Inn,FALSE,FALSE,760,Travel->Hotels->ChoiceHotels->ComfortInn
+662,Travel,Hotels,Comfort Suites,FALSE,FALSE,761,Travel->Hotels->ChoiceHotels->ComfortSuites
+663,Travel,Hotels,Country Innand Suites,FALSE,FALSE,762,Travel->Hotels->Carlson->CountryInnandSuites
+664,Travel,Hotels,Courtyardby Marriott,FALSE,FALSE,763,Travel->Hotels->Marriott->CourtyardbyMarriott
+665,Travel,Hotels,Crossland Economy Studios,FALSE,FALSE,764,Travel->Hotels->ExtendedStayAmerica->CrosslandEconomyStudios
+666,Travel,Hotels,Crowne Plaza,FALSE,FALSE,765,Travel->Hotels->IHG->CrownePlaza
+667,Travel,Hotels,Curio,FALSE,FALSE,766,Travel->Hotels->Hilton->Curio
+668,Travel,Hotels,Days Inn,FALSE,FALSE,767,Travel->Hotels->Wyndham->DaysInn
+669,Travel,Hotels,Double Treeby Hilton,FALSE,FALSE,768,Travel->Hotels->Hilton->DoubleTreebyHilton
+670,Travel,Hotels,Econo Lodge,FALSE,FALSE,769,Travel->Hotels->ChoiceHotels->EconoLodge
+671,Travel,Hotels,Element,FALSE,FALSE,770,Travel->Hotels->Starwood->Element
+672,Travel,Hotels,Embassy Suites Hotels,FALSE,FALSE,771,Travel->Hotels->Hilton->EmbassySuitesHotels
+673,Travel,Hotels,Even Hotels,FALSE,FALSE,772,Travel->Hotels->IHG->EvenHotels
+674,Travel,Hotels,Fairfield Innand Suites,FALSE,FALSE,773,Travel->Hotels->Marriott->FairfieldInnandSuites
+675,Travel,Hotels,Four Pointsby Sheraton,FALSE,FALSE,774,Travel->Hotels->Starwood->FourPointsbySheraton
+676,Travel,Hotels,Gaylord Hotels,FALSE,FALSE,775,Travel->Hotels->Marriott->GaylordHotels
+677,Travel,Hotels,Grand Hyatt,FALSE,FALSE,776,Travel->Hotels->Hyatt->GrandHyatt
+678,Travel,Hotels,Hampton,FALSE,FALSE,777,Travel->Hotels->Hilton->Hampton
+679,Travel,Hotels,Hawthorn Suitesby Wyndham,FALSE,FALSE,778,Travel->Hotels->Wyndham->HawthornSuitesbyWyndham
+680,Travel,Hotels,Hilton Garden Inn,FALSE,FALSE,779,Travel->Hotels->Hilton->HiltonGardenInn
+681,Travel,Hotels,Hilton Hotelsand Resorts,FALSE,FALSE,780,Travel->Hotels->Hilton->HiltonHotelsandResorts
+682,Travel,Hotels,Holiday Inn,FALSE,FALSE,781,Travel->Hotels->IHG->HolidayInn
+683,Travel,Hotels,Holiday Inn Express,FALSE,FALSE,782,Travel->Hotels->IHG->HolidayInnExpress
+684,Travel,Hotels,Holiday Inn Resorts,FALSE,FALSE,783,Travel->Hotels->IHG->HolidayInnResorts
+685,Travel,Hotels,Home 2 Suites,FALSE,FALSE,784,Travel->Hotels->Hilton->Home2Suites
+686,Travel,Hotels,Homewood Suitesby Hilton,FALSE,FALSE,785,Travel->Hotels->Hilton->HomewoodSuitesbyHilton
+687,Travel,Hotels,Hotel Indigo,FALSE,FALSE,786,Travel->Hotels->IHG->HotelIndigo
+688,Travel,Hotels,Howard Johnson,FALSE,FALSE,787,Travel->Hotels->Wyndham->HowardJohnson
+689,Travel,Hotels,Hyatt House,FALSE,FALSE,788,Travel->Hotels->Hyatt->HyattHouse
+690,Travel,Hotels,Hyatt Place,FALSE,FALSE,789,Travel->Hotels->Hyatt->HyattPlace
+691,Travel,Hotels,Hyatt Regency,FALSE,FALSE,790,Travel->Hotels->Hyatt->HyattRegency
+692,Travel,Hotels,Hyatt Residence Club,FALSE,FALSE,791,Travel->Hotels->Hyatt->HyattResidenceClub
+693,Travel,Hotels,Intercontinental Hotels,FALSE,FALSE,792,Travel->Hotels->IHG->IntercontinentalHotels
+694,Travel,Hotels,JW Marriott,FALSE,FALSE,793,Travel->Hotels->Marriott->JWMarriott
+695,Travel,Hotels,Kimpton Hotels,FALSE,FALSE,794,Travel->Hotels->IHG->KimptonHotels
+696,Travel,Hotels,Knights Inn,FALSE,FALSE,795,Travel->Hotels->Wyndham->KnightsInn
+697,Travel,Hotels,La Quinta,FALSE,FALSE,796,Travel->Hotels->LaQuinta
+698,Travel,Hotels,Le Meridien,FALSE,FALSE,797,Travel->Hotels->Starwood->LeMeridien
+699,Travel,Hotels,Mainstay Suites,FALSE,FALSE,798,Travel->Hotels->ChoiceHotels->MainstaySuites
+700,Travel,Hotels,Marriott Hotels,FALSE,FALSE,799,Travel->Hotels->Marriott->MarriottHotels
+701,Travel,Hotels,Microtel Innand Suitesby Wyndham,FALSE,FALSE,800,Travel->Hotels->Wyndham->MicrotelInnandSuitesbyWyndham
+702,Travel,Hotels,Motel6,FALSE,FALSE,801,Travel->Hotels->Motel6->Motel6
+703,Travel,Hotels,Quality,FALSE,FALSE,802,Travel->Hotels->ChoiceHotels->Quality
+704,Travel,Hotels,Radisson,FALSE,FALSE,803,Travel->Hotels->Carlson->Radisson
+705,Travel,Hotels,Ramada Hotels,FALSE,FALSE,804,Travel->Hotels->Wyndham->RamadaHotels
+706,Travel,Hotels,Red Roof Inn,FALSE,FALSE,805,Travel->Hotels->RedRoofInn
+707,Travel,Hotels,Renaissance Hotels,FALSE,FALSE,806,Travel->Hotels->Marriott->RenaissanceHotels
+708,Travel,Hotels,Residence Inn,FALSE,FALSE,807,Travel->Hotels->Marriott->ResidenceInn
+709,Travel,Hotels,Ritz Carlton,FALSE,FALSE,808,Travel->Hotels->Marriott->RitzCarlton
+710,Travel,Hotels,Rodeway Inn,FALSE,FALSE,809,Travel->Hotels->ChoiceHotels->RodewayInn
+711,Travel,Hotels,Sheraton,FALSE,FALSE,810,Travel->Hotels->Starwood->Sheraton
+712,Travel,Hotels,Sleep Inn,FALSE,FALSE,811,Travel->Hotels->ChoiceHotels->SleepInn
+713,Travel,Hotels,Spring Hill Suites,FALSE,FALSE,812,Travel->Hotels->Marriott->SpringHillSuites
+714,Travel,Hotels,St Regis,FALSE,FALSE,813,Travel->Hotels->Starwood->StRegis
+715,Travel,Hotels,Staybridge Suites,FALSE,FALSE,814,Travel->Hotels->IHG->StaybridgeSuites
+716,Travel,Hotels,Suburban,FALSE,FALSE,815,Travel->Hotels->ChoiceHotels->Suburban
+717,Travel,Hotels,Super8,FALSE,FALSE,816,Travel->Hotels->Wyndham->Super8
+718,Travel,Hotels,The Luxury Collection Hotels,FALSE,FALSE,817,Travel->Hotels->Starwood->TheLuxuryCollectionHotels
+719,Travel,Hotels,Towne Place Suites,FALSE,FALSE,818,Travel->Hotels->Marriott->TownePlaceSuites
+720,Travel,Hotels,Travelodge,FALSE,FALSE,819,Travel->Hotels->Wyndham->Travelodge
+721,Travel,Hotels,W Hotels,FALSE,FALSE,820,Travel->Hotels->Starwood->WHotels
+722,Travel,Hotels,Waldorf Astoria Hotelsand Resorts,FALSE,FALSE,821,Travel->Hotels->Hilton->WaldorfAstoriaHotelsandResorts
+723,Travel,Hotels,Westin,FALSE,FALSE,822,Travel->Hotels->Starwood->Westin
+724,Travel,Hotels,Wingateby Wyndham,FALSE,FALSE,823,Travel->Hotels->Wyndham->WingatebyWyndham
+725,Travel,Hotels,Wyndham Garden,FALSE,FALSE,824,Travel->Hotels->Wyndham->WyndhamGarden
+726,Travel,Hotels,Wyndham Grand,FALSE,FALSE,825,Travel->Hotels->Wyndham->WyndhamGrand
+727,Travel,Hotels,Wyndham Hotels,FALSE,FALSE,826,Travel->Hotels->Wyndham->WyndhamHotels
+728,Travel,Other,Commuter Trains,FALSE,FALSE,827,Travel->TransitHubs->CommuterTrains
+729,Travel,Other,Cruise Ship Port,FALSE,FALSE,828,Travel->CruiseShipPort
+730,Travel,Other,Ferry,FALSE,FALSE,829,Travel->TransitHubs->Ferry
+731,Travel,Other,Intercity Trains,FALSE,FALSE,830,Travel->TransitHubs->IntercityTrains
+732,Travel,Other,Light Rail,FALSE,FALSE,831,Travel->TransitHubs->LightRail
