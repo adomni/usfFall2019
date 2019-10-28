@@ -94,7 +94,8 @@ def calculate_score(billboard_id, audience_ids):
 
     # aud_seg_to_normalized (Key: audience_segment_id, Value: normalized count)
     aud_seg_to_normalized = get_normalized_count(aud_seg_to_count, audience_ids)
-    print('aud_seg_to_normalized: \n{}'.format(aud_seg_to_normalized))
+    # print('aud_seg_to_normalized: \n{}'.format(aud_seg_to_normalized))
+    print('Normalized counts: {}'.format(aud_seg_to_normalized))
 
 
     # score and save the array of all the result for each audienceId and calulate the average
@@ -115,16 +116,15 @@ def calculate_score(billboard_id, audience_ids):
 
 # test case
 billboard_id = 'dbb561c792f78028f262e88ce95f857c'
-audience_ids = ['748', '738']
-
-#precalculate values at night time for maximum?
-#using dynamo or athena data for each segmentId
-#append the result into a database
-
+# audience_ids = ['748', '738']
+audience_ids = ['44', '61'] # Demographic->Age->35_44, Demographic->Gender->Male
+print('input billboard_id:', billboard_id)
+print('input audience_ids:', audience_ids)
 
 adomni_score = calculate_score(billboard_id, audience_ids)
 
-print(adomni_score)
+print('Adomni Score:', adomni_score)
+print()
 
 
 
