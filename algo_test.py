@@ -48,6 +48,7 @@ def get_count_map(billboard_id, audience_ids):
 
     for audience_id in audience_ids:
         placeiqid = audience_seg_data[audience_seg_data['id'] == audience_id]['placeiqid'].values
+        print(placeiqid)
         res = get_count(billboard_id, placeiqid[0])
         count = res[0]
         aud_seg_to_count[audience_id] = count
@@ -114,10 +115,21 @@ def calculate_score(billboard_id, audience_ids):
 # Start here. 
 #####################
 
-# test case
+# Test cases
 billboard_id = 'dbb561c792f78028f262e88ce95f857c'
-# audience_ids = ['748', '738']
-audience_ids = ['44', '61'] # Demographic->Age->35_44, Demographic->Gender->Male
+# billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
+# billboard_id = '03c393dbf2ae41661307a19457ea2e89'
+# billboard_id = '36e0958762ec4fda133545176d7176b9'
+# billboard_id = '65d9eef54ad59f641c651b961666657c'
+# billboard_id = '50158cf1c6fded24e3b510d0d6dbd8e3' # low
+# billboard_id = '97ee222e0687d37626b2989266640d94'
+# billboard_id = 'f41ac46de8c208f6cf64fef66255f0eb'
+# billboard_id = '42c5508521fdd113e63172ccd256b74e'
+# billboard_id = '6943fd9adccae67d803b28dd8e33a0b3'
+
+
+audience_ids = ['44', '61', '748'] 
+# Demographic->Age->35_44, Demographic->Gender->Male, AutomotiveDealerships->Luxury
 print('input billboard_id:', billboard_id)
 print('input audience_ids:', audience_ids)
 
@@ -139,6 +151,39 @@ print()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#aws s3 cp s3://result-ouput/result_max.csv ./data/
+
+
+# billboard_ids -> random 
+
+# print out the placeiqids as well. 
+
+# 
+
+
+
+# audience_ids = ['748', '738']
 
 
 
