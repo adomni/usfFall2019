@@ -48,7 +48,7 @@ def get_count_map(billboard_id, audience_ids):
 
     for audience_id in audience_ids:
         placeiqid = audience_seg_data[audience_seg_data['id'] == audience_id]['placeiqid'].values
-        print(placeiqid)
+        print('input audience id: {0} {1}'.format(audience_id, placeiqid))
         res = get_count(billboard_id, placeiqid[0])
         count = res[0]
         aud_seg_to_count[audience_id] = count
@@ -96,7 +96,10 @@ def calculate_score(billboard_id, audience_ids):
     # aud_seg_to_normalized (Key: audience_segment_id, Value: normalized count)
     aud_seg_to_normalized = get_normalized_count(aud_seg_to_count, audience_ids)
     # print('aud_seg_to_normalized: \n{}'.format(aud_seg_to_normalized))
-    print('Normalized counts: {}'.format(aud_seg_to_normalized))
+    print('Normalized counts: '.format(aud_seg_to_normalized))
+    for k, v in aud_seg_to_normalized.items():
+        print(k, ': ', v)
+
 
 
     # score and save the array of all the result for each audienceId and calulate the average
@@ -116,7 +119,7 @@ def calculate_score(billboard_id, audience_ids):
 #####################
 
 # Test cases
-billboard_id = 'dbb561c792f78028f262e88ce95f857c'
+# billboard_id = 'dbb561c792f78028f262e88ce95f857c'
 # billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
 # billboard_id = '03c393dbf2ae41661307a19457ea2e89'
 # billboard_id = '36e0958762ec4fda133545176d7176b9'
@@ -128,19 +131,27 @@ billboard_id = 'dbb561c792f78028f262e88ce95f857c'
 # billboard_id = '6943fd9adccae67d803b28dd8e33a0b3'
 
 
-audience_ids = ['44', '61', '748'] 
 # Demographic->Age->35_44, Demographic->Gender->Male, AutomotiveDealerships->Luxury
-print('input billboard_id:', billboard_id)
-print('input audience_ids:', audience_ids)
-
-adomni_score = calculate_score(billboard_id, audience_ids)
-
-print('Adomni Score:', adomni_score)
+audience_ids = ['44', '61', '748']
 print()
 
+# test 1
+billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
+print('input billboard id:', billboard_id)
+adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
 
-
-
+# test 2
+billboard_id = '50158cf1c6fded24e3b510d0d6dbd8e3' # low
+print('input billboard id:', billboard_id)
+adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
 
 
 
