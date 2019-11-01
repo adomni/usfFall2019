@@ -48,6 +48,7 @@ def get_count_map(billboard_id, audience_ids):
 
     for audience_id in audience_ids:
         placeiqid = audience_seg_data[audience_seg_data['id'] == audience_id]['placeiqid'].values
+        print('input audience id: {0} {1}'.format(audience_id, placeiqid))
         res = get_count(billboard_id, placeiqid[0])
         count = res[0]
         aud_seg_to_count[audience_id] = count
@@ -94,7 +95,11 @@ def calculate_score(billboard_id, audience_ids):
 
     # aud_seg_to_normalized (Key: audience_segment_id, Value: normalized count)
     aud_seg_to_normalized = get_normalized_count(aud_seg_to_count, audience_ids)
-    print('aud_seg_to_normalized: \n{}'.format(aud_seg_to_normalized))
+    # print('aud_seg_to_normalized: \n{}'.format(aud_seg_to_normalized))
+    print('Normalized counts: '.format(aud_seg_to_normalized))
+    for k, v in aud_seg_to_normalized.items():
+        print(k, ': ', v)
+
 
 
     # score and save the array of all the result for each audienceId and calulate the average
@@ -113,18 +118,40 @@ def calculate_score(billboard_id, audience_ids):
 # Start here. 
 #####################
 
-# test case
-billboard_id = 'dbb561c792f78028f262e88ce95f857c'
-audience_ids = ['748', '738']
+# Test cases
+# billboard_id = 'dbb561c792f78028f262e88ce95f857c'
+# billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
+# billboard_id = '03c393dbf2ae41661307a19457ea2e89'
+# billboard_id = '36e0958762ec4fda133545176d7176b9'
+# billboard_id = '65d9eef54ad59f641c651b961666657c'
+# billboard_id = '50158cf1c6fded24e3b510d0d6dbd8e3' # low
+# billboard_id = '97ee222e0687d37626b2989266640d94'
+# billboard_id = 'f41ac46de8c208f6cf64fef66255f0eb'
+# billboard_id = '42c5508521fdd113e63172ccd256b74e'
+# billboard_id = '6943fd9adccae67d803b28dd8e33a0b3'
 
-#precalculate values at night time for maximum?
-#using dynamo or athena data for each segmentId
-#append the result into a database
 
+# Demographic->Age->35_44, Demographic->Gender->Male, AutomotiveDealerships->Luxury
+audience_ids = ['44', '61', '748']
+print()
 
+# test 1
+billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
+print('input billboard id:', billboard_id)
 adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
 
-print(adomni_score)
+# test 2
+billboard_id = '50158cf1c6fded24e3b510d0d6dbd8e3' # low
+print('input billboard id:', billboard_id)
+adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
 
 
 
@@ -139,6 +166,35 @@ print(adomni_score)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#aws s3 cp s3://result-ouput/result_max.csv ./data/
+
+
+# billboard_ids -> random 
+
+# print out the placeiqids as well. 
+
+# 
+
+
+
+# audience_ids = ['748', '738']
 
 
 
