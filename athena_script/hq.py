@@ -12,6 +12,20 @@ import time
 #also star tworking on aws lambda
 #athena client init
 #future
+
+overwrite = False
+
+print('------------------------------------------')
+print('Creating max count for each segment id dataset...')
+print('------------------------------------------')
+
+if len(sys.argv) == 2:
+    if sys.argv[1] == 'overwrite':
+        print('Overwrite Mode On')
+        overwrite = True
+else:
+    print('Overwrite Mode Off')
+
 client = boto3.client('athena', aws_access_key_id = access_key, aws_secret_access_key = secret_key, region_name = region_name)
 
 threads = []
@@ -117,51 +131,56 @@ def runGetCount(num, date):
     #print(outputLocation)
 
 def runHQCount(date):
-
-    query = """
-    SELECT f.mobile_device_id, f.as_one_id, f.as_two_id, f.as_three_id, COUNT(*) as count FROM (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """) g LEFT JOIN
-    (SELECT c.mobile_device_id, c.id as as_one_id, d.id as as_two_id, e.id as as_three_id FROM
-    (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('39', '40', '41', '42', '43', '44', '45', '46', '47')) c
-    INNER JOIN
-    (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('60', '61')) d
-    ON c.mobile_device_id = d.mobile_device_id
-    INNER JOIN
-    (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id not in ('39', '40', '41', '42', '43', '44', '45', '46', '47', '60', '61')) e
-    ON c.mobile_device_id = e.mobile_device_id) f
-    ON g.mobile_device_id = f.mobile_device_id GROUP BY 1, 2, 3, 4
-    """
-
-    response = client.start_query_execution(
-        QueryString = query,
-        QueryExecutionContext = {'Database': 'default'},
-        ResultConfiguration = {
-            'OutputLocation': 's3://athena-output-usf',
-            'EncryptionConfiguration': {
-            'EncryptionOption': 'SSE_S3'
-            }
-        }
-    )
-    id = response['QueryExecutionId']
-
-    while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
-        #print("Waiting... "  + num)
-        sleep(5)
-    status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
-    reason = ""
-    if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
-        reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
-    status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
-    outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
     output_path = 'hq_' + date + '.csv'
-    if status is not "FAILED":
-        os.system("aws s3 cp " + outputLocation + " .")
-        os.system("rm " + output_path)
-        os.system("mv " + id + ".csv " + output_path)
-    #print(status_query)
-    print("HQ for " + date)
-    print(status)
-    print(reason)
-    #print(outputLocation)
+    if os.path.exists(output_path) and not overwrite:
+        print(output_path + ' already saved')
+    else:
+        query = """
+        SELECT f.mobile_device_id, f.as_one_id, f.as_two_id, f.as_three_id, COUNT(*) as count FROM (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """) g LEFT JOIN
+        (SELECT c.mobile_device_id, c.id as as_one_id, d.id as as_two_id, e.id as as_three_id FROM
+        (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('39', '40', '41', '42', '43', '44', '45', '46', '47')) c
+        INNER JOIN
+        (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('60', '61')) d
+        ON c.mobile_device_id = d.mobile_device_id
+        INNER JOIN
+        (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id not in ('39', '40', '41', '42', '43', '44', '45', '46', '47', '60', '61')) e
+        ON c.mobile_device_id = e.mobile_device_id) f
+        ON g.mobile_device_id = f.mobile_device_id GROUP BY 1, 2, 3, 4
+        """
+
+        response = client.start_query_execution(
+            QueryString = query,
+            QueryExecutionContext = {'Database': 'default'},
+            ResultConfiguration = {
+                'OutputLocation': 's3://athena-output-usf',
+                'EncryptionConfiguration': {
+                'EncryptionOption': 'SSE_S3'
+                }
+            }
+        )
+        id = response['QueryExecutionId']
+
+        while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
+            #print("Waiting... "  + num)
+            sleep(5)
+        status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
+        reason = ""
+        if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
+            reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
+        status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
+        outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
+
+        if status is not "FAILED":
+            os.system("aws s3 cp " + outputLocation + " .")
+            os.system("rm " + output_path)
+            os.system("mv " + id + ".csv " + output_path)
+        #print(status_query)
+        print("HQ for " + date)
+        print(status)
+        print(reason)
+        #print(outputLocation)
+
+start_time = time.time()
 
 for d in available_dates:
     # for i in range (0, 10):
@@ -181,7 +200,7 @@ for d in available_dates:
     #     threads.append(t2)
     #     t2.start()
     #     sleep(5)
-    t3 = Thread(target=runHQCount, args=(d))
+    t3 = Thread(target=runHQCount, args=(d,))
     threads.append(t3)
     t3.start()
 
@@ -263,6 +282,9 @@ combined_ml_df = pd.DataFrame(columns=header_two)
 for d in available_dates:
     temp_filename = 'hq_' + d + '.csv'
     os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
+
+elapsed_time = time.time() - start_time
+print('Finished. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
 #
 # #print(result_df.head())
 # result_max_df.to_csv(output_filename, encoding='utf-8', index=False)

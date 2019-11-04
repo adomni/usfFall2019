@@ -16,3 +16,4 @@ Tuo_workingfolder/DynamoDBtoCSV-master
 *.pyc
 examples/intro-example/dags/credentials.py
 examples/intro-example/script/credentials.py
+athena_script/credentials.py

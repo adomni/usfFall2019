@@ -12,6 +12,20 @@ import time
 #also star tworking on aws lambda
 #athena client init
 #future
+
+overwrite = False
+
+print('------------------------------------------')
+print('Creating max count for each segment id dataset...')
+print('------------------------------------------')
+
+if len(sys.argv) == 2:
+    if sys.argv[1] == 'overwrite':
+        print('Overwrite Mode On')
+        overwrite = True
+else:
+    print('Overwrite Mode Off')
+
 client = boto3.client('athena', aws_access_key_id = access_key, aws_secret_access_key = secret_key, region_name = region_name)
 
 threads = []
@@ -32,46 +46,49 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 
 #get Max count for each audience_segment_id
 def runMaxCount(num, date):
-
-    query = """
-    SELECT id as audience_segment_id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
-    (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
-    (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
-    location_data.adomni_audience_segment c ON b.audience = c.placeiqid
-    GROUP BY a.billboard_id, c.id) abc GROUP BY id ORDER BY id asc
-    """
-
-    response = client.start_query_execution(
-        QueryString = query,
-        QueryExecutionContext = {'Database': 'default'},
-        ResultConfiguration = {
-            'OutputLocation': 's3://athena-output-usf',
-            'EncryptionConfiguration': {
-            'EncryptionOption': 'SSE_S3'
-            }
-        }
-    )
-    id = response['QueryExecutionId']
-
-    while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
-        #print("Waiting... "  + num)
-        sleep(5)
-    status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
-    reason = ""
-    if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
-        reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
-    status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
-    outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
     output_path = 'max_' + date + '_' + num + '.csv'
-    if status is not "FAILED":
-        os.system("aws s3 cp " + outputLocation + " .")
-        os.system("rm " + output_path)
-        os.system("mv " + id + ".csv " + output_path)
-    #print(status_query)
-    print("Max for " + num + ' ' + date)
-    print(status)
-    print(reason)
-    #print(outputLocation)
+    if os.path.exists(output_path) and not overwrite:
+        print(output_path + ' already saved')
+    else:
+        query = """
+        SELECT id as audience_segment_id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
+        (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
+        (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
+        location_data.adomni_audience_segment c ON b.audience = c.placeiqid
+        GROUP BY a.billboard_id, c.id) abc GROUP BY id ORDER BY id asc
+        """
+
+        response = client.start_query_execution(
+            QueryString = query,
+            QueryExecutionContext = {'Database': 'default'},
+            ResultConfiguration = {
+                'OutputLocation': 's3://athena-output-usf',
+                'EncryptionConfiguration': {
+                'EncryptionOption': 'SSE_S3'
+                }
+            }
+        )
+        id = response['QueryExecutionId']
+
+        while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
+            #print("Waiting... "  + num)
+            sleep(5)
+        status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
+        reason = ""
+        if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
+            reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
+        status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
+        outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
+
+        if status is not "FAILED":
+            os.system("aws s3 cp " + outputLocation + " .")
+            os.system("rm " + output_path)
+            os.system("mv " + id + ".csv " + output_path)
+        #print(status_query)
+        print("Max for " + num + ' ' + date)
+        print(status)
+        print(reason)
+        #print(outputLocation)
 
 #returns and saves count for each billboard id and audience segment
 def runGetCount(num, date):
