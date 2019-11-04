@@ -1,5 +1,0 @@
-user = 'Tae'
-password = 'SRsSmoP}&#S9'
-access_key = 'AKIA2WDBUDAWF23HGXEE'
-secret_key = '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'
-region_name = 'us-east-1'
