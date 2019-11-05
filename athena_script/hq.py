@@ -7,6 +7,7 @@ from threading import Thread
 import pandas as pd
 from datetime import datetime
 import time
+import sys
 
 #things to do prepare ml dataset and higher quality mobile devices
 #also star tworking on aws lambda
@@ -33,7 +34,7 @@ output_filename_one = 'result_max.csv'
 output_filename_two = 'result_ml.csv'
 output_filename_three = 'result_hq.csv'
 
-available_dates = ['20190913', '20190308', '20190513', '20191004', '20191011']
+available_dates = ['20190817', '20190913', '20190308', '20190513', '20191004', '20191011']
 
 header_one = ['audience_segment_id', 'max']
 header_two = ['billboard_id', 'audience_segment_id', 'count', 'year', 'quarter', 'month', 'week_of_year']
@@ -135,6 +136,7 @@ def runHQCount(date):
     if os.path.exists(output_path) and not overwrite:
         print(output_path + ' already saved')
     else:
+        print("Querying... for " + output_path)
         query = """
         SELECT f.mobile_device_id, f.as_one_id, f.as_two_id, f.as_three_id, COUNT(*) as count FROM (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """) g LEFT JOIN
         (SELECT c.mobile_device_id, c.id as as_one_id, d.id as as_two_id, e.id as as_three_id FROM
@@ -203,6 +205,8 @@ for d in available_dates:
     t3 = Thread(target=runHQCount, args=(d,))
     threads.append(t3)
     t3.start()
+    t3.join()
+    threads.remove(t3)
 
 for x in threads:
     x.join()

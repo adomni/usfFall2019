@@ -35,7 +35,7 @@ output_filename_one = 'result_max.csv'
 output_filename_two = 'result_ml.csv'
 output_filename_three = 'result_hq.csv'
 max_count_input = 'result_max.csv'
-available_dates = ['20190913', '20190308', '20190513', '20191004', '20191011']
+available_dates = ['20190817', '20190913', '20190308', '20190513', '20191004', '20191011']
 
 header_one = ['audience_segment_id', 'max']
 header_two = ['billboard_id', 'audience_segment_id', 'count', 'year', 'quarter', 'month', 'week_of_year']
@@ -45,6 +45,9 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 
 combined_max_df = pd.DataFrame(columns=header_one)
 result_max_df = pd.read_csv(max_count_input)
+result_max_df['id'] = result_max_df['id'].astype(int)
+result_max_df['audience_segment_id'] = result_max_df['id']
+result_max_df = result_max_df.drop('id', 1)
 combined_ml_df = pd.DataFrame(columns=header_two)
 
 # age_segment = [39, 40, 41, 42, 43, 44, 45, 46, 47]
@@ -102,6 +105,7 @@ def runGetCount(num, date):
     if os.path.exists(output_path) and not overwrite:
         print(output_path + ' already saved')
     else:
+        print("Querying... for " + output_path)
         query = """
         SELECT a.billboard_id as billboard_id, c.id as audience_segment_id, count(distinct a.mobile_device_id) as count FROM
         (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
@@ -299,7 +303,7 @@ for n,g in combined_ml_df.groupby('audience_segment_id'):
         temp_filename = 'ml_' + str(int(n)) + '_' + str(int(n2)) + ".csv"
         g2.to_csv(temp_filename, encoding='utf-8', index=False)
         print("Saved " + temp_filename)
-        #os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
+        os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
 
 
 elapsed_time = time.time() - start_time

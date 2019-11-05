@@ -7,7 +7,7 @@ from threading import Thread
 import pandas as pd
 from datetime import datetime
 import time
-
+import sys
 #things to do prepare ml dataset and higher quality mobile devices
 #also star tworking on aws lambda
 #athena client init
@@ -33,7 +33,7 @@ output_filename_one = 'result_max.csv'
 output_filename_two = 'result_ml.csv'
 output_filename_three = 'result_hq.csv'
 
-available_dates = ['20190913', '20190308', '20190513', '20191004', '20191011']
+available_dates = ['20190817',  '20190913', '20190308', '20190513', '20191004', '20191011']
 
 header_one = ['audience_segment_id', 'max']
 header_two = ['billboard_id', 'audience_segment_id', 'count', 'year', 'quarter', 'month', 'week_of_year']
@@ -50,6 +50,7 @@ def runMaxCount(num, date):
     if os.path.exists(output_path) and not overwrite:
         print(output_path + ' already saved')
     else:
+        print("Querying... for " + output_path)
         query = """
         SELECT id as audience_segment_id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
         (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
@@ -221,12 +222,12 @@ for d in available_dates:
     for i in range (0, 10):
         temp_df = pd.read_csv("max_" + d + "_" + str(i) + ".csv")
         combined_max_df = combined_max_df.merge(temp_df, how='outer')
-        os.system("rm max_" + d + "_" + str(i) + ".csv")
+        #os.system("rm max_" + d + "_" + str(i) + ".csv")
 
     for a in alphabet:
         temp_df = pd.read_csv("max_" + d + "_" + str(a) + ".csv")
         combined_max_df = combined_max_df.merge(temp_df, how='outer')
-        os.system("rm max_" + d + "_" + str(a) + ".csv")
+        #os.system("rm max_" + d + "_" + str(a) + ".csv")
 
 
 for n,g in combined_max_df.groupby('audience_segment_id'):
@@ -289,7 +290,8 @@ for n,g in combined_max_df.groupby('audience_segment_id'):
 #     os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
 
 #print(result_df.head())
-result_max_df.to_csv(output_filename, encoding='utf-8', index=False)
-os.system("aws s3 cp " + output_filename + " s3://result-output/")
+result_max_df['id'] = result_max_df['id'].astype(int)
+result_max_df.to_csv(output_filename_one, encoding='utf-8', index=False)
+os.system("aws s3 cp " + output_filename_one + " s3://result-output/")
 
 elapsed_time = time.time() - start_time
