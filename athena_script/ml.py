@@ -190,7 +190,7 @@ def runHQCount(date):
     #print(outputLocation)
 
 
-
+start_time = time.time()
 
 for d in available_dates:
     for i in range (0, 10):
@@ -245,6 +245,7 @@ for d in available_dates:
         temp_filename = "ml_" + d + "_" + str(a) + ".csv"
         temp_df = pd.read_csv(temp_filename)
         date_obj = datetime.strptime(d, '%Y%m%d')
+        temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
         temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
         temp_df['count'] = temp_df['count'].astype(float)
         temp_df['date'] = date_obj.strftime('%Y-%m-%d')
@@ -270,6 +271,7 @@ for d in available_dates:
         temp_filename = "ml_" + d + "_" + str(a) + ".csv"
         temp_df = pd.read_csv(temp_filename)
         date_obj = datetime.strptime(d, '%Y%m%d')
+        temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
         temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
         temp_df['count'] = temp_df['count'].astype(float)
         temp_df['date'] = date_obj.strftime('%Y-%m-%d')
@@ -297,7 +299,7 @@ for n,g in combined_ml_df.groupby('audience_segment_id'):
         temp_filename = 'ml_' + str(int(n)) + '_' + str(int(n2)) + ".csv"
         g2.to_csv(temp_filename, encoding='utf-8', index=False)
         print("Saved " + temp_filename)
-        os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
+        #os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
 
 
 elapsed_time = time.time() - start_time
