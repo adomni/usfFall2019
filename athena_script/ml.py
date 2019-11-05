@@ -6,6 +6,23 @@ from multiprocessing import Process
 from threading import Thread
 import pandas as pd
 from datetime import datetime
+import sys
+import os.path
+import time
+
+overwrite = False
+
+print('------------------------------------------')
+print('Creating timeseries dataset...')
+print('------------------------------------------')
+
+if len(sys.argv) == 2:
+    if sys.argv[1] == 'overwrite':
+        print('Overwrite Mode On')
+        overwrite = True
+else:
+    print('Overwrite Mode Off')
+
 
 #things to do prepare ml dataset and higher quality mobile devices
 #also star tworking on aws lambda
@@ -17,13 +34,18 @@ threads = []
 output_filename_one = 'result_max.csv'
 output_filename_two = 'result_ml.csv'
 output_filename_three = 'result_hq.csv'
-
+max_count_input = 'result_max.csv'
 available_dates = ['20190913', '20190308', '20190513', '20191004', '20191011']
 
 header_one = ['audience_segment_id', 'max']
 header_two = ['billboard_id', 'audience_segment_id', 'count', 'year', 'quarter', 'month', 'week_of_year']
 header_three = ['billboard_id', 'audience_id_one', 'audience_id_two', 'audience_id_three', 'count']
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
+
+
+combined_max_df = pd.DataFrame(columns=header_one)
+result_max_df = pd.read_csv(max_count_input)
+combined_ml_df = pd.DataFrame(columns=header_two)
 
 # age_segment = [39, 40, 41, 42, 43, 44, 45, 46, 47]
 # gender_segment [60, 61]
@@ -66,6 +88,7 @@ def runMaxCount(num, date):
         os.system("aws s3 cp " + outputLocation + " .")
         os.system("rm " + output_path)
         os.system("mv " + id + ".csv " + output_path)
+        os.system("rm " + id)
     #print(status_query)
     print("Max for " + num + ' ' + date)
     print(status)
@@ -74,46 +97,50 @@ def runMaxCount(num, date):
 
 #returns and saves count for each billboard id and audience segment
 def runGetCount(num, date):
-
-    query = """
-    SELECT a.billboard_id as billboard_id, c.id as audience_segment_id, count(distinct a.mobile_device_id) as count FROM
-    (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
-    (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
-    location_data.adomni_audience_segment c ON b.audience = c.placeiqid
-    GROUP BY a.billboard_id, c.id
-    """
-
-    response = client.start_query_execution(
-        QueryString = query,
-        QueryExecutionContext = {'Database': 'default'},
-        ResultConfiguration = {
-            'OutputLocation': 's3://athena-output-usf',
-            'EncryptionConfiguration': {
-            'EncryptionOption': 'SSE_S3'
-            }
-        }
-    )
-    id = response['QueryExecutionId']
-
-    while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
-        #print("Waiting... "  + num)
-        sleep(5)
-    status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
-    reason = ""
-    if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
-        reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
-    status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
-    outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
     output_path = 'ml_' + date + '_' + num + '.csv'
-    if status is not "FAILED":
-        os.system("aws s3 cp " + outputLocation + " .")
-        os.system("rm " + output_path)
-        os.system("mv " + id + ".csv " + output_path)
-    #print(status_query)
-    print('ML for ' + num + ' ' + date)
-    print(status)
-    print(reason)
-    #print(outputLocation)
+
+    if os.path.exists(output_path) and not overwrite:
+        print(output_path + ' already saved')
+    else:
+        query = """
+        SELECT a.billboard_id as billboard_id, c.id as audience_segment_id, count(distinct a.mobile_device_id) as count FROM
+        (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
+        (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
+        location_data.adomni_audience_segment c ON b.audience = c.placeiqid
+        GROUP BY a.billboard_id, c.id
+        """
+
+        response = client.start_query_execution(
+            QueryString = query,
+            QueryExecutionContext = {'Database': 'default'},
+            ResultConfiguration = {
+                'OutputLocation': 's3://athena-output-usf',
+                'EncryptionConfiguration': {
+                'EncryptionOption': 'SSE_S3'
+                }
+            }
+        )
+        id = response['QueryExecutionId']
+
+        while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
+            #print("Waiting... "  + num)
+            sleep(5)
+        status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
+        reason = ""
+        if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
+            reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
+        status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
+        outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
+
+        if status is not "FAILED":
+            os.system("aws s3 cp " + outputLocation + " .")
+            os.system("rm " + output_path)
+            os.system("mv " + id + ".csv " + output_path)
+        print(status_query)
+        print('ML for ' + num + ' ' + date)
+        print(status)
+        print(reason)
+        print(outputLocation)
 
 def runHQCount(date):
 
@@ -162,58 +189,65 @@ def runHQCount(date):
     print(reason)
     #print(outputLocation)
 
+
+start_time = time.time()
+
 for d in available_dates:
     for i in range (0, 10):
-        t1 = Thread(target=runGetCount, args=(str(i), d))
-        threads.append(t1)
-        t1.start()
-        t2 = Thread(target=runMaxCount, args=(str(i), d))
+        # t1 = Thread(target=runGetCount, args=(str(i), d))
+        # threads.append(t1)
+        # t1.start()
+        t2 = Thread(target=runGetCount, args=(str(i), d))
         threads.append(t2)
         t2.start()
-        sleep(5)
 
     for a in alphabet:
-        t1 = Thread(target=runGetCount, args=(str(a), d))
-        threads.append(t1)
-        t1.start()
-        t2 = Thread(target=runMaxCount, args=(str(a), d))
+        # t1 = Thread(target=runGetCount, args=(str(a), d))
+        # threads.append(t1)
+        # t1.start()
+        t2 = Thread(target=runGetCount, args=(str(a), d))
         threads.append(t2)
         t2.start()
-        sleep(5)
-    t3 = Thread(target=runHQCount, args=(d))
-    threads.append(t3)
-    t3.start()
-    sleep(5)
+    for x in threads:
+        x.join()
+    for x in threads:
+        threads.remove(x)
+    # t3 = Thread(target=runHQCount, args=(d))
+    # threads.append(t3)
+    # t3.start()
+    # sleep(5)
 
 for x in threads:
     x.join()
 
-combined_max_df = pd.DataFrame(columns=header_one)
-result_max_df = pd.DataFrame(columns=header_one)
-combined_ml_df = pd.DataFrame(columns=header_two)
+
 
 #for max
-for d in available_dates:
-    for i in range (0, 10):
-        temp_df = pd.read_csv("max_" + d + "_" + str(i) + ".csv")
-        combined_max_df = combined_max_df.merge(temp_df, how='outer')
-        os.system("rm max_" + d + "_" + str(i) + ".csv")
-
-    for a in alphabet:
-        temp_df = pd.read_csv("max_" + d + "_" + str(a) + ".csv")
-        combined_max_df = combined_max_df.merge(temp_df, how='outer')
-        os.system("rm max_" + d + "_" + str(a) + ".csv")
-
-
-for n,g in combined_max_df.groupby('audience_segment_id'):
-     max = g['max'].max()
-     result_max_df = result_max_df.append({'id': n, 'max': max}, ignore_index= True)
+# for d in available_dates:
+#     for i in range (0, 10):
+#         temp_df = pd.read_csv("max_" + d + "_" + str(i) + ".csv")
+#         combined_max_df = combined_max_df.merge(temp_df, how='outer')
+#         os.system("rm max_" + d + "_" + str(i) + ".csv")
+#
+#     for a in alphabet:
+#         temp_df = pd.read_csv("max_" + d + "_" + str(a) + ".csv")
+#         combined_max_df = combined_max_df.merge(temp_df, how='outer')
+#         os.system("rm max_" + d + "_" + str(a) + ".csv")
+#
+#
+# for n,g in combined_max_df.groupby('audience_segment_id'):
+#      max = g['max'].max()
+#      result_max_df = result_max_df.append({'id': n, 'max': max}, ignore_index= True)
 
 #for ml
 for d in available_dates:
     for i in range (0, 10):
-        temp_df = pd.read_csv("result_" + str(i) + "_" + d + ".csv")
+        temp_filename = "ml_" + d + "_" + str(a) + ".csv"
+        temp_df = pd.read_csv(temp_filename)
         date_obj = datetime.strptime(d, '%Y%m%d')
+        temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
+        temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
+        temp_df['count'] = temp_df['count'].astype(float)
         temp_df['date'] = date_obj.strftime('%Y-%m-%d')
         temp_df.date = pd.to_datetime(temp_df.date)
         temp_df['year'] = date_obj.strftime('%Y')
@@ -221,7 +255,7 @@ for d in available_dates:
         temp_df['month'] = date_obj.strftime('%m')
         temp_df['week_of_year'] = date_obj.strftime("%V")
         temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
-        temp_df.count = temp_df.count / temp_df.max
+        temp_df['count'] = temp_df['count']/temp_df['max']
         temp_df = temp_df.drop('max', 1)
         temp_df['range'] = '0'
         temp_df['range'][temp_df['count'] >= 0.2] = '1'
@@ -229,11 +263,17 @@ for d in available_dates:
         temp_df['range'][temp_df['count'] >= 0.6] = '3'
         temp_df['range'][temp_df['count'] >= 0.8] = '4'
         combined_ml_df = combined_ml_df.merge(temp_df, how='outer')
-        os.system("rm ml_" + d + "_" + str(a) + ".csv")
+        print(temp_filename + 'read')
+        print(temp_df.head())
+        #os.system("rm ml_" + d + "_" + str(a) + ".csv")
 
     for a in alphabet:
-        temp_df = pd.read_csv("result_" + str(a) + "_" + d + ".csv")
+        temp_filename = "ml_" + d + "_" + str(a) + ".csv"
+        temp_df = pd.read_csv(temp_filename)
         date_obj = datetime.strptime(d, '%Y%m%d')
+        temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
+        temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
+        temp_df['count'] = temp_df['count'].astype(float)
         temp_df['date'] = date_obj.strftime('%Y-%m-%d')
         temp_df.date = pd.to_datetime(temp_df.date)
         temp_df['year'] = date_obj.strftime('%Y')
@@ -241,7 +281,7 @@ for d in available_dates:
         temp_df['month'] = date_obj.strftime('%m')
         temp_df['week_of_year'] = date_obj.strftime("%V")
         temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
-        temp_df.count = temp_df.count / temp_df.max
+        temp_df['count'] = temp_df['count']/temp_df['max']
         temp_df = temp_df.drop('max', 1)
         temp_df['range'] = '0'
         temp_df['range'][temp_df['count'] >= 0.2] = '1'
@@ -249,21 +289,26 @@ for d in available_dates:
         temp_df['range'][temp_df['count'] >= 0.6] = '3'
         temp_df['range'][temp_df['count'] >= 0.8] = '4'
         combined_ml_df = combined_ml_df.merge(temp_df, how='outer')
-        os.system("rm ml_" + d + "_" + str(a) + ".csv")
+        print(temp_filename + 'read')
+        print(temp_df.head())
+        #os.system("rm ml_" + d + "_" + str(a) + ".csv")
 
 
 for n,g in combined_ml_df.groupby('audience_segment_id'):
     for n2, g2, in g.groupby('range'):
-        temp_filename = 'ml_' + n + '_' + n2 + ".csv"
+        temp_filename = 'ml_' + str(int(n)) + '_' + str(int(n2)) + ".csv"
         g2.to_csv(temp_filename, encoding='utf-8', index=False)
         print("Saved " + temp_filename)
-        os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
+        #os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
 
-#for hq
-for d in available_dates:
-    temp_filename = 'hq_' + date + '.csv'
-    os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
 
-#print(result_df.head())
-result_max_df.to_csv(output_filename, encoding='utf-8', index=False)
-os.system("aws s3 cp " + output_filename + " s3://result-output/")
+elapsed_time = time.time() - start_time
+print('Finished. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
+# #for hq
+# for d in available_dates:
+#     temp_filename = 'hq_' + date + '.csv'
+#     os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
+
+# #print(result_df.head())
+# result_max_df.to_csv(output_filename, encoding='utf-8', index=False)
+# os.system("aws s3 cp " + output_filename + " s3://result-output/")

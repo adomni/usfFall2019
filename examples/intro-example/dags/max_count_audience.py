@@ -102,7 +102,7 @@ def runQuery(num):
     print(outputLocation)
 
 threads = []
-output_filename = 'result.csv'
+output_filename = 'result_max.csv'
 for i in range (0, 10):
     t = Thread(target=runQuery, args=(str(i)))
     threads.append(t)
@@ -118,7 +118,7 @@ result_df = pd.DataFrame(columns=header)
 for i in range (0, 10):
     temp_df = pd.read_csv("result_" + str(i) + ".csv")
     combined_df = combined_df.merge(temp_df, how='outer')
-    os.system("del result_" + str(i) + ".csv")
+    os.system("rm result_" + str(i) + ".csv")
 
 
 for n,g in combined_df.groupby('id'):
@@ -128,7 +128,7 @@ for n,g in combined_df.groupby('id'):
 print(result_df.head())
 result_df.to_csv(output_filename, encoding='utf-8', index=False)
 
-os.system("aws s3 cp " + "./" + output_filename + "s3://result-output/")
+os.system("aws s3 cp " + output_filename + " s3://result-output/")
 
 #for results in response:
         #for row in results['ResultSet']:
