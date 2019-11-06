@@ -1,0 +1,88 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Adomni USF Lambda
+Parameters:
+  LogLevel:
+    Type: String
+
+Resources:
+  TransactionBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: adomni-usf-lambda-exchange
+
+  USFLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda.start_usf_processor
+      Runtime: python3.7
+      CodeUri: ./LambdaDeploy.zip
+      Description: >-
+        The usf code
+      MemorySize: 3008
+      Timeout: 900
+      Role: !GetAtt LambdaExecutionRole.Arn
+
+      Environment:
+        Variables:
+          USF_LOG_LEVEL: !Ref LogLevel
+
+      Events:
+        EveryHour:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+        EveryMinute:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
+        FileUploaded:
+          Type: S3
+          Properties:
+            Bucket: !Ref TransactionBucket
+            Events: s3:ObjectCreated:*
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - s3:*
+                Resource:
+                  - arn:aws:s3:::adomni-usf-place-iq/*
+                  - arn:aws:s3:::adomni-usf-place-iq
+                  - arn:aws:s3:::adomni-usf-lambda-exchange/*
+                  - arn:aws:s3:::adomni-usf-lambda-exchange
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource:
+                  - arn:aws:dynamodb:us-east-1:734644148268:table/*
+              - Effect: Allow
+                Action:
+                  - athena:*
+                Resource:
+                  - arn:aws:athena:us-east-1:734644148268:workgroup/*

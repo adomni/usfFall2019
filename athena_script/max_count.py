@@ -232,7 +232,7 @@ for d in available_dates:
 
 for n,g in combined_max_df.groupby('audience_segment_id'):
      max = g['max'].max()
-     result_max_df = result_max_df.append({'id': n, 'max': max}, ignore_index= True)
+     result_max_df = result_max_df.append({'audience_segment_id': n, 'max': max}, ignore_index= True)
 
 # #for ml
 # for d in available_dates:
@@ -290,7 +290,7 @@ for n,g in combined_max_df.groupby('audience_segment_id'):
 #     os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
 
 #print(result_df.head())
-result_max_df['id'] = result_max_df['id'].astype(int)
+result_max_df['audience_segment_id'] = result_max_df['audience_segment_id'].astype(int)
 result_max_df.to_csv(output_filename_one, encoding='utf-8', index=False)
 os.system("aws s3 cp " + output_filename_one + " s3://result-output/")
 
