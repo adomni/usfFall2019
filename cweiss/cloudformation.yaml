@@ -7,6 +7,11 @@ Parameters:
     Type: String
 
 Resources:
+  TransactionBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: adomni-usf-lambda-exchange
+
   USFLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -32,6 +37,11 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: rate(1 minute)
+        FileUploaded:
+          Type: S3
+          Properties:
+            Bucket: !Ref TransactionBucket
+            Events: s3:ObjectCreated:*
 
   LambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -64,6 +74,8 @@ Resources:
                 Resource:
                   - arn:aws:s3:::adomni-usf-place-iq/*
                   - arn:aws:s3:::adomni-usf-place-iq
+                  - arn:aws:s3:::adomni-usf-lambda-exchange/*
+                  - arn:aws:s3:::adomni-usf-lambda-exchange
               - Effect: Allow
                 Action:
                   - dynamodb:*
