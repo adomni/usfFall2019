@@ -138,9 +138,9 @@ def runHQCount(date):
     else:
         print("Querying... for " + output_path)
         query = """
-        SELECT f.mobile_device_id, f.as_one_id, f.as_two_id, f.as_three_id, COUNT(*) as count FROM (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """) g LEFT JOIN
+        SELECT g.billboard_id, f.as_one_id, f.as_two_id, f.as_three_id, COUNT(*) as count FROM (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """) g LEFT JOIN
         (SELECT c.mobile_device_id, c.id as as_one_id, d.id as as_two_id, e.id as as_three_id FROM
-        (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('39', '40', '41', '42', '43', '44', '45', '46', '47') limit 10000) c
+        (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('39', '40', '41', '42', '43', '44', '45', '46', '47')) c
         INNER JOIN
         (SELECT a.mobile_device_id, id FROM (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) a left join location_data.adomni_audience_segment b on a.audience = b.placeiqid where id in ('60', '61')) d
         ON c.mobile_device_id = d.mobile_device_id
