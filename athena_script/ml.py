@@ -318,8 +318,8 @@ def transform_and_dynamo(i):
 
                     #row = {'billboard_id': n, 'audience_segment_id': n2, 'count': new_count,date,year,quarter,month,woy}
                     #table.put_item(Item=row)
-            new_df = new_df.sort_values('week_of_year')
-            new_df['count'] = new_df['count'].interpolate(method='linear', axis=0).bfill()
+            new_df = new_df.sort_values('date')
+            new_df['count'] = new_df['count'].interpolate(method='linear', axis=0).ffill().bfill()
             # new_df['billboard_id'] = n
             # new_df['audience_segment_id'] = n2
             new_df['audience_segment_id'] = new_df['audience_segment_id'].astype(int)
