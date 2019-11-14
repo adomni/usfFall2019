@@ -10,15 +10,17 @@ import sys
 import os.path
 import time
 from boto3 import dynamodb
+import numpy as np
 
 from boto3.session import Session
 from boto3.dynamodb.conditions import Key
-
+pd.set_option('display.max_columns', 7)
 dynamodb_session = Session(aws_access_key_id = access_key, aws_secret_access_key = secret_key, region_name = region_name)
 
 dynamodb = dynamodb_session.resource('dynamodb')
 table = dynamodb.Table('machine_learning')
 
+table.put_item(Item = {'billboard_audience_segment_id': 'test', 'week_of_year': 'test', 'test' :'test'})
 overwrite = False
 
 print('------------------------------------------')
@@ -44,10 +46,11 @@ output_filename_one = 'result_max.csv'
 output_filename_two = 'result_ml.csv'
 output_filename_three = 'result_hq.csv'
 max_count_input = 'result_max.csv'
-available_dates = ['20190817', '20190913', '20190308', '20190513', '20191004', '20191011']
+available_dates = ['20190817', '20190913', '20190308', '20190513', '20191004', '20191011', '20191018', '20191025', '20191101']
 
 header_one = ['audience_segment_id', 'max']
-header_two = ['billboard_id', 'audience_segment_id', 'count', 'date', 'year', 'quarter', 'month', 'week_of_year']
+header_two = ['billboard_id', 'audience_segment_id', 'count', 'date', 'week_of_year']
+#header_two = ['billboard_id', 'audience_segment_id', 'count', 'date', 'year', 'quarter', 'month', 'week_of_year']
 header_three = ['billboard_id', 'audience_id_one', 'audience_id_two', 'audience_id_three', 'count']
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f']
 
@@ -61,48 +64,48 @@ combined_ml_df = pd.DataFrame(columns=header_two)
 # all_other_segment = [737,738,739,741,740,743,742,744,746,745,748,747,749,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,48,49,50,51,52,53,54,55,56,57,58,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,735,91,92,93,94,95,96,97,750,733,98,99,734,100,101,102,103,104,105,106,796,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,761,762,767,779,768,763,769,770,780,771,764,772,773,786,774,775,776,777,791,781,778,787,788,789,783,784,782,785,790,765,766,792,793,794,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,795,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,751,753,757,754,752,760,755,756,758,759,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,798,799,800,801,802,803,804,805,806,808,809,810,811,812,813,814,815,816,817,818,819,820,821,797,807,822,823,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,736,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,395,394,397,396,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,559,560,561,562,563,564,565,566,567,568,569,570,571,572,573,574,575,576,577,578,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,595,596,597,598,599,825,826,827,828,824,829,830,831,600,601,602,603,604,605,606,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,622,623,624,625,626,627,628,629,630,631,632,633,634,635,636,637,638,639,640,641,642,643,644,645,646,647,648,649,650,651,652,653,654,655,656,657,658,659,660,661,662,663,664,665,666,667,668,669,670,671,672,673,674,675,676,677,678,679,680,681,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,697,698,699,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,718,719,720,721,722,723,724,725,726,727,728,729,730,731,732]
 
 #get Max count for each audience_segment_id
-def runMaxCount(num, date):
-
-    query = """
-    SELECT id as audience_segment_id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
-    (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
-    (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
-    location_data.adomni_audience_segment c ON b.audience = c.placeiqid
-    GROUP BY a.billboard_id, c.id) abc GROUP BY id ORDER BY id asc
-    """
-
-    response = client.start_query_execution(
-        QueryString = query,
-        QueryExecutionContext = {'Database': 'default'},
-        ResultConfiguration = {
-            'OutputLocation': 's3://athena-output-usf',
-            'EncryptionConfiguration': {
-            'EncryptionOption': 'SSE_S3'
-            }
-        }
-    )
-    id = response['QueryExecutionId']
-
-    while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
-        #print("Waiting... "  + num)
-        sleep(5)
-    status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
-    reason = ""
-    if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
-        reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
-    status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
-    outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
-    output_path = 'max_' + date + '_' + num + '.csv'
-    if status is not "FAILED":
-        os.system("aws s3 cp " + outputLocation + " .")
-        os.system("rm " + output_path)
-        os.system("mv " + id + ".csv " + output_path)
-        os.system("rm " + id)
-    #print(status_query)
-    print("Max for " + num + ' ' + date)
-    print(status)
-    print(reason)
-    #print(outputLocation)
+# def runMaxCount(num, date):
+#
+#     query = """
+#     SELECT id as audience_segment_id, max(count) as max FROM (SELECT a.billboard_id, c.id, count(distinct a.mobile_device_id) as count FROM
+#     (SELECT * FROM location_data.billboard_devices_partitioned WHERE dt=""" + date + """ and billboard_id like '""" + num + """%') a LEFT JOIN
+#     (SELECT * FROM location_data.device_audiences_partitioned WHERE dt=""" + date + """) b ON a.mobile_device_id = b.mobile_device_id LEFT JOIN
+#     location_data.adomni_audience_segment c ON b.audience = c.placeiqid
+#     GROUP BY a.billboard_id, c.id) abc GROUP BY id ORDER BY id asc
+#     """
+#
+#     response = client.start_query_execution(
+#         QueryString = query,
+#         QueryExecutionContext = {'Database': 'default'},
+#         ResultConfiguration = {
+#             'OutputLocation': 's3://athena-output-usf',
+#             'EncryptionConfiguration': {
+#             'EncryptionOption': 'SSE_S3'
+#             }
+#         }
+#     )
+#     id = response['QueryExecutionId']
+#
+#     while (client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State'] == 'RUNNING'):
+#         #print("Waiting... "  + num)
+#         sleep(5)
+#     status = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['State']
+#     reason = ""
+#     if 'StateChangeReason' in client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']:
+#         reason = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Status']['StateChangeReason']
+#     status_query = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['Query']
+#     outputLocation = client.get_query_execution(QueryExecutionId = response['QueryExecutionId'])['QueryExecution']['ResultConfiguration']['OutputLocation']
+#     output_path = 'max_' + date + '_' + num + '.csv'
+#     if status is not "FAILED":
+#         os.system("aws s3 cp " + outputLocation + " .")
+#         os.system("rm " + output_path)
+#         os.system("mv " + id + ".csv " + output_path)
+#         os.system("rm " + id)
+#     #print(status_query)
+#     print("Max for " + num + ' ' + date)
+#     print(status)
+#     print(reason)
+#     #print(outputLocation)
 
 #returns and saves count for each billboard id and audience segment
 def runGetCount(num, date):
@@ -202,16 +205,20 @@ def runGetCount(num, date):
 
 start_time = time.time()
 
-for d in available_dates:
-    for i in range (0, 10):
+for i in range (0, 10):
+    for d in available_dates:
         # t1 = Thread(target=runGetCount, args=(str(i), d))
         # threads.append(t1)
         # t1.start()
         t2 = Thread(target=runGetCount, args=(str(i), d))
         threads.append(t2)
         t2.start()
-
-    for a in alphabet:
+    for x in threads:
+        x.join()
+    for x in threads:
+        threads.remove(x)
+for a in alphabet:
+    for d in available_dates:
         # t1 = Thread(target=runGetCount, args=(str(a), d))
         # threads.append(t1)
         # t1.start()
@@ -227,8 +234,7 @@ for d in available_dates:
     # t3.start()
     # sleep(5)
 
-for x in threads:
-    x.join()
+
 
 
 
@@ -250,8 +256,9 @@ for x in threads:
 #      result_max_df = result_max_df.append({'id': n, 'max': max}, ignore_index= True)
 
 #for ml
-for i in range (0, 10):
-    combined_max_df = pd.DataFrame(columns=header_one)
+
+def transform_and_dynamo(i):
+    combined_ml_df = pd.DataFrame(columns=header_two)
     for d in available_dates:
         temp_filename = "ml_" + d + "_" + str(i) + ".csv"
         temp_df = pd.read_csv(temp_filename)
@@ -260,52 +267,79 @@ for i in range (0, 10):
         temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
         temp_df['count'] = temp_df['count'].astype(float)
         temp_df['date'] = date_obj.strftime('%Y-%m-%d')
-        temp_df.date = pd.to_datetime(temp_df.date)
-        temp_df['year'] = date_obj.strftime('%Y')
-        temp_df['quarter'] = pd.PeriodIndex(temp_df.date, freq='Q')
-        temp_df['month'] = date_obj.strftime('%m')
+        # temp_df.date = pd.to_datetime(temp_df.date)
+        # temp_df['year'] = date_obj.strftime('%Y')
+        # temp_df['quarter'] = pd.PeriodIndex(temp_df.date, freq='Q')
+        # temp_df['month'] = date_obj.strftime('%m')
         temp_df['week_of_year'] = date_obj.strftime("%V")
-        temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
-        temp_df['count'] = temp_df['count']/temp_df['max']
-        temp_df = temp_df.drop('max', 1)
-        temp_df['range'] = '0'
-        temp_df['range'][temp_df['count'] >= 0.2] = '1'
-        temp_df['range'][temp_df['count'] >= 0.4] = '2'
-        temp_df['range'][temp_df['count'] >= 0.6] = '3'
-        temp_df['range'][temp_df['count'] >= 0.8] = '4'
+        # temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
+        # temp_df['count'] = temp_df['count']/temp_df['max']
+        # temp_df = temp_df.drop('max', 1)
+        # temp_df['range'] = '0'
+        # temp_df['range'][temp_df['count'] >= 0.2] = '1'
+        # temp_df['range'][temp_df['count'] >= 0.4] = '2'
+        # temp_df['range'][temp_df['count'] >= 0.6] = '3'
+        # temp_df['range'][temp_df['count'] >= 0.8] = '4'
         combined_ml_df = combined_ml_df.merge(temp_df, how='outer')
         print(temp_filename + 'read')
-        dictdata = temp_filename.T.to_dict().values()
-        print('to dict')
-        for tempdata in dictdata:
-            table.put_item(Item=tempdata)
+        # dictdata = temp_filename.T.to_dict().values()
+        # print('to dict')
+        # for tempdata in dictdata:
+        #     print('inserting')
+        #     table.put_item(Item=tempdata)
     print(combined_ml_df.head())
-['billboard_id', 'audience_segment_id', 'count', 'date', 'year', 'quarter', 'month', 'week_of_year']
+#['billboard_id', 'audience_segment_id', 'count', 'date', 'year', 'quarter', 'month', 'week_of_year']
     min_week = int(combined_ml_df['week_of_year'].min())
     max_week = int(combined_ml_df['week_of_year'].max())
     diff = max_week - min_week
     for n,g in combined_ml_df.groupby('billboard_id'):
         for n2, g2, in g.groupby('audience_segment_id'):
+            new_df = g2
             s = g2.week_of_year.tolist()
-            for index in range(min_week + 1, max_week):
+            for index in range(0 , 53):
                 if str(index) not in s:
                     d = "2019-W" + str(index)
-                    min_count = g2.loc[g2['week_of_year'] == str(min_week), 'count'].iloc[0]
-                    max_count = g2.loc[g2['week_of_year'] == str(max_week), 'count'].iloc[0]
-                    rate = (max_count - min_count)/diff
-                    diff_week = index - min_week
-                    add_count = diff_week * rate
-                    new_count = int(min_count + add_count)
                     date_obj = datetime.strptime(d + '-1', "%Y-W%W-%w")
                     date = date_obj.strftime('%Y-%m-%d')
-                    year = date_obj.strftime('%Y')
-                    quarter = pd.PeriodIndex(temp_df.date, freq='Q')
-                    month = date_obj.strftime('%m')
                     woy = str(index)
-                    row = [n,n2,new_count,date,year,quarter,month,woy]
+                    row = [n, n2, np.nan, date, woy]
+                    new_df = new_df.append(pd.Series(row, index=new_df.columns), ignore_index=True)
+                    # min_count = g2.loc[g2['week_of_year'] == str(min_week), 'count'].iloc[0]
+                    # max_count = g2.loc[g2['week_of_year'] == str(max_week), 'count'].iloc[0]
+                    # rate = (max_count - min_count)/diff
+                    # diff_week = index - min_week
+                    # add_count = diff_week * rate
+                    # new_count = int(min_count + add_count)
+
+                    # date = date_obj.strftime('%Y-%m-%d')
+                    # year = date_obj.strftime('%Y')
+                    # quarter = pd.PeriodIndex(temp_df.date, freq='Q')
+                    # month = date_obj.strftime('%m')
+
+                    #row = {'billboard_id': n, 'audience_segment_id': n2, 'count': new_count,date,year,quarter,month,woy}
+                    #table.put_item(Item=row)
+            new_df = new_df.sort_values('week_of_year')
+            new_df['count'] = new_df['count'].interpolate(method='linear', axis=0).bfill()
+            # new_df['billboard_id'] = n
+            # new_df['audience_segment_id'] = n2
+            new_df['audience_segment_id'] = new_df['audience_segment_id'].astype(int)
+            new_df['audience_segment_id'] = new_df['audience_segment_id'].astype(str)
+            new_df['billboard_audience_segment_id'] = new_df['billboard_id'] + new_df['audience_segment_id']
+            new_header = ['billboard_audience_segment_id', 'week_of_year', 'count', 'date']
+            new_df = new_df[new_header]
+            new_df['count'] = new_df['count'].astype(str)
+
+            print(new_df.head())
+            dictdata = new_df.T.to_dict().values()
+            for tempdata in dictdata:
+                 print('inserting')
+                 table.put_item(Item=tempdata)
 
 
     print('calulated')
+    print('Processed: ' + str(i) + '. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
+for i in range (0, 10):
+    transform_and_dynamo(i)
     # for i in combined_ml_df.columns:
     #     combined_ml_df[i] = combined_ml_df[i].astype(str)
     # dictdata = combined_ml_df.T.to_dict().values()
@@ -316,36 +350,37 @@ for i in range (0, 10):
         #os.system("rm ml_" + d + "_" + str(a) + ".csv")
 
 for a in alphabet:
-    combined_max_df = pd.DataFrame(columns=header_one)
-    for d in available_dates:
-        temp_filename = "ml_" + d + "_" + str(a) + ".csv"
-        temp_df = pd.read_csv(temp_filename)
-        date_obj = datetime.strptime(d, '%Y%m%d')
-        temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
-        temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
-        temp_df['count'] = temp_df['count'].astype(float)
-        temp_df['date'] = date_obj.strftime('%Y-%m-%d')
-        temp_df.date = pd.to_datetime(temp_df.date)
-        temp_df['year'] = date_obj.strftime('%Y')
-        temp_df['quarter'] = pd.PeriodIndex(temp_df.date, freq='Q')
-        temp_df['month'] = date_obj.strftime('%m')
-        temp_df['week_of_year'] = date_obj.strftime("%V")
-        temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
-        temp_df['count'] = temp_df['count']/temp_df['max']
-        temp_df = temp_df.drop('max', 1)
-        temp_df['range'] = '0'
-        temp_df['range'][temp_df['count'] >= 0.2] = '1'
-        temp_df['range'][temp_df['count'] >= 0.4] = '2'
-        temp_df['range'][temp_df['count'] >= 0.6] = '3'
-        temp_df['range'][temp_df['count'] >= 0.8] = '4'
-        combined_ml_df = combined_ml_df.merge(temp_df, how='outer')
-        print(temp_filename + 'read')
-    print(combined_ml_df.head())
-    # for i in combined_ml_df.columns:
-    #     combined_ml_df[i] = combined_ml_df[i].astype(str)
-    dictdata = combined_ml_df.T.to_dict().values()
-    for tempdata in dictdata:
-        table.put_item(Item=tempdata)
+    transform_and_dynamo(a)
+    # combined_max_df = pd.DataFrame(columns=header_one)
+    # for d in available_dates:
+    #     temp_filename = "ml_" + d + "_" + str(a) + ".csv"
+    #     temp_df = pd.read_csv(temp_filename)
+    #     date_obj = datetime.strptime(d, '%Y%m%d')
+    #     temp_df = temp_df.dropna(axis=0, subset=['audience_segment_id'])
+    #     temp_df['audience_segment_id'] = temp_df['audience_segment_id'].astype(int)
+    #     temp_df['count'] = temp_df['count'].astype(float)
+    #     temp_df['date'] = date_obj.strftime('%Y-%m-%d')
+    #     temp_df.date = pd.to_datetime(temp_df.date)
+    #     temp_df['year'] = date_obj.strftime('%Y')
+    #     temp_df['quarter'] = pd.PeriodIndex(temp_df.date, freq='Q')
+    #     temp_df['month'] = date_obj.strftime('%m')
+    #     temp_df['week_of_year'] = date_obj.strftime("%V")
+    #     temp_df = pd.merge(temp_df, result_max_df, how='left', on=['audience_segment_id'])
+    #     temp_df['count'] = temp_df['count']/temp_df['max']
+    #     temp_df = temp_df.drop('max', 1)
+    #     temp_df['range'] = '0'
+    #     temp_df['range'][temp_df['count'] >= 0.2] = '1'
+    #     temp_df['range'][temp_df['count'] >= 0.4] = '2'
+    #     temp_df['range'][temp_df['count'] >= 0.6] = '3'
+    #     temp_df['range'][temp_df['count'] >= 0.8] = '4'
+    #     combined_ml_df = combined_ml_df.merge(temp_df, how='outer')
+    #     print(temp_filename + 'read')
+    # print(combined_ml_df.head())
+    # # for i in combined_ml_df.columns:
+    # #     combined_ml_df[i] = combined_ml_df[i].astype(str)
+    # dictdata = combined_ml_df.T.to_dict().values()
+    # for tempdata in dictdata:
+    #     table.put_item(Item=tempdata)
         #os.system("rm ml_" + d + "_" + str(a) + ".csv")
 
 
