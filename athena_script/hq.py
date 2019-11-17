@@ -295,12 +295,15 @@ combined_ml_df = pd.DataFrame(columns=header_two)
 for d in available_dates:
     temp_filename = 'hq_' + d + '.csv'
     final_df = pd.read_csv(temp_filename)
+    for n,g in final_df.groupby('billboard_id'):
+        dictdata = g.T.to_dict().values()
+        for tempdata in dictdata:
+            print('inserting')
+            table.put_item(Item=tempdata)
     print('to dict')
-    dictdata = final_df.T.to_dict().values()
-    for tempdata in dictdata:
-        print('inserting')
-        table.put_item(Item=tempdata)
-    os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
+
+
+    #os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
 
 elapsed_time = time.time() - start_time
 print('Finished. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
