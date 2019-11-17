@@ -19,7 +19,7 @@ s3 = boto3.resource('s3')
 
 
 @retry(
-    # Try it until 3 minutes have passed.
+    # Try it until 5 minutes have passed.
     stop_max_delay = 1000 * 60 * 5,   
     # Sleep 0.2 second. 
     wait_fixed = 200
