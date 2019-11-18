@@ -7,12 +7,11 @@ import boto3
 from algo_test import calculate_score
 # Set all these variables when you upload (
 bucket_name = 'lambda-output-test2'
-locationHash = '50158cf1c6fded24e3b510d0d6dbd8e3'
-algorithm = 'KEI'
+
 unconverted_prefix='unconverted'
 converted_prefix='ready'
 
-audience_ids = ['44', '61', '748']
+
 
 # While a file shows up in the unconverted bucket, run our processor
 def start_usf_processor(event, context):
@@ -34,23 +33,28 @@ def start_usf_processor(event, context):
             if (infile_key.startswith(unconverted_prefix)):
                 input_bucket = event.get('Records')[0].get('s3').get('bucket').get('name')
                 input_json = get_s3(input_bucket, infile_key)
-
-                outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
-                print("Started ok, outfile is " + outfile_key)
-                score = calculate_score(locationHash, audience_ids)
-                data = {
-                    "request": {
-                        "locationHash":locationHash,
-                        "algorithm": algorithm,
-                        "audienceSegmentIds": audience_ids
-                    },
-                    "score" : score,
-                    "errors": []
-                }
-                with open('temp/' + outfile_key, 'w') as outfile:
-                    json.dump(data, outfile)
-                put_s3(outfile_key)
-                return {'status' : 'ok', 'message' : outfile_key}
+                if 'locationHash' in input_json and 'algorithm' in input_json and 'audienceSegmentIds' in input_json:
+                    locationHash = input_json['locationHash']
+                    algorithm = input_json['algorithm']
+                    audience_ids = input_json['audienceSegmentIds']
+                    outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
+                    print("Started ok, outfile is " + outfile_key)
+                    score = calculate_score(locationHash, audience_ids)
+                    data = {
+                        "request": {
+                            "locationHash":locationHash,
+                            "algorithm": algorithm,
+                            "audienceSegmentIds": audience_ids
+                        },
+                        "score" : score,
+                        "errors": []
+                    }
+                    with open('temp/' + outfile_key, 'w') as outfile:
+                        json.dump(data, outfile)
+                    put_s3(outfile_key)
+                    return {'status' : 'ok', 'message' : outfile_key}
+                else:
+                    return {'status' : 'ignored', 'message' : 'invalid input json format'}
             else :
                 return {'status' : 'ignored', 'message' : 'wrong path'}
 
