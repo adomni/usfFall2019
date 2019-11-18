@@ -1,0 +1,5 @@
+{
+  "locationHash": "1234567890",
+  "algorithm" : "KEI",
+  "audienceSegmentIds": [1,2,3,4]
+}
