@@ -339,7 +339,10 @@ def transform_and_dynamo(i):
     print('calulated')
     print('Processed: ' + str(i) + '. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
 for i in range (0, 10):
-    transform_and_dynamo(i)
+    t2 = Thread(target=transform_and_dynamo, args=(i,))
+    threads.append(t2)
+    t2.start()
+
     # for i in combined_ml_df.columns:
     #     combined_ml_df[i] = combined_ml_df[i].astype(str)
     # dictdata = combined_ml_df.T.to_dict().values()
@@ -350,7 +353,14 @@ for i in range (0, 10):
         #os.system("rm ml_" + d + "_" + str(a) + ".csv")
 
 for a in alphabet:
-    transform_and_dynamo(a)
+    t2 = Thread(target=transform_and_dynamo, args=(a,))
+    threads.append(t2)
+    t2.start()
+
+for x in threads:
+    x.join()
+for x in threads:
+    threads.remove(x)
     # combined_max_df = pd.DataFrame(columns=header_one)
     # for d in available_dates:
     #     temp_filename = "ml_" + d + "_" + str(a) + ".csv"
