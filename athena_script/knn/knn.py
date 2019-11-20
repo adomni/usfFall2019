@@ -186,7 +186,7 @@ def runKNN(num, i):
 start_time = time.time()
 
 for a in itertools.chain(range (0, 10), alphabet):
-    for i in range(0,8):
+    for i in range(0,9):
         t3 = Thread(target=runKNN, args=(str(a), i))
         threads.append(t3)
         t3.start()
@@ -201,7 +201,7 @@ result_df = pd.DataFrame()
 
 for i in itertools.chain(range (0, 10), alphabet):
     combined_df = pd.DataFrame()
-    for a in range(0,8):
+    for a in range(0,9):
         output_path = 'knn_' + str(i) + '_part_' + str(a) + '.csv'
         temp_df = pd.read_csv(output_path)
         print(output_path + ' read')
@@ -209,15 +209,20 @@ for i in itertools.chain(range (0, 10), alphabet):
             combined_df = temp_df
         else:
             combined_df = pd.merge(combined_df, temp_df, how='left', on=['billboard_id'])
-    result_df = result_df.merge(combined_df, how='outer')
+    if i == 0:
+        result_df = combined_df
+    else:
+        result_df = result_df.merge(combined_df, how='outer')
 
     #os.system("rm max_" + d + "_" + str(i) + ".csv")
 
 billboard_info_path = 'billboards_20191112.csv'
 billboard_info_df = pd.read_csv(billboard_info_path)
-billboard_info_df.rename(columns={'locationHash':'billboard_id'})
+billboard_info_df = billboard_info_df.rename(columns={'locationHash':'billboard_id'})
 
-final_df = pd.merge(billboard_info_df, result_df, how='left', on=['billboard_id'])
+print(billboard_info_df.head())
+print(result_df.head())
+final_df = pd.merge(billboard_info_df, result_df, how='inner', on=['billboard_id'])
     #os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
 
 elapsed_time = time.time() - start_time
@@ -225,4 +230,4 @@ print('Finished. Elapsed Time: ' + time.strftime("%H:%M:%S", time.gmtime(elapsed
 #
 # #print(result_df.head())
 final_df.to_csv(output_filename, encoding='utf-8', index=False)
-# os.system("aws s3 cp " + output_filename + " s3://result-output/")
+os.system("aws s3 cp " + output_filename + " s3://result-output/knn/")
