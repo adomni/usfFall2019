@@ -291,16 +291,36 @@ combined_ml_df = pd.DataFrame(columns=header_two)
 #         print("Saved " + temp_filename)
 #         os.system("aws s3 cp " + temp_filename + " s3://result-output/machine_learning/")
 
+threads = []
+
+def putItem(dictdata):
+    for tempdata in dictdata:
+        print('inserting')
+        table.put_item(Item=tempdata)
 #for hq
 for d in available_dates:
     temp_filename = 'hq_' + d + '.csv'
     final_df = pd.read_csv(temp_filename)
+    final_df = final_df.dropna()
+    final_df['as_one_id'] = final_df['as_one_id'].astype(int)
+    final_df['as_one_id'] = final_df['as_one_id'].astype(str)
+    final_df['as_two_id'] = final_df['as_two_id'].astype(int)
+    final_df['as_two_id'] = final_df['as_two_id'].astype(str)
+    final_df['as_three_id'] = final_df['as_three_id'].astype(int)
+    final_df['as_three_id'] = final_df['as_three_id'].astype(str)
+    final_df['count'] = final_df['count'].astype(str)
     for n,g in final_df.groupby('billboard_id'):
+        print(n)
+        print('to dict')
         dictdata = g.T.to_dict().values()
-        for tempdata in dictdata:
-            print('inserting')
-            table.put_item(Item=tempdata)
-    print('to dict')
+        t2 = Thread(target=putItem, args=(dictdata,))
+        threads.append(t2)
+        t2.start()
+    for x in threads:
+        x.join()
+    for x in threads:
+        threads.remove(x)
+
 
 
     #os.system("aws s3 cp " + temp_filename + " s3://result-output/high_quality/")
