@@ -118,7 +118,7 @@ def get_score3():
     return 0
 
 
-# Normalized score based on the location type. 
+# Normalized score based on the clusters that are captured by K-Means Clustering. 
 def get_score4():
 
     # TODO: 
@@ -147,7 +147,7 @@ def calculate_score(billboard_id, audience_ids):
     score3 = get_score3()
     print('score3:', score3)
 
-    # Normalized score based on the location type. 
+    # Normalized score based on the clusters that are captured by K-Means Clustering. 
     score4 = get_score4()
     print('score4:', score4)
     
@@ -171,7 +171,7 @@ def calculate_score(billboard_id, audience_ids):
 # W1: Weight for normalized score based on the count of mobile devices for given audiences. 
 # W2: Weight for normalized score based on the count of mobile devices for any audience. 
 # W3: Weight for normalized score based on the count of high quality mobile devices. 
-# W4: Weight for normalized score based on the location type correlated well with the high counts for specific audiences. 
+# W4: Weight for normalized score based on the clusters that are captured by K-Means Clustering.
 W1 = 0.25
 W2 = 0.25
 W3 = 0.25
