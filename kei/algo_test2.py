@@ -112,9 +112,18 @@ def get_score2(billboard_id):
 
 # Normalized score based on the count of high quality mobile devices. 
 def get_score3():
+
+    # TODO: 
+
     return 0
 
 
+# Normalized score based on the location type. 
+def get_score4():
+
+    # TODO: 
+
+    return 0
 
 
 
@@ -138,9 +147,9 @@ def calculate_score(billboard_id, audience_ids):
     score3 = get_score3()
     print('score3:', score3)
 
-    # TODO: Normalized score based on the location type correlated well with the high counts for specific audiences. Need to confirm. 
-    # score4 = get_score4()
-
+    # Normalized score based on the location type. 
+    score4 = get_score4()
+    print('score4:', score4)
     
 
     adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4);
@@ -163,10 +172,10 @@ def calculate_score(billboard_id, audience_ids):
 # W2: Weight for normalized score based on the count of mobile devices for any audience. 
 # W3: Weight for normalized score based on the count of high quality mobile devices. 
 # W4: Weight for normalized score based on the location type correlated well with the high counts for specific audiences. 
-W1 = 0.5
-W2 = 0.5
-W3 = 0
-W4 = 0
+W1 = 0.25
+W2 = 0.25
+W3 = 0.25
+W4 = 0.25
 
 # Test cases
 # billboard_id = 'dbb561c792f78028f262e88ce95f857c'
