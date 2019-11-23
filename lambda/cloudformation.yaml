@@ -22,6 +22,9 @@ Resources:
         The usf code
       MemorySize: 3008
       Timeout: 900
+      Layers:
+        - arn:aws:lambda:us-east-1:668099181075:layer:AWSLambda-Python37-SciPy1x:2
+        - arn:aws:lambda:us-east-1:734644148268:layer:Pandas-2_3-Python-3_7:1
       Role: !GetAtt LambdaExecutionRole.Arn
 
       Environment:

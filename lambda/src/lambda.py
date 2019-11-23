@@ -6,9 +6,8 @@ import json
 import boto3
 import pytz
 from datetime import datetime
-# from algo_test import calculate_score
+from algo_test import calculate_score
 # Set all these variables when you upload (
-#bucket_name = 'lambda-output-test2'
 
 unconverted_prefix='input'
 converted_prefix='output'
@@ -41,8 +40,8 @@ def start_usf_processor(event, context):
                     audience_ids = input_json['audienceSegmentIds']
                     outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
                     print("Started ok, outfile is " + outfile_key)
-                    # score = calculate_score(locationHash, audience_ids)
-                    score = 42
+                    score = calculate_score(locationHash, audience_ids)
+                    # score = 42 # The best number
                     data = {
                         "request": input_json,
                         "generated": timestamp_st,

@@ -15,11 +15,11 @@ def start_usf_processor(event, context):
     print ("Processing usf handler for " + json.dumps(event))
 
     try:
-        if (event!=None and event.has_key('Records') and
+        if (event!=None and 'Records' in event and
                 len(event.get('Records'))==1 and
-                event.get('Records')[0].has_key('s3') and
-                event.get('Records')[0].get('s3').has_key('object') and
-                event.get('Records')[0].get('s3').get('object').has_key('key')):
+                's3' in event.get('Records')[0] and
+                'object' in event.get('Records')[0].get('s3') and
+                'key' in event.get('Records')[0].get('s3').get('object')):
 
             s3_object = event.get('Records')[0].get('s3').get('object')
             infile_key = s3_object.get('key')
@@ -42,7 +42,8 @@ def start_usf_processor(event, context):
 
 # For running tests
 with open ("test-s3-put.json", "r") as myfile:
-    event = json.loads(myfile.readlines())
+    text = myfile.read()
+    event = json.loads(text)
 
 context = {}
 start_usf_processor(event, context)
