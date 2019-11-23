@@ -27,16 +27,11 @@ Resources:
       Environment:
         Variables:
           USF_LOG_LEVEL: !Ref LogLevel
-
       Events:
-        EveryHour:
+        EveryTenMinutes:
           Type: Schedule
           Properties:
-            Schedule: rate(1 hour)
-        EveryMinute:
-          Type: Schedule
-          Properties:
-            Schedule: rate(1 minute)
+            Schedule: rate(10 minutes)
         FileUploaded:
           Type: S3
           Properties:

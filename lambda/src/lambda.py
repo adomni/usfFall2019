@@ -4,19 +4,21 @@
 
 import json
 import boto3
-from algo_test import calculate_score
+import pytz
+from datetime import datetime
+# from algo_test import calculate_score
 # Set all these variables when you upload (
-bucket_name = 'lambda-output-test2'
+#bucket_name = 'lambda-output-test2'
 
-unconverted_prefix='unconverted'
-converted_prefix='ready'
-
-
+unconverted_prefix='input'
+converted_prefix='output'
 
 # While a file shows up in the unconverted bucket, run our processor
 def start_usf_processor(event, context):
 
-    #print ("Processing usf handler for " + json.dumps(event))
+    tz = pytz.timezone('America/Los_Angeles')
+    timestamp_st = str(datetime.now(tz))
+    print (timestamp_st + " : Processing usf handler for " + json.dumps(event))
 
     try:
         if (event!=None and 'Records' in event and
@@ -28,7 +30,7 @@ def start_usf_processor(event, context):
             s3_object = event.get('Records')[0].get('s3').get('object')
             infile_key = s3_object.get('key')
 
-            #return {'status' : 'ok', 'message' : str(score)}
+            # return {'status' : 'ok', 'message' : str(score)}
 
             if (infile_key.startswith(unconverted_prefix)):
                 input_bucket = event.get('Records')[0].get('s3').get('bucket').get('name')
@@ -39,19 +41,15 @@ def start_usf_processor(event, context):
                     audience_ids = input_json['audienceSegmentIds']
                     outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
                     print("Started ok, outfile is " + outfile_key)
-                    score = calculate_score(locationHash, audience_ids)
+                    # score = calculate_score(locationHash, audience_ids)
+                    score = 42
                     data = {
-                        "request": {
-                            "locationHash":locationHash,
-                            "algorithm": algorithm,
-                            "audienceSegmentIds": audience_ids
-                        },
+                        "request": input_json,
+                        "generated": timestamp_st,
                         "score" : score,
                         "errors": []
                     }
-                    with open('temp/' + outfile_key, 'w') as outfile:
-                        json.dump(data, outfile)
-                    put_s3(outfile_key)
+                    put_s3(input_bucket, outfile_key, data)
                     return {'status' : 'ok', 'message' : outfile_key}
                 else:
                     return {'status' : 'ignored', 'message' : 'invalid input json format'}
@@ -75,13 +73,10 @@ def get_s3(bucket, filename):
     return json_content
 
 
-def put_s3(filename):
+def put_s3(bucket_name, filename, data):
     s3_client = boto3.client('s3')
-
-    with open('temp/' + filename) as file:
-        object = file.read()
-        s3_client.put_object(Body=object, Bucket=bucket_name, Key=filename, ContentType='json')
-        print("successfully uploaded")
+    s3_client.put_object(Body=json.dumps(data), Bucket=bucket_name, Key=filename, ContentType='application/json')
+    print("successfully uploaded")
 
 
 # For running tests
