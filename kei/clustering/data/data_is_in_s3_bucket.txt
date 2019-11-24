@@ -1,0 +1,2 @@
+data is in the S3 bucket. 
+s3://aws-athena-query-results-734644148268-us-east-1/00-clustering-test/data/
