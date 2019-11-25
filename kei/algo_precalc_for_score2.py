@@ -117,7 +117,7 @@ def append_max():
     max_count_for_any_aud = count_for_each_bill['count'].max()
     new_data_s = pd.Series(['max',max_count_for_any_aud], index=count_for_each_bill.columns)
     count_for_each_bill = count_for_each_bill.append(new_data_s, ignore_index=True)
-    count_for_each_bill.to_csv('data/count_for_each_billboard.csv')
+    count_for_each_bill.to_csv('data/count_for_each_billboard_with_max.csv')
 
 
 def query_table(date):
