@@ -1,9 +1,17 @@
 
 # First, build the zip file
 echo 'Creating zip file'
+rm -f LambdaDeploy.zip
 cd src
 zip -r ../LambdaDeploy.zip .
-cd ..
+cd ../venv/lib/python3.7/site-packages
+pwd
+#read -p "Press [Enter] key to continue"
+zip -r -u ../../../../LambdaDeploy.zip . -x "numpy*" -x "panda*" -x "boto*" # -x "pip*" -x "docuti*"
+#read -p "Press [Enter] key to continue"
+cd ../../../..
+pwd
+#read -p "Press [Enter] key to continue"
 
 # Next, package it
 aws cloudformation package --template ./cloudformation.yaml --s3-bucket usf-deploys --output-template packaged-sam.yaml --region us-east-1
