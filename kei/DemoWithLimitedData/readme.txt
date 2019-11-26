@@ -11,6 +11,7 @@ Tables in the S3 bucket.
 
 outputs: 
 Csv files for each audience, which contains all billboard ids and count. 
+data/counts_for_each_audience/*
 
 ---------------------------------------
 algo_precalc_for_score2.py
@@ -64,7 +65,6 @@ inputs:
 (for score3) data/hq_counts_with_max.csv
 (for score4) data/billboard_with_cluster_only.csv
 (for score4) data/norm_scores_for_each_cluster.csv
-
 
 outputs:
 Adomni Score
