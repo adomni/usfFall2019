@@ -1,4 +1,6 @@
-# K-Means Clustering. 
+# K-means clustering. 
+# This program is to train the k-means clustering model and get the cluster for each billboard. 
+# And also, get the normalized scores for each cluster.
 # Jupyter notebook version of this code is cluster/kmc_all_data.ipynb. 
 
 import numpy as np

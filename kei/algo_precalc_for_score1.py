@@ -1,3 +1,6 @@
+# This program is to get the counts of mobile devices for each audience in any billboard. 
+
+
 import os
 import sys
 import csv

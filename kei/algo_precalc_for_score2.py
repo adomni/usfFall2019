@@ -1,3 +1,6 @@
+# This program is to get the counts of mobile devices for any audience.  
+# And also, append the max count to the file. 
+
 import os
 import sys
 import csv
