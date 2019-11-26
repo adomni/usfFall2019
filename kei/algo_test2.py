@@ -123,7 +123,7 @@ def get_score2(billboard_id):
 
 
 # Normalized score based on the count of high quality mobile devices. 
-def get_score3():
+def get_score3(billboard_id, audience_ids):
 
     # TODO: 
 
@@ -131,12 +131,26 @@ def get_score3():
 
 
 # Normalized score based on the clusters that are captured by K-Means Clustering. 
-def get_score4():
+def get_score4(billboard_id, audience_ids):
+    score4 = 0.0
 
-    # TODO: 
+    # Read files that K-means clustering created. 
+    billboard_with_cluster_only = pd.read_csv('data/billboard_with_cluster_only.csv')
+    normalized_score = pd.read_csv('data/norm_scores_for_each_cluster.csv')
 
-    return 0
+    # Get the cluster that the billboard belongs to. 
+    cluster = billboard_with_cluster_only[billboard_with_cluster_only['billboard_id'] == billboard_id]['cluster'].values[0]
 
+    # Get the average of the normalized scores. 
+    for aud_id in audience_ids:
+        aud_id = 'a' + aud_id
+        score = normalized_score.loc[cluster, aud_id]
+        # print('score:', score)
+        score4 += score
+        
+    score4 = score4 / len(audience_ids)
+
+    return score4
 
 
 # Calculate Adomni Score.  
@@ -168,13 +182,13 @@ def calculate_score(billboard_id, audience_ids):
 
         if age and gender and other_aud:
             # Normalized score based on the count of high quality mobile devices. 
-            score3 = get_score3()
+            score3 = get_score3(billboard_id, audience_ids)
             scores = np.append(scores, score3)
             print('score3:', score3)
     
 
     # Normalized score based on the clusters that are captured by K-Means Clustering. 
-    score4 = get_score4()
+    score4 = get_score4(billboard_id, audience_ids)
     scores = np.append(scores, score4)
     print('score4:', score4)
     
