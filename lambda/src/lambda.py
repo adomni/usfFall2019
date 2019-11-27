@@ -6,7 +6,7 @@ import json
 import boto3
 import pytz
 from datetime import datetime
-from algo_test import calculate_score
+from algo_test2 import calculate_score
 # Set all these variables when you upload (
 
 unconverted_prefix='input'
@@ -41,7 +41,7 @@ def start_usf_processor(event, context):
                     algorithm = input_json['algorithm']
                     audience_ids = input_json['audienceSegmentIds']
                     print("Started ok, outfile is " + outfile_key)
-                    score = calculate_score(locationHash, audience_ids)
+                    score = calculate_score(locationHash, audience_ids, algorithm)
                     # score = 42 # The best number
                     data = {
                         "request": input_json,
