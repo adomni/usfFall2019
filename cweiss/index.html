@@ -1,0 +1,173 @@
+<html>
+    <!-- Reachable at https://adomni-usf-lambda-exchange.s3.amazonaws.com/index.html -->
+    <head>
+        <title>USF 2019 / Adomni Audience Tester</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="/favicon.png">
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div class="jumbotron">
+                <h1>USF / Adomni 2019 Audience Measurement Project</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <h2>Input</h2>
+
+                    <form id="algorithmForm">
+                        <div class="form-group">
+                            <label for="locationHash">Location Hash</label>
+                            <input type="text" class="form-control" id="locationHash" aria-describedby="locationHashHelp"
+                                   value="50158cf1c6fded24e3b510d0d6dbd8e3"
+                                   placeholder="Enter location hash">
+                            <small id="locationHashHelp" class="form-text text-muted">The location to score</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="audienceSegmentIds">Audience Segment(s) CSV</label>
+                            <input type="text" class="form-control" id="audienceSegmentIds" aria-describedby="audienceSegmentIdsHelp"
+                                   value="44, 61, 748"
+                                   placeholder="Audience Segment Ids">
+                            <small id="audienceSegmentIdsHelp" class="form-text text-muted">One or more audience segment ids separated by commas</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Run Algorithm</button>
+                    </form>
+
+                </div>
+
+                <div class="col-sm-2">
+                    &nbsp;
+                </div>
+
+                <div class="col-sm-5" id="outputDiv">
+                    <h2>Output Shows Up Here</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.543.0/aws-sdk.min.js" crossorigin="anonymous"></script>
+
+        <script type="application/javascript">
+
+            // Yes, I know.  But, the user mentioned in here has no privs except the ones that it is safe for public use
+            var parts = [
+                "ewoicmVnaW9uIjogInVzLWVhc3QtMSIsIAoiYWNjZXNzS2V5SWQiOiAiQUtJQTJ",
+                "XREJVREFXSFpOVk9YQjMiLAoic2VjcmV0QWNjZXNzS2V5IjogInRjTTlDTm9ieF","" +
+                "JVQUViZmh3c2pEUmlnaWc1dXQ5QVMwb01yN2pjeTkiCn0="
+            ];
+
+            var cfg = JSON.parse(atob(parts.join('')));
+
+            var s3 = new AWS.S3(cfg);
+
+            var currentOutputKey = null;
+            var currentWait = 0;
+
+            function createType4Guid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            function checkForOutput() {
+                if (!!currentOutputKey) {
+                    var params = {
+                        Bucket: "adomni-usf-lambda-exchange",
+                        Key: currentOutputKey
+                    };
+
+                    s3.getObject(params, function(err, data) {
+                        if (!!err) {
+                            if (err.statusCode === 403 || err.statusCode === 404) {
+                                currentWait++;
+                                $("#outputDiv").html('<h1>Waiting for output ('+currentWait+')...');
+                                // Not found yet, wait 1 second and retry
+                                console.log('Not found, retrying in 1 second');
+                                setTimeout(checkForOutput, 1000);
+                            } else {
+                                alert('Get failed ' + error);
+                            }
+                        } else {
+                            var result = JSON.parse(data.Body.toString());
+                            currentOutputPath = null;
+                            currentWait = 0;
+                            $("#outputDiv").html("<textarea class='form-control' rows='15' readonly>"+JSON.stringify(result,null,' ')+"</textarea>");
+                            console.log('Finished get of ' +JSON.stringify(result,null,' '));
+
+
+                            console.log('Finished put, starting output pump');
+                            currentOutputKey = 'output/'+guid+'.json';
+                            checkForOutput();
+                        }
+
+                        if (err) console.log(err, err.stack); // an error occurred
+                        else     console.log(data);           // successful response
+                    });
+
+                } else {
+                    console.log('No output path set, stopping');
+                }
+
+            }
+
+            $(document).ready(function(e) {
+                console.log('Document ready');
+                $("#algorithmForm").submit(function(e){
+                    var hash = $("#locationHash").val();
+                    var audienceSegmentIds = $("#audienceSegmentIds").val().split(',').map(function(v){return parseInt(v);})
+                        .filter(function(v){return !!v});
+                    if (!hash || hash.length === 0 || !audienceSegmentIds || audienceSegmentIds.length === 0)
+                    {
+                        alert('Invalid data supplied');
+                    }  else {
+                        var body = {
+                            "locationHash": hash,
+                            "algorithm": "KEI",
+                            "audienceSegmentIds": audienceSegmentIds
+                        };
+                        var bodySt = JSON.stringify(body);
+                        var guid = createType4Guid();
+                        var fullPath = 'https://adomni-usf-lambda-exchange.s3.amazonaws.com/input/'+guid+'.json';
+                        $("#outputDiv").html("<h2>Output Shows Up Here</h2>");
+
+                        var params = {
+                            Body: bodySt,
+                            Bucket: "adomni-usf-lambda-exchange",
+                            Key: 'input/'+guid+'.json'
+                        };
+
+                        s3.putObject(params, function(err, data) {
+                            if (!!err) {
+                                alert('Put failed '+err);
+                            } else {
+                                console.log('Finished put, starting output pump');
+                                currentOutputKey = 'output/'+guid+'.json';
+                                checkForOutput();
+                            }
+
+                            if (err) console.log(err, err.stack); // an error occurred
+                            else     console.log(data);           // successful response
+                        });
+
+
+                    }
+                   e.preventDefault();
+                   return false;
+                });
+
+            });
+        </script>
+
+
+    </body>
+</html>
