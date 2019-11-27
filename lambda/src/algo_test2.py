@@ -12,7 +12,11 @@
 # import botocore
 import numpy as np
 import pandas as pd
+import boto3
+from boto3.dynamodb.conditions import Key
 
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('usf-location-audience-2019-11-08')
 # configuration
 # s3_bucket = 'aws-athena-query-results-734644148268-us-east-1'
 # s3_output = 's3://' + s3_bucket   # S3 Bucket to store results
@@ -34,11 +38,19 @@ def get_all_audience_ids():
 
 
 # Get the count of mobile devices for the billboard_id and the placeiqid.
-def get_count(billboard_id, placeiqid):
-    audience_data = pd.DataFrame(pd.read_csv('data/counts_for_each_audience/' + placeiqid + '.csv'))
-    response = audience_data[audience_data['billboard_id'] == billboard_id]['my_count'].values
+def get_count(billboard_id, audience_id):
+    response = table.query(KeyConditionExpression=Key('locationHash').eq(billboard_id) & Key('audienceSegmentId').eq(int(audience_id)))
+    if len(response['Items']) > 0:
+        count = str(response['Items'][0]['count'])
+        print("Count: " + count)
+        return count
+    else:
+        print("Count: 0")
+        return 0
+    #audience_data = pd.DataFrame(pd.read_csv('data/counts_for_each_audience/' + placeiqid + '.csv'))
+    #response = audience_data[audience_data['billboard_id'] == billboard_id]['my_count'].values
 
-    return response
+    #return response
 
 
 # Make count map that maps audience_id to count of mobile devices for that billboard_id.
@@ -52,8 +64,9 @@ def get_count_map(billboard_id, audience_ids):
         audience_id = str(audience_id)
         placeiqid = audience_seg_data[audience_seg_data['id'] == audience_id]['placeiqid'].values
         print('input audience id: {0} {1}'.format(audience_id, placeiqid))
-        res = get_count(billboard_id, placeiqid[0])
-        count = res[0]
+        #res = get_count(billboard_id, placeiqid[0])
+        res = get_count(billboard_id, audience_id)
+        count = res
         aud_seg_to_count[audience_id] = count
 
     return aud_seg_to_count
@@ -267,7 +280,8 @@ audience_ids = [44, 61, 748]
 # print()
 #
 # test 1
-billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
+#05cc093be9bc7d7a4c491972e235231b
+billboard_id = 'b6e71c034fa5e34b5d8a9199208d53cb' # high
 print('input billboard id:', billboard_id)
 adomni_score = calculate_score(billboard_id, audience_ids, "4")
 print('---------------------------------------')
