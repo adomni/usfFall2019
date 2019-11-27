@@ -32,13 +32,14 @@ def start_usf_processor(event, context):
             # return {'status' : 'ok', 'message' : str(score)}
 
             if (infile_key.startswith(unconverted_prefix)):
+                outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
+                input_json = {"message":"Not read yet"}
                 input_bucket = event.get('Records')[0].get('s3').get('bucket').get('name')
                 input_json = get_s3(input_bucket, infile_key)
                 if 'locationHash' in input_json and 'algorithm' in input_json and 'audienceSegmentIds' in input_json:
                     locationHash = input_json['locationHash']
                     algorithm = input_json['algorithm']
                     audience_ids = input_json['audienceSegmentIds']
-                    outfile_key = converted_prefix+('.'.join(infile_key[len(unconverted_prefix):].split('.')[:-1]) + '.json')
                     print("Started ok, outfile is " + outfile_key)
                     score = calculate_score(locationHash, audience_ids)
                     # score = 42 # The best number
@@ -60,10 +61,21 @@ def start_usf_processor(event, context):
 
     except Exception as exception:
         print("Failed to execute : " + str(exception))
+        try:
+            fail_data = {
+                "request": input_json,
+                "generated": timestamp_st,
+                "score": -1,
+                "errors": [str(exception)]
+            }
+            put_s3(input_bucket, outfile_key, fail_data)
+        except Exception as err2:
+            print("Bad - failed to store the failure value : " + str(err2))
         return {'status' : 'error',
                 'message' : str(exception)}
 
 def get_s3(bucket, filename):
+    print('Loading ' + bucket + ' : '+filename)
     s3_res = boto3.resource('s3')
     content_object = s3_res.Object(bucket, filename)
     file_content = content_object.get()['Body'].read().decode('utf-8')
@@ -75,7 +87,7 @@ def get_s3(bucket, filename):
 def put_s3(bucket_name, filename, data):
     s3_client = boto3.client('s3')
     s3_client.put_object(Body=json.dumps(data), Bucket=bucket_name, Key=filename, ContentType='application/json')
-    print("successfully uploaded")
+    print("successfully uploaded to " + bucket_name + " : " + filename)
 
 
 # For running tests
