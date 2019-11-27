@@ -10,64 +10,7 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 from sklearn.preprocessing import MinMaxScaler
-
-with open('DynamoDBtoCSV-master/config.json') as f:
-    Tuo_authentications = json.load(f)
-
-
-def run_query(query, s3_output):
-    client = boto3.client('athena',
-                           aws_access_key_id = Tuo_authentications['accessKeyId'],
-                           aws_secret_access_key = Tuo_authentications['secretAccessKey'],
-                           region_name = Tuo_authentications["region"])
-    response = client.start_query_execution(
-        QueryString = query,
-        QueryExecutionContext = {
-          'Database': 'default'
-        },
-        ResultConfiguration = {
-            'OutputLocation': s3_output,
-            'EncryptionConfiguration': {
-                'EncryptionOption': 'SSE_S3'
-            }
-        }
-        
-    )
-    print('Execution ID: ' + response['QueryExecutionId'])
-    return response
-
-
-s3_output = 's3://tuo-bucket/playing'
-
-query = "select * from adomni_audience_segment where id='{ID}';"
-
-params = {"ID":"740"}
-
-QueryResponse = run_query(query.format(**params), s3_output)
-QueryExecutionId = QueryResponse['QueryExecutionId']
-
-
-with open('DynamoDBtoCSV-master/config.json') as f:
-    Tuo_authentications = json.load(f)
-
-dynamodb = boto3.resource('dynamodb',
-                           aws_access_key_id = Tuo_authentications['accessKeyId'],
-                           aws_secret_access_key = Tuo_authentications['secretAccessKey'],
-                           region_name = Tuo_authentications["region"]
-)
-
-
-table = dynamodb.Table('machine_learning')
-
-response = table.query(
-    KeyConditionExpression=Key('billboard_audience_segment_id').eq('b01186c0cdbde739e62d794f13792c36623')
-)
-data = response['Items']
-
-df = pd.DataFrame(data)
-
-training_set = df.iloc[:,1].values
-training_set = [[float(i)] for i in training_set]
+from sklearn.metrics import mean_squared_error
 
 def sliding_windows(data, seq_length):
     x = []
@@ -81,23 +24,13 @@ def sliding_windows(data, seq_length):
 
     return np.array(x),np.array(y)
 
-sc = MinMaxScaler()
-training_data = sc.fit_transform(training_set)
+def sliding_final_windows(data, seq_length):
+    x = []
 
-seq_length = 20
-x, y = sliding_windows(training_data, seq_length)
+    _x = data[len(data) - seq_length:len(data)]
+    x.append(_x)
 
-train_size = int(len(y) * 0.67)
-test_size = len(y) - train_size
-
-dataX = Variable(torch.Tensor(np.array(x)))
-dataY = Variable(torch.Tensor(np.array(y)))
-
-trainX = Variable(torch.Tensor(np.array(x[0:train_size])))
-trainY = Variable(torch.Tensor(np.array(y[0:train_size])))
-
-testX = Variable(torch.Tensor(np.array(x[train_size:len(x)])))
-testY = Variable(torch.Tensor(np.array(y[train_size:len(y)])))
+    return np.array(x)
 
 class LSTM(nn.Module):
 
@@ -130,59 +63,94 @@ class LSTM(nn.Module):
         
         return out
 
-num_epochs = 2000
-learning_rate = 0.01
+def get_predicted_count(billboardhash, segment_id):
+    with open('DynamoDBtoCSV-master/config.json') as f:
+        Tuo_authentications = json.load(f)
 
-input_size = 1
-hidden_size = 2
-num_layers = 1
+    dynamodb = boto3.resource('dynamodb',
+                               aws_access_key_id = Tuo_authentications['accessKeyId'],
+                               aws_secret_access_key = Tuo_authentications['secretAccessKey'],
+                               region_name = Tuo_authentications["region"]
+    )
 
-num_classes = 1
+    table = dynamodb.Table('machine_learning')
 
-lstm = LSTM(num_classes, input_size, hidden_size, num_layers)
+    billboard_audience_segment_id = ''
+    billboard_audience_segment_id += billboardhash
+    billboard_audience_segment_id += segment_id
+    response = table.query(
+        KeyConditionExpression=Key('billboard_audience_segment_id').eq(billboard_audience_segment_id)
+    )
+    data = response['Items']
+    df = pd.DataFrame(data)
 
-criterion = torch.nn.MSELoss()    # mean-squared error for regression
-optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
-#optimizer = torch.optim.SGD(lstm.parameters(), lr=learning_rate)
-
-# Train the model
-for epoch in range(num_epochs):
-    outputs = lstm(trainX)
-    optimizer.zero_grad()
-    
-    # obtain the loss function
-    loss = criterion(outputs, trainY)
-    
-    loss.backward()
-    
-    optimizer.step()
-    if epoch % 100 == 0:
-        print("Epoch: %d, loss: %1.5f" % (epoch, loss.item()))
-
-lstm.eval()
-train_predict = lstm(dataX)
-
-data_predict = train_predict.data.numpy()
-dataY_plot = dataY.data.numpy()
-
-data_predict = sc.inverse_transform(data_predict)
-dataY_plot = sc.inverse_transform(dataY_plot)
-
-plt.figure(figsize=(20,8))
-
-print(len(dataX))
-plt.plot(dataY_plot, "g", label="real counts", linewidth=2.0)
-plt.plot(data_predict, "y", label="predicted counts of LSTM", linewidth=2.0)
+    training_set = df.iloc[:,1].values
+    training_set = [[float(i)] for i in training_set]
 
 
-plt.xticks(range(len(dataY_plot)))
-plt.xlabel('Prediction points')
-plt.ylabel('Counts')
-plt.legend(loc="best")
-# plt.suptitle('Time-Series Prediction')
-plt.savefig("Time-Series Prediction.png")
-plt.show()
 
-from sklearn.metrics import mean_squared_error
-mse = mean_squared_error(dataY_plot, data_predict)
-print("RMSE:", np.sqrt(mse))
+    sc = MinMaxScaler()
+    training_data = sc.fit_transform(training_set)
+
+    seq_length = 20
+    x, y = sliding_windows(training_data, seq_length)
+
+    train_size = int(len(y) * 0.67)
+    test_size = len(y) - train_size
+
+    dataX = Variable(torch.Tensor(np.array(x)))
+    dataY = Variable(torch.Tensor(np.array(y)))
+
+    trainX = Variable(torch.Tensor(np.array(x[0:train_size])))
+    trainY = Variable(torch.Tensor(np.array(y[0:train_size])))
+
+
+    num_epochs = 2000
+    learning_rate = 0.01
+
+    input_size = 1
+    hidden_size = 2
+    num_layers = 1
+
+    num_classes = 1
+
+    lstm = LSTM(num_classes, input_size, hidden_size, num_layers)
+
+    criterion = torch.nn.MSELoss()    # mean-squared error for regression
+    optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
+    #optimizer = torch.optim.SGD(lstm.parameters(), lr=learning_rate)
+
+    # Train the model
+    for epoch in range(num_epochs):
+        outputs = lstm(trainX)
+        optimizer.zero_grad()
+        
+        # obtain the loss function
+        loss = criterion(outputs, trainY)
+        
+        loss.backward()
+        
+        optimizer.step()
+        # if epoch % 100 == 0:
+        #     print("Epoch: %d, loss: %1.5f" % (epoch, loss.item()))
+
+    lstm.eval()
+    train_predict = lstm(dataX)
+
+    data_predict = train_predict.data.numpy()
+    dataY_plot = dataY.data.numpy()
+
+    data_predict = sc.inverse_transform(data_predict)
+    dataY_plot = sc.inverse_transform(dataY_plot)
+
+    rmse = np.sqrt(mean_squared_error(dataY_plot, data_predict))
+
+
+    final_x = sliding_final_windows(training_data, seq_length)
+    final_dataX = Variable(torch.Tensor(np.array(final_x)))
+
+    final_predict = lstm(final_dataX)
+
+    predicted_score = sc.inverse_transform(final_predict.data.numpy())[0][0]
+
+    return predicted_score, rmse
