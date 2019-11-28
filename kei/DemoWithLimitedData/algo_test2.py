@@ -79,7 +79,7 @@ def get_normalized_count(aud_seg_to_count, audience_ids):
     return aud_seg_to_count
 
 
-# Get the average. 
+# (Tuo) Get the average. 
 def get_average(segId_by_normalizedScore):
     integratedAdomniScore = 0
     for segId in segId_by_normalizedScore:
@@ -100,7 +100,7 @@ def get_score1(billboard_id, audience_ids):
     for k, v in aud_seg_to_normalized.items():
         print(k, ': ', v)
 
-    # score and save the array of all the result for each audienceId and calulate the average
+    # (Tuo) score and save the array of all the result for each audienceId and calulate the average
     segId_by_normalizedScore = {}
     for audience_segment_id in aud_seg_to_normalized:
         segId_by_normalizedScore[(billboard_id, audience_segment_id)] = aud_seg_to_normalized[audience_segment_id]
@@ -124,11 +124,14 @@ def get_score2(billboard_id):
 
 # Normalized score based on the count of high quality mobile devices. 
 def get_score3(billboard_id, audience_ids):
+    df = pd.read_csv('data/hq_counts_with_max.csv')
+    count = df[df['billboard_id'] == billboard_id]['count'].values[0]
+    # print('count:', count)
+    max_count3 = df[df['billboard_id'] == 'max']['count'].values[0]
+    # print('max:', max_count3)
+    score3 = int(count) / int(max_count3)  
 
-    
-
-
-    return 0
+    return score3
 
 
 # Normalized score based on the clusters that are captured by K-Means Clustering. 
@@ -193,12 +196,12 @@ def calculate_score(billboard_id, audience_ids):
     scores = np.append(scores, score4)
     print('score4:', score4)
     
-    # adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4) 
+    adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4) 
 
-    for score in scores:
-        adomni_score += score
+    # for score in scores:
+    #     adomni_score += score
 
-    adomni_score = adomni_score / len(scores);
+    # adomni_score = adomni_score / len(scores);
         
     return adomni_score
 
@@ -218,10 +221,10 @@ def calculate_score(billboard_id, audience_ids):
 # W2: Weight for normalized score based on the count of mobile devices for any audience. 
 # W3: Weight for normalized score based on the count of high quality mobile devices. 
 # W4: Weight for normalized score based on the clusters that are captured by K-Means Clustering.
-# W1 = 0.25
-# W2 = 0.25
-# W3 = 0.25
-# W4 = 0.25
+W1 = 0.25
+W2 = 0.25
+W3 = 0.25
+W4 = 0.25
 
 # Test cases
 # billboard_id = 'dbb561c792f78028f262e88ce95f857c' # Valid for score3
