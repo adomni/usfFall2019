@@ -16,7 +16,8 @@ import boto3
 from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('usf-location-audience-2019-11-08')
+table_count = dynamodb.Table('usf-location-audience-2019-11-08')
+table_hq = dynamodb.Table('high_quality')
 # configuration
 # s3_bucket = 'aws-athena-query-results-734644148268-us-east-1'
 # s3_output = 's3://' + s3_bucket   # S3 Bucket to store results
@@ -39,13 +40,13 @@ def get_all_audience_ids():
 
 # Get the count of mobile devices for the billboard_id and the placeiqid.
 def get_count(billboard_id, audience_id):
-    response = table.query(KeyConditionExpression=Key('locationHash').eq(billboard_id) & Key('audienceSegmentId').eq(int(audience_id)))
+    response = table_count.query(KeyConditionExpression=Key('locationHash').eq(billboard_id) & Key('audienceSegmentId').eq(int(audience_id)))
     if len(response['Items']) > 0:
         count = str(response['Items'][0]['count'])
-        print("Count: " + count)
+        #print("Count: " + count)
         return count
     else:
-        print("Count: 0")
+        #print("Count: 0")
         return 0
     #audience_data = pd.DataFrame(pd.read_csv('data/counts_for_each_audience/' + placeiqid + '.csv'))
     #response = audience_data[audience_data['billboard_id'] == billboard_id]['my_count'].values
@@ -127,6 +128,7 @@ def get_score1(billboard_id, audience_ids):
 
 # Normalized score based on the count of mobile devices for any audience.
 def get_score2(billboard_id):
+    #uniqueDevicesAtLocation
     df = pd.read_csv('data/count_for_each_billboard_with_max.csv')
     count = df[df['billboard_id'] == billboard_id]['count'].values[0]
     # print('count:', count)
@@ -138,12 +140,24 @@ def get_score2(billboard_id):
 
 
 # Normalized score based on the count of high quality mobile devices.
-def get_score3(billboard_id, audience_ids):
-
-
-
-
-    return 1.0
+def get_score3(billboard_id, age, gender, other_aud):
+    audience_id = age + '_' + gender + '_' + other_aud
+    response = table_hq.query(KeyConditionExpression=Key('billboard_id').eq(billboard_id) & Key('audience_segment_id').eq(audience_id))
+    if len(response['Items']) > 0:
+        count = str(response['Items'][0]['count'])
+        #print("Count: " + count)
+    else:
+        #print("Count: 0")
+        return 0
+    # df = pd.read_csv('data/hq_counts_with_max.csv')
+    # count = df[(df['billboard_id'] == billboard_id) & (df['audin'] == billboard_id)]['count'].values[0]
+    # # print('count:', count)
+    # max_count3 = df[df['billboard_id'] == 'max']['count'].values[0]
+    # # print('max:', max_count3)
+    # score3 = int(count) / int(max_count3)
+    max = 100
+    score3 = int(count)/max
+    return score3
 
 
 # Normalized score based on the clusters that are captured by K-Means Clustering.
@@ -202,24 +216,35 @@ def calculate_score(billboard_id, audience_ids, algorithm):
     scores = np.append(scores, score2)
     print('score2:', score2)
 
+    # Get score3: Normalized score based on the count of high quality mobile devices.
     if len(audience_ids) >= 3:
-        age = False
-        gender = False
-        other_aud = False
+        count_score3 = 0
+        score3 = 0
+        age_list = []
+        gender_list = []
+        other_aud_list = []
         for audience_id in audience_ids:
             audience_id = str(audience_id)
             if audience_id in ['39','40','41','42','43','44','45','46','47']:
-                age = True
+                age_list.append(audience_id)
             elif audience_id == '60' or audience_id == '61':
-                gender = True
+                gender_list.append(audience_id)
             elif audience_id in all_audience_ids:
-                other_aud = True
-
-        if age and gender and other_aud:
-            # Get score3: Normalized score based on the count of high quality mobile devices.
-            score3 = get_score3(billboard_id, audience_ids)
+                other_aud_list.append(audience_id)
+        for age in age_list:
+            for gender in gender_list:
+                for other_aud in other_aud_list:
+                    temp_score3 = get_score3(billboard_id, age, gender, other_aud)
+                    score3 = score3 + temp_score3
+                    count_score3 = count_score3 + 1
+        score3 = score3/count_score3
+        if score3 != 0:
             scores = np.append(scores, score3)
             print('score3:', score3)
+        else:
+            print('score3: not enough parameters')
+
+
 
 
     # Get score4: Normalized score based on the clusters that are captured by K-Means Clustering.
@@ -227,16 +252,14 @@ def calculate_score(billboard_id, audience_ids, algorithm):
     scores = np.append(scores, score4)
     print('score4:', score4)
 
-    # adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4)
+    adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4)
 
-    for score in scores:
-        adomni_score += score
-
-    adomni_score = adomni_score / len(scores);
+    # for score in scores:
+    #     adomni_score += score
+    #
+    # adomni_score = adomni_score / len(scores);
 
     return adomni_score
-
-
 
 
 
@@ -252,10 +275,10 @@ def calculate_score(billboard_id, audience_ids, algorithm):
 # W2: Weight for normalized score based on the count of mobile devices for any audience.
 # W3: Weight for normalized score based on the count of high quality mobile devices.
 # W4: Weight for normalized score based on the clusters that are captured by K-Means Clustering.
-# W1 = 0.25
-# W2 = 0.25
-# W3 = 0.25
-# W4 = 0.25
+W1 = 0.25
+W2 = 0.25
+W3 = 0.25
+W4 = 0.25
 
 # Test cases
 # billboard_id = 'dbb561c792f78028f262e88ce95f857c' # Valid for score3
@@ -281,7 +304,7 @@ audience_ids = [44, 61, 748]
 #
 # test 1
 #05cc093be9bc7d7a4c491972e235231b
-billboard_id = 'b6e71c034fa5e34b5d8a9199208d53cb' # high
+billboard_id = 'bestbillboardexample' # high
 print('input billboard id:', billboard_id)
 adomni_score = calculate_score(billboard_id, audience_ids, "4")
 print('---------------------------------------')
@@ -290,7 +313,7 @@ print('---------------------------------------')
 print()
 
 # test 2
-billboard_id = '97ee222e0687d37626b2989266640d94' # low
+billboard_id = 'worstbillboardexample' # low
 print('input billboard id:', billboard_id)
 adomni_score = calculate_score(billboard_id, audience_ids, "4")
 print('---------------------------------------')
