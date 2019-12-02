@@ -111,9 +111,6 @@ def calculate_score(billboard_id, audience_ids):
 
     return adomni_score
 
-
-
-
 #####################
 # Start here.
 #####################
