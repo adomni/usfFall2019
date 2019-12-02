@@ -36,48 +36,38 @@ class LSTM(nn.Module):
 
     def __init__(self, num_classes, input_size, hidden_size, num_layers):
         super(LSTM, self).__init__()
-        
+
         self.num_classes = num_classes
         self.num_layers = num_layers
         self.input_size = input_size
         self.hidden_size = hidden_size
-        
+
         self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size,
                             num_layers=num_layers, batch_first=True)
-        
+
         self.fc = nn.Linear(hidden_size, num_classes)
 
     def forward(self, x):
         h_0 = Variable(torch.zeros(
             self.num_layers, x.size(0), self.hidden_size))
-        
+
         c_0 = Variable(torch.zeros(
             self.num_layers, x.size(0), self.hidden_size))
-        
+
         # Propagate input through LSTM
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
-        
+
         h_out = h_out.view(-1, self.hidden_size)
-        
+
         out = self.fc(h_out)
-        
+
         return out
 
-def get_predicted_count(billboardhash, segment_id):
-    with open('DynamoDBtoCSV-master/config.json') as f:
-        Tuo_authentications = json.load(f)
-
-    dynamodb = boto3.resource('dynamodb',
-                               aws_access_key_id = Tuo_authentications['accessKeyId'],
-                               aws_secret_access_key = Tuo_authentications['secretAccessKey'],
-                               region_name = Tuo_authentications["region"]
-    )
+def get_predicted_count(billboard_audience_segment_id):
+    dynamodb = boto3.resource('dynamodb')
 
     table = dynamodb.Table('machine_learning')
 
-    billboard_audience_segment_id = ''
-    billboard_audience_segment_id += billboardhash
-    billboard_audience_segment_id += segment_id
     response = table.query(
         KeyConditionExpression=Key('billboard_audience_segment_id').eq(billboard_audience_segment_id)
     )
@@ -124,12 +114,12 @@ def get_predicted_count(billboardhash, segment_id):
     for epoch in range(num_epochs):
         outputs = lstm(trainX)
         optimizer.zero_grad()
-        
+
         # obtain the loss function
         loss = criterion(outputs, trainY)
-        
+
         loss.backward()
-        
+
         optimizer.step()
         # if epoch % 100 == 0:
         #     print("Epoch: %d, loss: %1.5f" % (epoch, loss.item()))
@@ -151,6 +141,6 @@ def get_predicted_count(billboardhash, segment_id):
 
     final_predict = lstm(final_dataX)
 
-    predicted_score = sc.inverse_transform(final_predict.data.numpy())[0][0]
+    predicted_score = final_predict.data.numpy()[0][0]
 
     return predicted_score, rmse
