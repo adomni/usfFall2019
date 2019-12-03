@@ -7,7 +7,7 @@ zip -r ../LambdaDeploy.zip .
 cd ../venv/lib/python3.7/site-packages
 pwd
 #read -p "Press [Enter] key to continue"
-zip -r -u ../../../../LambdaDeploy.zip . -x "numpy*" -x "panda*" -x "boto*" # -x "pip*" -x "docuti*"
+zip -r -u ../../../../LambdaDeploy.zip . -x "numpy*" -x "panda*" -x "boto*" -x "torchvision" -x "scikit-learn"# -x "pip*" -x "docuti*"
 #read -p "Press [Enter] key to continue"
 cd ../../../..
 pwd

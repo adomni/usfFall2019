@@ -1,3 +1,5 @@
 retrying
 pandas
 boto3
+torchvision
+scikit-learn

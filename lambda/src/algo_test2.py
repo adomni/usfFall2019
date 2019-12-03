@@ -14,10 +14,12 @@ import numpy as np
 import pandas as pd
 import boto3
 from boto3.dynamodb.conditions import Key
+#from tuo_count_predictor import get_predicted_count
 
 dynamodb = boto3.resource('dynamodb')
 table_count = dynamodb.Table('usf-location-audience-2019-11-08')
 table_hq = dynamodb.Table('high_quality')
+
 # configuration
 # s3_bucket = 'aws-athena-query-results-734644148268-us-east-1'
 # s3_output = 's3://' + s3_bucket   # S3 Bucket to store results
@@ -43,7 +45,8 @@ def get_count(billboard_id, audience_id):
     response = table_count.query(KeyConditionExpression=Key('locationHash').eq(billboard_id) & Key('audienceSegmentId').eq(int(audience_id)))
     if len(response['Items']) > 0:
         count = str(response['Items'][0]['count'])
-        #print("Count: " + count)
+        print(billboard_id + ' ' + str(audience_id))
+        print("Count: " + count)
         return count
     else:
         #print("Count: 0")
@@ -72,6 +75,14 @@ def get_count_map(billboard_id, audience_ids):
 
     return aud_seg_to_count
 
+# def get_timeseries(billboard_id, audience_ids):
+#     aud_seg_to_count = {}
+#     for audience_id in audience_ids:
+#         billboard_audience_segment_id = str(billboard_id) + str(audience_id)
+#         count = get_predicted_count(billboard_audience_segment_id)
+#         aud_seg_to_count[str(audience_id)] = count
+#
+#     return aud_seg_to_count
 
 # Get the maximum count for each audience_id to normalize the count.
 def get_max_count(audience_id):
@@ -104,10 +115,15 @@ def get_average(segId_by_normalizedScore):
 
 
 # Normalized score based on the count of mobile devices for given audiences.
-def get_score1(billboard_id, audience_ids):
+def get_score1(billboard_id, audience_ids, timeseries):
 
     # aud_seg_to_count (Key: audience_id, Value: count)
-    aud_seg_to_count = get_count_map(billboard_id, audience_ids)
+    if timeseries:
+        print("timeseries on")
+        aud_seg_to_count = get_count_map(billboard_id, audience_ids)
+    else:
+        print("timeseries off")
+        aud_seg_to_count = get_count_map(billboard_id, audience_ids)
 
     # aud_seg_to_normalized (Key: audience_segment_id, Value: normalized count)
     aud_seg_to_normalized = get_normalized_count(aud_seg_to_count, audience_ids)
@@ -186,34 +202,43 @@ def get_score4(billboard_id, audience_ids):
 
 # Calculate Adomni Score.
 def calculate_score(billboard_id, audience_ids, algorithm):
+    response = {}
     #default algorithm - no Kmeans and no timeseries prediction
-    if algorithm == "1":
+    if algorithm == "DEFAULT":
         timeseries = False
         kmeans = False
+
     #algorithm 2 - use timeseries but no kmeans
-    elif algorithm == "2":
-        timeseries = True
-        kmeans = False
-    elif algorithm == "3":
+    elif algorithm == "KEI":
         timeseries = False
         kmeans = True
-    elif algorithm == "4":
+    elif algorithm == "TUO":
+        timeseries = True
+        kmeans = False
+    elif algorithm == "BOTH":
         timeseries = True
         kmeans = True
     else:
         print("invalid algorithm")
-        #return -1
+        response['adomni_score'] = -1
+        return response
+
+    response['timeseries'] = timeseries
+    response['kmeans'] = kmeans
+
     adomni_score = 0.0
     scores = []
 
     # Get score1: Normalized score based on the count of mobile devices for the given audiences.
-    score1 = get_score1(billboard_id, audience_ids)
+    score1 = get_score1(billboard_id, audience_ids, timeseries)
     scores = np.append(scores, score1)
+    response['score1'] = score1
     print('score1:', score1)
 
     # Get score2: Normalized score based on the count of mobile devices for any audience.
     score2 = get_score2(billboard_id)
     scores = np.append(scores, score2)
+    response['score2'] = score2
     print('score2:', score2)
 
     # Get score3: Normalized score based on the count of high quality mobile devices.
@@ -241,6 +266,7 @@ def calculate_score(billboard_id, audience_ids, algorithm):
         if score3 != 0:
             scores = np.append(scores, score3)
             print('score3:', score3)
+            response['score3'] = score3
         else:
             print('score3: not enough parameters')
 
@@ -248,18 +274,37 @@ def calculate_score(billboard_id, audience_ids, algorithm):
 
 
     # Get score4: Normalized score based on the clusters that are captured by K-Means Clustering.
-    score4 = get_score4(billboard_id, audience_ids)
-    scores = np.append(scores, score4)
-    print('score4:', score4)
+    if kmeans:
+        score4 = get_score4(billboard_id, audience_ids)
+        scores = np.append(scores, score4)
+        print('score4:', score4)
+        response['score4'] = score4
+        W1 = 0.25
+        W2 = 0.25
+        W3 = 0.25
+        W4 = 0.25
+        print('Weight for score1: ' + str(W1))
+        print('Weight for score2: ' + str(W2))
+        print('Weight for score3: ' + str(W3))
+        print('Weight for score4: ' + str(W4))
+        adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4)
+    else:
+        print('score4: turned off' )
+        W1 = 1/3
+        W2 = 1/3
+        W3 = 1/3
+        print('Weight for score1: ' + str(W1))
+        print('Weight for score2: ' + str(W2))
+        print('Weight for score3: ' + str(W3))
+        adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3)
 
-    adomni_score = (score1 * W1) + (score2 * W2) + (score3 * W3) + (score4 * W4)
 
     # for score in scores:
     #     adomni_score += score
     #
     # adomni_score = adomni_score / len(scores);
-
-    return adomni_score
+    response['adomni_score'] = adomni_score
+    return response
 
 
 
@@ -275,10 +320,7 @@ def calculate_score(billboard_id, audience_ids, algorithm):
 # W2: Weight for normalized score based on the count of mobile devices for any audience.
 # W3: Weight for normalized score based on the count of high quality mobile devices.
 # W4: Weight for normalized score based on the clusters that are captured by K-Means Clustering.
-W1 = 0.25
-W2 = 0.25
-W3 = 0.25
-W4 = 0.25
+
 
 # Test cases
 # billboard_id = 'dbb561c792f78028f262e88ce95f857c' # Valid for score3
@@ -306,7 +348,7 @@ audience_ids = [44, 61, 748]
 #05cc093be9bc7d7a4c491972e235231b
 billboard_id = 'bestbillboardexample' # high
 print('input billboard id:', billboard_id)
-adomni_score = calculate_score(billboard_id, audience_ids, "4")
+adomni_score = calculate_score(billboard_id, audience_ids, "BOTH")
 print('---------------------------------------')
 print('Adomni Score:', adomni_score)
 print('---------------------------------------')
@@ -315,7 +357,7 @@ print()
 # test 2
 billboard_id = 'worstbillboardexample' # low
 print('input billboard id:', billboard_id)
-adomni_score = calculate_score(billboard_id, audience_ids, "4")
+adomni_score = calculate_score(billboard_id, audience_ids, "BOTH")
 print('---------------------------------------')
 print('Adomni Score:', adomni_score)
 print('---------------------------------------')

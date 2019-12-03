@@ -41,14 +41,40 @@ def start_usf_processor(event, context):
                     algorithm = input_json['algorithm']
                     audience_ids = input_json['audienceSegmentIds']
                     print("Started ok, outfile is " + outfile_key)
-                    score = calculate_score(locationHash, audience_ids, algorithm)
+                    response = calculate_score(locationHash, audience_ids, algorithm)
+                    timeseries = response['timeseries']
+                    kmeans = response['kmeans']
+                    score1 = response['score1']
+                    score2 = response['score2']
+                    score3 = response['score3']
+                    score = response['adomni_score']
+                    if kmeans:
+                        score4 = response['score4']
+                        data = {
+                            "request": input_json,
+                            "generated": timestamp_st,
+                            "timeseries" : timeseries,
+                            "kmeans" : kmeans,
+                            "score1" : score1,
+                            "score2" : score2,
+                            "score3" : score3,
+                            "score4" : score4,
+                            "score" : score,
+                            "errors": []
+                        }
+                    else:
+                        data = {
+                            "request": input_json,
+                            "generated": timestamp_st,
+                            "timeseries" : timeseries,
+                            "kmeans" : kmeans,
+                            "score1" : score1,
+                            "score2" : score2,
+                            "score3" : score3,
+                            "score" : score,
+                            "errors": []
+                        }
                     # score = 42 # The best number
-                    data = {
-                        "request": input_json,
-                        "generated": timestamp_st,
-                        "score" : score,
-                        "errors": []
-                    }
                     put_s3(input_bucket, outfile_key, data)
                     return {'status' : 'ok', 'message' : outfile_key}
                 else:
@@ -91,10 +117,10 @@ def put_s3(bucket_name, filename, data):
 
 
 # For running tests
-with open ("test-s3-put.json", "r") as myfile:
-    event = json.loads(myfile.read())
-
-context = {}
-print("---------------------------------------")
-print(str(start_usf_processor(event, context)))
-print("---------------------------------------")
+# with open ("test-s3-put.json", "r") as myfile:
+#     event = json.loads(myfile.read())
+#
+# context = {}
+# print("---------------------------------------")
+# print(str(start_usf_processor(event, context)))
+# print("---------------------------------------")
