@@ -226,6 +226,48 @@ W2 = 0.25
 W3 = 0.25
 W4 = 0.25
 
+
+all_audience_ids = get_all_audience_ids()
+
+
+# 44: Demographic->Age->35_44
+# 61: Demographic->Gender->Male
+# 748: AutomotiveDealerships->Luxury
+audience_ids = ['44', '61', '748']
+print()
+
+# test 1 
+billboard_id = '05cc093be9bc7d7a4c491972e235231b' 
+print('input billboard id:', billboard_id)
+adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
+
+# test 2 
+billboard_id = '97ee222e0687d37626b2989266640d94' 
+print('input billboard id:', billboard_id)
+adomni_score = calculate_score(billboard_id, audience_ids)
+print('---------------------------------------')
+print('Adomni Score:', adomni_score)
+print('---------------------------------------')
+print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Test cases
 # billboard_id = 'dbb561c792f78028f262e88ce95f857c' # Valid for score3
 # billboard_id = '05cc093be9bc7d7a4c491972e235231b' # High score1, Valid for score3
@@ -239,75 +281,6 @@ W4 = 0.25
 # billboard_id = '6943fd9adccae67d803b28dd8e33a0b3' # Low score1
 
 
-all_audience_ids = get_all_audience_ids()
-
-
-# Demographic->Age->35_44
-# Demographic->Gender->Male
-# AutomotiveDealerships->Luxury
-audience_ids = ['44', '61', '748']
-print()
-
-# test 1 
-billboard_id = '05cc093be9bc7d7a4c491972e235231b' # high
-print('input billboard id:', billboard_id)
-adomni_score = calculate_score(billboard_id, audience_ids)
-print('---------------------------------------')
-print('Adomni Score:', adomni_score)
-print('---------------------------------------')
-print()
-
-# test 2 
-billboard_id = '97ee222e0687d37626b2989266640d94' # low
-print('input billboard id:', billboard_id)
-adomni_score = calculate_score(billboard_id, audience_ids)
-print('---------------------------------------')
-print('Adomni Score:', adomni_score)
-print('---------------------------------------')
-print()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#aws s3 cp s3://result-ouput/result_max.csv ./data/
-
-
-# billboard_ids -> random 
-
-# print out the placeiqids as well. 
-
-# 
-
-
-
-# audience_ids = ['748', '738']
 
 
 
