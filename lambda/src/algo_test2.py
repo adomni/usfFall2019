@@ -19,6 +19,7 @@ from boto3.dynamodb.conditions import Key
 dynamodb = boto3.resource('dynamodb')
 table_count = dynamodb.Table('usf-location-audience-2019-11-08')
 table_hq = dynamodb.Table('high_quality')
+table_predict = dynamodb.Table('PredictedCount')
 
 # configuration
 # s3_bucket = 'aws-athena-query-results-734644148268-us-east-1'
@@ -55,6 +56,16 @@ def get_count(billboard_id, audience_id):
     #response = audience_data[audience_data['billboard_id'] == billboard_id]['my_count'].values
 
     #return response
+def get_predicted_count(billboard_audience_segment_id):
+    response = table_predict.query(KeyConditionExpression=Key('billboard_audience_segment_id').eq(billboard_audience_segment_id))
+    if len(response['Items']) > 0:
+        count = str(response['Items'][0]['predicted_count'])
+        print(billboard_audience_segment_id)
+        print("Count: " + count)
+        return count
+    else:
+        #print("Count: 0")
+        return 0
 
 
 # Make count map that maps audience_id to count of mobile devices for that billboard_id.
@@ -75,14 +86,14 @@ def get_count_map(billboard_id, audience_ids):
 
     return aud_seg_to_count
 
-# def get_timeseries(billboard_id, audience_ids):
-#     aud_seg_to_count = {}
-#     for audience_id in audience_ids:
-#         billboard_audience_segment_id = str(billboard_id) + str(audience_id)
-#         count = get_predicted_count(billboard_audience_segment_id)
-#         aud_seg_to_count[str(audience_id)] = count
-#
-#     return aud_seg_to_count
+def get_timeseries(billboard_id, audience_ids):
+    aud_seg_to_count = {}
+    for audience_id in audience_ids:
+        billboard_audience_segment_id = str(billboard_id) + str(audience_id)
+        count = get_predicted_count(billboard_audience_segment_id)
+        aud_seg_to_count[str(audience_id)] = count
+
+    return aud_seg_to_count
 
 # Get the maximum count for each audience_id to normalize the count.
 def get_max_count(audience_id):
@@ -120,7 +131,7 @@ def get_score1(billboard_id, audience_ids, timeseries):
     # aud_seg_to_count (Key: audience_id, Value: count)
     if timeseries:
         print("timeseries on")
-        aud_seg_to_count = get_count_map(billboard_id, audience_ids)
+        aud_seg_to_count = get_timeseries(billboard_id, audience_ids)
     else:
         print("timeseries off")
         aud_seg_to_count = get_count_map(billboard_id, audience_ids)
